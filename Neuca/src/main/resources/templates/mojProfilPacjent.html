@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="/css/mojProfilPacjent.css">
+
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}" method="post">
+
+                <input type="text" id="search" name="wzorzec" th:value="${wzorzec}" th:placeholder="#{start.wyszukaj}">
+                <button id="searchButton" th:text="#{start.szukaj}">Szukaj</button>
+
+            </form>
+        </div>
+
+
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="Logout" onclick="location.href='/Neuca/logout'" th:text="#{start.wyloguj}"></button>
+                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'" th:text="#{start.konto}"></button>
+                <button id="koszyk" onclick="location.href='/Neuca/koszyk'" th:text="#{start.koszyk}"></button>
+            </div>
+
+        </div>
+
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item">
+            <button id="doctorsButton" th:text="#{start.lekarze}">Lekarze</button>
+            <div class="submenu">
+                <a th:each="spec : ${lekarze}" th:text="${spec.name()}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'" th:text="#{start.apteki}"></button>
+            <div class="submenu">
+                <a href="#">Całodobowe</a>
+                <a href="#">Najbliższe</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton" th:text="#{start.uslugi}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.rehabilitacja}"></a>
+                <a href="#" th:text="#{start.badania}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'" th:text="#{start.leki}"></button>
+            <div class="submenu">
+                <a th:each="lek : ${leki}" th:href="@{/Neuca/lek/{name}(name=${lek.name()})}" th:text="${lek.slowo}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton" th:text="#{start.kontakt}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.formularz}"></a>
+                <a href="#" th:text="#{start.adresy}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton" th:text="#{start.onas}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.historia}"></a>
+                <a href="#" th:text="#{start.zespol}"></a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <button id="contactButton" th:text="#{start.jezyk}"></button>
+            <div class="submenu">
+                <a th:href="@{/nic?lang=pl}" th:text="#{lang.pl}"></a>
+                <a th:href="@{/nic?lang=en}" th:text="#{lang.en}"></a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+<h2>Witaj, <span th:text="${user.username}">Imię i Nazwisko</span>!</h2>
+<p>W panelu sterowania konta można przeglądać ostatnie zamówienia i aktualizować dane. Kliknij poniższe łącze, aby przeglądać i edytować dane.</p>
+
+<div class="info-section">
+    <div class="info-box">
+        <h2>Moje dane</h2>
+        <p>
+            <strong>Imię i nazwisko:</strong>
+            <span th:text="${user.imie}"></span>
+            <span th:text="${user.nazwisko}"></span>
+        </p>
+        <p>
+            <strong>Email:</strong>
+            <span th:text="${user.email}">j</span>
+        </p>
+        <p>
+            <strong>Telefon:</strong>
+            <span th:text="${user.phone}"></span>
+        </p>
+        <div class="button-container">
+            <button class="button">Edytuj</button>
+        </div>
+    </div>
+    <div class="info-box">
+        <h2>Moje wizyty</h2>
+        <p>Lista umówionych wizyt medycznych.</p>
+        <div class="button-container">
+            <button class="button">Zarządzaj wizytami</button>
+        </div>
+    </div>
+    <div class="info-box">
+        <h2>Mój koszyk</h2>
+        <p>Wyświetlanie ilości i ceny przedmiotów oraz możliwość przejścia do zapłaty.</p>
+        <div class="button-container">
+            <button class="button" onclick="location.href='/Neuca/koszyk'">Przejdź do koszyka</button>
+        </div>
+    </div>
+</div>
+<div class="oredr-section">
+    </br>
+    <h3>Ostatnie zamówienia</h3>
+    <table>
+        <thead>
+        <tr>
+            <th >Zamówienie #</th>
+            <th >Data</th>
+            <th>Kwota</th>
+            <th >Status</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="zamowienie : ${zamowienia}">
+            <td th:text="${zamowienie.id}"></td>
+            <td th:text="${zamowienie.displayDateZamowienia}"></td>
+            <td th:text="${zamowienie.calkowitaCena}"></td>
+            <td th:text="${zamowienie.status}"></td>
+            <td><button class="view-button">Wyświetl</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+</body>
+</html>

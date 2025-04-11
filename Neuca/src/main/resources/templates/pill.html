@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strona leku</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .product-details {
+        display: flex;
+        gap: 20px;
+    }
+
+    .product-image img {
+        width: 300px;
+        border-radius: 8px;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    .price {
+        color: #c90606;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .btn-add-to-cart {
+        padding: 8px 16px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        background-color: #c90606;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-add-to-cart:hover {
+        background-color: white;
+        color: #c90606;
+    }
+
+    .reviews {
+        margin-top: 30px;
+    }
+
+    .review-item {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .related-products {
+        margin-top: 30px;
+    }
+
+    .related-list {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+    }
+
+    .related-item {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        width: 150px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Aspirin C</h1>
+  </div>
+
+  <div class="product-details">
+    <div class="product-image">
+      <img src="/img/foto1.png" alt="Zdjęcie leku XYZ">
+    </div>
+
+    <div class="product-info">
+      <p><strong>Opis:</strong> Lek Aspirin C jest stosowany w leczeniu objawów przeziębienia i grypy. Zawiera paracetamol, który działa przeciwbólowo i przeciwgorączkowo.</p>
+      <p><strong>Skład:</strong> Paracetamol 500 mg, Kwas askorbinowy 200 mg</p>
+      <p><strong>Dawkowanie:</strong> 1 tabletka co 4-6 godzin, maksymalnie 6 tabletek na dobę.</p>
+      <p class="price">Cena: 19,99 zł</p>
+      <button class="btn-add-to-cart">Dodaj do koszyka</button>
+    </div>
+  </div>
+
+
+
+  <div class="related-products">
+    <h3>Podobne leki</h3>
+    <div class="related-list">
+      <div class="related-item">Lek A</div>
+      <div class="related-item">Lek B</div>
+      <div class="related-item">Lek C</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

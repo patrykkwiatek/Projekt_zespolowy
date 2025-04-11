@@ -1,0 +1,99 @@
+/* Ogólne style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: whitesmoke;
+}
+
+/* Kontener */
+.container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Formularz rejestracji */
+.register-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.register-box h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #000;
+}
+
+.register-box label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.register-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.gender {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.gender label {
+    margin: 0;
+    font-size: 14px;
+}
+
+.register-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #c0392b;
+}
+
+.link {
+    font-size: 14px;
+    color: #555;
+}
+
+.link a {
+    color: #e74c3c;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+
+/* Logo */
+.logo img {
+    max-width: auto;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Utworz Gaiet</title>
+</head>
+<body>
+
+    <form action="#" th:action="@{/Neuca/strefaLekarza/utworzonoGabinet}" th:object="${lekarz}" method="post">
+        Imie: <input type="text" th:field="*{imie}">  </br>
+        Nazwisko: <input type="text" th:field="*{nazwisko}">   </br>
+        Nazwa Gabinetu: <input type="text" th:field="*{nazwaGabinetu}">   </br>
+        Data urodzenia: <input type="date" th:field="*{dataUrodzenia}"></br>
+        adres1Gabinetu: <input type="text" th:field="*{adres1Gabinetu}"></br>
+        adres1Gabinetu: <input type="text" th:field="*{adres2Gabinetu}"></br>
+        telefon do Gabinetu <input type="number" th:field="*{telefonGabinet}"> </br>
+
+        <button>utworz gabinet</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Podsumowanie</title>
+</head>
+<body>
+
+<h2>Podsumowanie zamówienia</h2>
+
+<p>Imię: <span th:text="${imie}"></span></p>
+<p>Nazwisko: <span th:text="${nazwisko}"></span></p>
+<p>Email: <span th:text="${email}"></span></p>
+<p>Telefon: <span th:text="${telefon}"></span></p>
+<p>Adres 1: <span th:text="${adres1}"></span></p>
+<p>Adres 2: <span th:text="${adres2}"></span></p>
+
+<h3>Dostawa:</h3>
+<p th:text="${dostawa.getSlowo()}"></p>
+
+<h3>Faktura:</h3>
+<div th:if="${czyFaktura}">
+  <p>Nazwa firmy: <span th:text="${nazwaFirmy}"></span></p>
+  <p>Adres 1: <span th:text="${adres1F}"></span></p>
+  <p>Adres 2: <span th:text="${adres2F}"></span></p>
+  <p>NIP: <span th:text="${NIP}"></span></p>
+</div>
+
+<h3>Produkty w koszyku:</h3>
+<table>
+  <tr>
+    <th>Nazwa leku</th>
+    <th>Ilość</th>
+    <th>Cena za 1 sztukę</th>
+    <th>Cena całkowita</th>
+  </tr>
+  <tr th:each="produkt : ${koszyk}">
+    <td th:text="${produkt.lek.name}"></td>
+    <td th:text="${produkt.ilosc}"></td>
+    <td th:text="${produkt.cenaJednostkowa}"></td> <!-- Cena jednostkowa w złotych -->
+    <td th:text="${produkt.cenaCalosciowa}"></td> <!-- Cena całkowita w złotych -->
+  </tr>
+</table>
+
+<h3>Łączna cena za produkty:</h3>
+<p th:text="'Cena całkowita: ' + ${sumaKoszyka} + ' PLN'"></p>
+
+<form th:action="@{/Neuca/zamowienieUkonczone}" method="post">
+  <input type="hidden" name="imie" th:value="${imie}">
+  <input type="hidden" name="nazwisko" th:value="${nazwisko}">
+  <input type="hidden" name="email" th:value="${email}">
+  <input type="hidden" name="telefon" th:value="${telefon}">
+  <input type="hidden" name="adres1" th:value="${adres1}">
+  <input type="hidden" name="adres2" th:value="${adres2}">
+  <input type="hidden" name="dostawa" th:value="${dostawa}">
+  <input type="hidden" name="czyFaktura" th:value="${czyFaktura}">
+  <input type="hidden" name="nazwaFirmy" th:value="${nazwaFirmy}">
+  <input type="hidden" name="adres1F" th:value="${adres1F}">
+  <input type="hidden" name="adres2F" th:value="${adres2F}">
+  <input type="hidden" name="NIP" th:value="${NIP}">
+  <button>ZLOZ ZAMOWIENIE</button>
+</form>
+
+</body>
+</html>

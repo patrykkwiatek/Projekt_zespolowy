@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <title>Lekarz</title>
+</head>
+<body>
+  Imie: <span th:text="${lekarz.imie}"></span>  </br>
+  Nazwisko: <span th:text="${lekarz.nazwisko}"></span>   </br>
+  Nazwa Gabinetu: <span th:text="${lekarz.nazwaGabinetu}"></span>   </br>
+  Data urodzenia: <span th:text="${lekarz.dataUrodzenia}"></span>   </br>
+  adres1: <span th:text="${lekarz.adres1Gabinetu}"></span>    </br>
+  adres2:<span th:text="${lekarz.adres2Gabinetu}"></span>     </br>
+  Telefon: <span th:text="${lekarz.telefonGabinet}"></span>     </br>
+  <form th:action="@{/Neuca/strefaPracownika/uzytkownikLekarzPotwierdz}" method="post">
+
+    <input  type="hidden" name="id" th:value="${lekarz.id}">
+    <button>Potwierdz</button>
+  </form>
+
+
+</body>
+</html>

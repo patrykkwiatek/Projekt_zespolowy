@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja</title>
+    <link rel="stylesheet" href="/css/zarejestrujPacjent.css">
+</head>
+<body>
+<div class="container">
+    <div class="register-box">
+        <h1 th:text="#{rejestracja}"></h1>
+        <form id="registrationForm" action="#" th:action="@{/Neuca/addUserAptekarz}" th:object="${myUserDTO}" method="post">
+            <label for="name" th:text="#{rejestracja.imie}"></label>
+            <input type="text" id="name" name="imie" placeholder="Imię" th:field="*{imie}" required>
+
+            <label for="surname" th:text="#{rejestracja.nazwisko}"></label>
+            <input type="text" id="surname" name="nazwisko" placeholder="Nazwisko" th:field="*{nazwisko}" required>
+
+            <label for="username" th:text="#{rejestracja.login}"></label>
+            <input type="text" id="username" name="username" placeholder="Login" th:field="*{username}" required>
+
+            <label for="email" th:text="#{rejestracja.email}"></label>
+            <input type="email" id="email" name="email" placeholder="Adres e-mail"  th:field="*{email}" required>
+
+            <label for="phone" th:text="#{rejestarcja.telefon}"></label>
+            <input type="tel" id="phone" name="phone" placeholder="Numer telefonu" th:field="*{phone}" required>
+
+            <div class="gender">
+                <input type="radio" id="male"  value="False" th:field="*{plec}" required>
+                <label for="male" th:text="#{rejestracja.mez}"></label>
+                <input type="radio" id="female" value="True" th:field="*{plec}"required>
+                <label for="female" th:text="#{rejestracja.kob}"></label>
+            </div>
+
+            <label for="password" th:text="#{rejestracja.haslo}"></label>
+            <input type="password" id="password" placeholder="Hasło" th:field="*{password}" required>
+
+            <label for="confirm-password" th:text="#{rejestracja.haslo2}"></label>
+            <input type="password" id="confirm-password" placeholder="Powtórz hasło" th:field="*{confirm}" required>
+
+            <button type="submit" class="register-button" th:text="#{rejestracja.rejestracja}"></button>
+        </form>
+
+        <p class="link">
+            <span th:text="#{rejestracja.kom1}"></span>
+            <a href="/Neuca/login" th:text="#{rejestracja.zaloguj}"></a>
+        </p>
+
+        <p class="link">
+            <span th:text="#{rejestracja.kom3}"></span>
+            <a href="/Neuca/rejestracjaLekarz" th:text="#{rejestracja.rejL}"></a>
+        </p>
+        <p class="link">
+            <span th:text="#{rejestracja.kom4}"></span>
+            <a href="/Neuca/rejestracjaPacjent" th:text="#{rejestracja.rejP}"></a>
+
+        </p>
+
+
+    </div>
+    <div class="logo">
+        <a href="/Neuca/start">
+            <img src="/img/logo.png" alt="Health Center Logo">
+        </a>
+    </div>
+</div>
+<script src="zarejestrujPacjent.js"></script>
+</body>
+</html>

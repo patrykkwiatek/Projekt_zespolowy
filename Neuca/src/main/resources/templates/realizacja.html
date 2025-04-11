@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formularz zamówienia</title>
+  <script>
+    // Funkcja, która pokazuje/ukrywa pola faktury na podstawie stanu checkboxa
+    function toggleFakturaFields() {
+        var fakturaCheckbox = document.getElementById("fakturaCheckbox");
+        var fakturaFields = document.getElementById("fakturaFields");
+
+        // Jeśli checkbox jest zaznaczony, pokazujemy pola faktury, w przeciwnym razie je ukrywamy
+        if (fakturaCheckbox.checked) {
+            fakturaFields.style.display = "block";
+        } else {
+            fakturaFields.style.display = "none";
+        }
+    }
+  </script>
+</head>
+<body>
+
+<form th:action="@{/Neuca/podsumowanie}" method="post">
+  <span>Imię</span>
+  <input type="text" name="imie"></br>
+
+  <span>Nazwisko</span>
+  <input type="text" name="nazwisko"></br>
+
+  <span>EMAIL</span>
+  <input type="text" name="email"></br>
+
+  <span>Telefon</span>
+  <input type="number" name="telefon"></br>
+
+  <span>Adres 1</span>
+  <input type="text" name="adres1"></br>
+
+  <span>Adres 2</span>
+  <input type="text" name="adres2"></br>
+
+  <span>Dostawa</span>
+
+  <!-- Opcje dostawy z radiobutton -->
+  <div>
+    <label>
+      <input type="radio" name="dostawa" value="KURIER">
+      Przesyłka kurierska (19.99 PLN)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="dostawa" value="AUTOMAT">
+      Przesyłka do automatu paczkowego (9.99 PLN)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="dostawa" value="POCZTA">
+      Przesyłka pocztowa (14.99 PLN)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="dostawa" value="SKLEP">
+      Dostawa do sklepu stacjonarnego (9.99 PLN)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="dostawa" value="ODBIOR">
+      Odbiór osobisty (0 PLN)
+    </label>
+  </div>
+
+  <br>
+
+  <!-- Checkbox do wyboru, czy faktura ma być wystawiona -->
+  <label>
+    <input type="checkbox" id="fakturaCheckbox" name="czyFaktura" onclick="toggleFakturaFields()">
+    Chcę fakturę
+  </label>
+
+  <!-- Pola faktury, widoczne tylko jeśli checkbox jest zaznaczony -->
+  <div id="fakturaFields" style="display:none;">
+    <span>Nazwa firmy</span>
+    <input type="text" name="nazwaFirmy"></br>
+
+    <span>Adres 1 (do faktury)</span>
+    <input type="text" name="adres1F"></br>
+
+    <span>Adres 2 (do faktury)</span>
+    <input type="text" name="adres2F"></br>
+
+    <span>NIP</span>
+    <input type="text" name="NIP"></br>
+  </div>
+
+  <button type="submit">Zatwierdź</button>
+</form>
+
+</body>
+</html>

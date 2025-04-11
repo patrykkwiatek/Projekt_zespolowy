@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span>Filtracja po Statusie</span>
+<form th:action="@{/Neuca/strefaPracownika/realizujZamowienia}" method="get">
+  <select name="status">
+    <option th:each="status : ${statusy}"
+            th:value="${status.name()}"
+            th:text="${status.slowo}"
+            th:selected="${status} == ${wybranyStatus}">
+    </option>
+
+  </select>
+
+  <button>ZASTOSUJ</button>
+
+</form>
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Imię</th>
+    <th>Nazwisko</th>
+    <th>Email</th>
+    <th>Status</th>
+  </tr>
+  <tr th:each="zamowienie : ${zamowienia}">
+    <td th:text="${zamowienie.id}"></td>
+    <td th:text="${zamowienie.imie}"></td>
+    <td th:text="${zamowienie.nazwisko}"></td>
+    <td th:text="${zamowienie.email}"></td>
+    <td th:text="${zamowienie.status}"></td>
+    <td >
+      <form th:action="@{/Neuca/strefaPracownika/Zamowienie}" method="get">
+        <button>WYSWIETL</button>
+        <input type="hidden" name="id" th:value="${zamowienie.id}">
+      </form>
+    </td>
+  </tr>
+</table>
+
+
+</body>
+</html>

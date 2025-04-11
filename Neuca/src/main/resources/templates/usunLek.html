@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>usunietoLek</title>
+</head>
+<body>
+<a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
+<label th:text="#{usun.potwierdz}"></label>
+<div class="Prostokat">
+    <p>Nazwa: <span th:text="${lek.name}"/></p>
+    <p>Opis: <span th:text="${lek.desc}"/></p>
+    <p>cena w Groszach: <span th:text="${lek.priceGR}"/></p>
+    <p>minimum wiek: <span th:text="${lek.minWiek}"/></p>
+    <p>Rodzaj leku <span th:text="${lek.rodzajLeku}"/></p>
+    <p>Marka leku <span th:text="${lek.markaLeku}"/></p>
+    <p>Sklad: <span th:text="${lek.sklad}"/></p>
+    <p>Dawkowanie <span th:text="${lek.dawkowanie}"/></p>
+
+    <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" width="150" height="200" alt="Zdjęcie leku" />
+
+
+
+</div>
+
+<form action="#" th:action="@{/Neuca/strefaPracownika/usunieto/{id}(id=${lek.id})}"  method="get">
+    <input type="submit" th:value="#{usun.zgoda}">
+</form>
+<form action="#" th:action="@{/Neuca/strefaPracownika/przegladajLeki}"  method="get">
+    <input type="submit" th:value="#{usun.brakzgody}">
+</form>
+
+
+</body>
+</html>

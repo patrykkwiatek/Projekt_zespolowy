@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytujemy Lek</title>
+</head>
+<body>
+<a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
+
+    <form action="#" th:action="@{/Neuca/strefaPracownika/edytowano/{id}(id=${lek.id})}" th:object="${lek}" method="post" enctype="multipart/form-data">
+
+
+        <div class="miejsce">
+            <p> Nazwa: <input type="text" value="*{name}" th:field="*{name}"> </p>
+        </div>
+        <div class="miejsce">
+            <p> Opis: <input type="text"  value="*{desc}" th:field="*{desc}"></p>
+        </div>
+        <div class="miejsce">
+            <p> minWiek: <input type="number"  value="*{minWiek}" th:field="*{minWiek}"></p>
+        </div>
+        <div class="miejsce">
+            <p> maxWiek: <input type="number"  value="*{maxWiek}" th:field="*{maxWiek}"></p>
+        </div>
+        <div class="miejsce">
+            <p> <span th:text="#{lek.cena}"/>: <input type="text"  value="*{priceGR}" th:field="*{priceGR}"></p>
+        </div>
+        <div class="miejsce">
+            <p> Sklad: <textarea type="text"  value="*{sklad}" th:field="*{sklad}"></textarea></p>
+        </div>
+        <div class="miejsce">
+            <p> Dawkowanie: <textarea type="text"  value="*{dawkowanie}" th:field="*{dawkowanie}"></textarea></p>
+        </div>
+        <select name="rodzajLeku">
+            <option th:each="rodzaj : ${rodzaje}"
+                    th:value="${rodzaj}"
+                    th:text="${rodzaj}"
+                    th:selected="${lek.rodzajLeku == rodzaj}"
+            >
+            </option>
+        </select>
+        </br>
+        <select name="markaLeku">
+            <option th:each=" marka :${marki}"
+                    th:value="${marka}"
+                    th:text="${marka}"
+                    th:selected="${marka == markaLeku}"
+            >
+            </option>
+        </select>
+        </br>
+
+        <div>
+            <span th:text="#{lek.oferta}"></span>
+            <input type="checkbox" th:field="*{oferta}" th:checked="*{oferta}">
+        </div>
+
+        <input type="file" name="sciezkaPliku" onchange="previewImage(event)" />
+        <img id="preview" th:if="${lek.sciezka}" th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" width="150"/>
+
+        <script>
+            function previewImage(event) {
+                const preview = document.getElementById('preview');
+                preview.src = URL.createObjectURL(event.target.files[0]);
+            }
+        </script>
+
+
+        <input type="submit" th:value="#{lista.lek.edytuj}">
+
+    </form>
+<form th:action="@{/Neuca/strefaPracownika/przegladajLeki}">
+    <input type="submit" th:value="#{lista.lek.edytuj.nie}">
+</form>
+
+</body>
+</html>

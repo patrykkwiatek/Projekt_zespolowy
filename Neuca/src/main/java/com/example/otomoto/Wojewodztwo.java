@@ -1,0 +1,21 @@
+package com.example.otomoto;
+
+public enum Wojewodztwo {
+    DOLNOSLASKIE,
+    KUJAWSKO_POMORSKIE,
+    LUBELSKIE,
+    LUBUSKIE,
+    LODZKIE,
+    MALOPOLSKIE,
+    MAZOWIECKIE,
+    OPOLSKIE,
+    PODKARPACKIE,
+    PODLASKIE,
+    POMORSKIE,
+    SLASKIE,
+    SWIETOKRZYSKIE,
+    WARMINSKO_MAZURSKIE,
+    WIELKOPOLSKIE,
+    ZACHODNIOPOMORSKIE,
+    ALL,
+}

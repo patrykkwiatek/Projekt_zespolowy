@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="mojProfilPacjent.css">
+
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="main.html"><img src="logo/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <input type="text" id="search" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+        </div>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="loginButton">Zaloguj</button>
+                <div class="ukryteLogowanie-content">
+                    <button id="pacjentLogin" onclick="location.href='zalogujPacjent.html'">Zaloguj jako Pacjent</button>
+                    <button id="aptekarzLogin" onclick="location.href='zalogujAptekarz.html'">Zaloguj jako Aptekarz</button>
+                </div>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="registerButton">Zarejestruj</button>
+                <div class="ukryteLogowanie-content">
+                    <button id="pacjentRegister" onclick="location.href='zarejestrujPacjent.html'">Zarejestruj jako Pacjent</button>
+                    <button id="pacjentRegister" onclick="location.href='zarejestrujAptekarz.html'">Zarejestruj jako Aptekarz</button>
+                </div>
+            </div>
+        </div>
+        <img src="logo/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item">
+            <button id="doctorsButton">Lekarze</button>
+            <div class="submenu">
+                <a href="#">Internista</a>
+                <a href="#">Kardiolog</a>
+                <a href="#">Pediatra</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'">Apteki</button>
+            <div class="submenu">
+                <a href="#">Całodobowe</a>
+                <a href="#">Najbliższe</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton">Usługi</button>
+            <div class="submenu">
+                <a href="#">Rehabilitacja</a>
+                <a href="#">Badania</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='buy.html'">Leki</button>
+            <div class="submenu">
+                <a href="#">Przeciwbólowe</a>
+                <a href="#">Na przeziębienie</a>
+                <a href="#">Na alergię</a>
+                <a href="#">Suplementy</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton">Kontakt</button>
+            <div class="submenu">
+                <a href="#">Formularz</a>
+                <a href="#">Adresy</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton">O nas</button>
+            <div class="submenu">
+                <a href="#">Historia</a>
+                <a href="#">Zespół</a>
+            </div>
+        </div>
+        <div class="right">
+            <a th:href="@{/nic?lang=pl}" th:text="#{lang.pl}"></a>
+            <a th:href="@{/nic?lang=en}" th:text="#{lang.en}"></a>
+        </div>
+    </div>
+
+
+
+
+</div>
+<h2>Witaj, <span th:text="${user.name}">Imię i Nazwisko</span>!</h2>
+<p>W panelu sterowania konta można przeglądać ostatnie zamówienia i aktualizować dane. Kliknij poniższe łącze, aby przeglądać i edytować dane.</p>
+
+<div class="info-section">
+    <div class="info-box">
+        <h2>Moje dane</h2>
+        <p><strong>Imię i nazwisko:</strong> <span th:text="#{user.name}">Jan Kowalski</span></p>
+        <p><strong>Email:</strong> <span th:text="#{user.email}">jan.kowalski@example.com</span></p>
+        <p><strong>Telefon:</strong> <span th:text="$#{user.phone}">+48 123 456 789</span></p>
+        <div class="button-container">
+            <button class="button">Edytuj</button>
+        </div>
+    </div>
+    <div class="info-box">
+        <h2>Moje wizyty</h2>
+        <p>Lista umówionych wizyt medycznych.</p>
+        <div class="button-container">
+            <button class="button">Zarządzaj wizytami</button>
+        </div>
+    </div>
+    <div class="info-box">
+        <h2>Mój koszyk</h2>
+        <p>Wyświetlanie ilości i ceny przedmiotów oraz możliwość przejścia do zapłaty.</p>
+        <div class="button-container">
+            <button class="button">Przejdź do koszyka</button>
+        </div>
+    </div>
+</div>
+<div class="oredr-section">
+    </br>
+    <h3>Ostatnie zamówienia</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Zamówienie #</th>
+            <th>Data</th>
+            <th>Kwota</th>
+            <th>Status</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <td th:text="#{order.id}">ORD12345</td>
+            <td th:text="#{order.date}">06-03-2025</td>
+            <td th:text="#{order.amount}">269,99 zł</td>
+            <td th:text="#{order.status}">Wysłano</td>
+            <td><button class="view-button">Wyświetl</button></td>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

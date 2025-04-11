@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Koszyk</title>
+</head>
+<body>
+
+<table>
+  <tr>
+    <th>Nazwa leku</th>
+    <th>Ilość</th>
+    <th>Cena za 1 sztukę</th>
+    <th>Cena całkowita</th>
+    <th>Akcja</th>
+  </tr>
+  <tr th:each="produkt : ${koszyk}">
+    <td th:text="${produkt.lek.name}"></td>
+    <td th:text="${produkt.ilosc}"></td>
+    <td th:text="${produkt.cenaJednostkowa}"></td> <!-- Cena jednostkowa w złotych -->
+    <td th:text="${produkt.cenaCalosciowa}"></td> <!-- Cena całkowita w złotych -->
+    <td>
+      <form th:action="@{/Neuca/usunZKoszyka}" method="post">
+        <input type="hidden" name="produktKoszykId" th:value="${produkt.id}">
+        <button type="submit">Usuń</button>
+      </form>
+    </td>
+  </tr>
+</table>
+
+<div th:if="${czyPusty}">
+  <span>Twój koszyk jest pusty</span>
+</div>
+
+<div th:if="${!czyPusty}">
+  <form th:action="@{/Neuca/realizacja}">
+    <button>Przejdź dalej</button>
+  </form>
+  <form th:action="@{/Neuca/buy}">
+    <button>Kontynuj Zakupy</button>
+  </form>
+
+
+  <div>
+    <h3>Łączna cena: <span th:text="${sumaKoszyka / 100.0}"></span> PLN</h3>
+  </div>
+</div>
+
+</body>
+</html>

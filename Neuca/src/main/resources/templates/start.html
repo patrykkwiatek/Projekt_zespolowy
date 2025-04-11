@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="/css/mainStyle.css">
+
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}" method="post">
+
+                <input type="text" id="search" name="wzorzec" th:value="${wzorzec}" th:placeholder="#{start.wyszukaj}">
+                <button id="searchButton" th:text="#{start.szukaj}">Szukaj</button>
+
+            </form>
+
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+            <div class="ukryteLogowanie">
+                <button id="loginButton" th:text="#{start.zaloguj}" onclick="location.href='/Neuca/login'"></button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="registerButton" th:text="#{start.rejestracja}"></button>
+                <div class="ukryteLogowanie-content">
+                    <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'" th:text="#{start.rejestracja.p}"></button>
+                    <button id="aprkarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'" th:text="#{start.rejestracja.a}"></button>
+                    <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'" th:text="#{start.rejestracja.l}"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panelLogowania" th:if="${log}">
+            <div class="ukryteLogowanie">
+                <button id="Logout" onclick="location.href='/Neuca/logout'" th:text="#{start.wyloguj}"></button>
+                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'" th:text="#{start.konto}"></button>
+                <button id="koszyk" onclick="location.href='/Neuca/koszyk'" th:text="#{start.koszyk}"></button>
+            </div>
+
+        </div>
+
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item">
+            <button id="doctorsButton" th:text="#{start.lekarze}">Lekarze</button>
+            <div class="submenu">
+                <a th:each="spec : ${lekarze}" th:text="${spec}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'" th:text="#{start.apteki}"></button>
+            <div class="submenu">
+                <a href="#">Całodobowe</a>
+                <a href="#">Najbliższe</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton" th:text="#{start.uslugi}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.rehabilitacja}"></a>
+                <a href="#" th:text="#{start.badania}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'" th:text="#{start.leki}"></button>
+            <div class="submenu">
+                <a th:each="lek : ${leki}" th:href="@{/Neuca/buy(rodzajLeku=${lek})}" th:text="${lek.slowo}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton" th:text="#{start.kontakt}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.formularz}"></a>
+                <a href="#" th:text="#{start.adresy}"></a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton" th:text="#{start.onas}"></button>
+            <div class="submenu">
+                <a href="#" th:text="#{start.historia}"></a>
+                <a href="#" th:text="#{start.zespol}"></a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <button id="contactButton" th:text="#{start.jezyk}"></button>
+            <div class="submenu">
+                <a th:href="@{/nic?lang=pl}" th:text="#{lang.pl}"></a>
+                <a th:href="@{/nic?lang=en}" th:text="#{lang.en}"></a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div id="line"></div>
+<div id="pills_buy_offer">
+    <div id="pills">
+        <div id="pills_text">
+            <h2 th:text="#{start.kom1}"></h2>
+            <p th:text="#{start.kom2}"></p>
+        </div>
+    </div>
+    <div id="buy">
+        <img src="logo/buy.png" id="buy_logo">
+        <div id="buy_text">
+            <h2 th:text="#{start.kom3}"></h2>
+            <p th:text="#{start.kom4}"></p>
+        </div>
+    </div>
+    <div id="offer">
+        <img src="logo/offer.png" id="offer_logo">
+        <div id="offer_text">
+            <h2 th:text="#{start.kom5}"></h2>
+            <p th:text="#{start.kom6}"></p>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
