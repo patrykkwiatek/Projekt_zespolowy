@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,6 +80,9 @@ public class KontrolerLog {
             bindingResult.rejectValue("confirm", "user.haslo3","hasla sa rozne");
             return "rejestracjaPacjent";
         }
+
+
+
         if(serwisMyUser.addUserPacjent(myUserDTO)){
             List<RodzajLeku> leki = Arrays.asList(RodzajLeku.values());
             model.addAttribute("leki", leki);

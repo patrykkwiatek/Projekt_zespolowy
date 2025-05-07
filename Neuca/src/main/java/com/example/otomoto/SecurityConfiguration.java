@@ -35,9 +35,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/Neuca/startP/**").hasRole("PRACOWNIK")
-                        .requestMatchers("/Neuca/startK/**").hasRole("PACJENT")
-                        .requestMatchers("/Neuca/startA/**").hasRole("APTEKARZ")
+                        .requestMatchers("/Neuca/strefaPracownika/**").hasRole("PRACOWNIK")
+                        .requestMatchers("/Neuca/strefaLekarza/**").hasRole("LEKARZ")
+                        .requestMatchers("/Neuca/strefaAptekarza/**").hasRole("APTEKARZ")
                         .requestMatchers("/Neuca/rejestracja").permitAll()
                         .requestMatchers("/Neuca/addUser").permitAll()
                         .requestMatchers("/Neuca/start").permitAll()
@@ -50,6 +50,9 @@ public class SecurityConfiguration {
                         .loginProcessingUrl("/Neuca/login")
                         .defaultSuccessUrl("/Neuca/start",true)
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/Neuca/brakDostepu")  // <- Tu dodajesz obsługę 403
                 )
                 .rememberMe(remember -> remember
                         .tokenValiditySeconds(86400)

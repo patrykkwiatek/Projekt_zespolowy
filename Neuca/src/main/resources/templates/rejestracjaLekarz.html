@@ -13,13 +13,6 @@
 
         <form id="registrationForm" action="#" th:action="@{/Neuca/addUserLekarz}" th:object="${myUserDTO}" method="post">
 
-            <label th:text="#{rejestracja.specializacja}"></label>
-                <select th:field="*{lekarzSpec}">
-                    <option th:each="lekarz : ${lekarze}"
-                            th:value="${lekarz.name}"
-                            th:text="${lekarz}">
-                    </option>
-                </select>
 
 
             <label for="name" th:text="#{rejestracja.imie}"></label>

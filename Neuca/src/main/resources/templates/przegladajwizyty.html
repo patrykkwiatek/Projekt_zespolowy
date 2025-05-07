@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista wizyt</title>
+</head>
+<body>
+
+<table>
+    <button onclick="location.href='/Neuca/strefaLekarza'">Strefa Lekarza</button>  </br></br>  </br></br>
+    Status Wizyty:
+    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
+        <select name="status">
+            <option th:each="status : ${statusy}"
+                    th:value="${status}"
+                    th:text="${status.slowo}"
+                    th:selected="${status.name() == statusN}"></option>
+            <option th:value="all" th:text="Wszystkie"
+                    th:selected="${'all' == statusN}"></option>
+        </select>
+        <button> Zastosuj</button>
+    </form>
+
+
+    <thead>
+    <tr>
+        <th>Data</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Status</th>
+        <th>Podgląd</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wizyta : ${wizyty}">
+        <td th:text="${#temporals.format(wizyta.data, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${wizyta.myUser.imie}"></td>
+        <td th:text="${wizyta.myUser.nazwisko}"></td>
+        <td th:text="${wizyta.statusWizyty.slowo}"></td>
+        <td ><a th:href="@{/Neuca/strefaLekarza/wizyta(id=${wizyta.id})}">Podgląd</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

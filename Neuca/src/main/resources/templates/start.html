@@ -14,90 +14,67 @@
     <div id="topMenu">
         <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
         <div id="wyszukiwarka">
-            <form th:action="@{/Neuca/buy}" method="post">
-
-                <input type="text" id="search" name="wzorzec" th:value="${wzorzec}" th:placeholder="#{start.wyszukaj}">
-                <button id="searchButton" th:text="#{start.szukaj}">Szukaj</button>
-
+            <form th:action="@{/Neuca/buy}">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
             </form>
 
         </div>
-        <div class="panelLogowania" th:if="${not log}">
+        <div id="panelLogowania" th:if="${not log}">
             <div class="ukryteLogowanie">
-                <button id="loginButton" th:text="#{start.zaloguj}" onclick="location.href='/Neuca/login'"></button>
+                <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
             </div>
             <div class="ukryteLogowanie">
-                <button id="registerButton" th:text="#{start.rejestracja}"></button>
+                <button id="registerButton">Zarejestruj</button>
                 <div class="ukryteLogowanie-content">
-                    <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'" th:text="#{start.rejestracja.p}"></button>
-                    <button id="aprkarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'" th:text="#{start.rejestracja.a}"></button>
-                    <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'" th:text="#{start.rejestracja.l}"></button>
+                    <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+                    <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+                    <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
                 </div>
             </div>
         </div>
-
-        <div class="panelLogowania" th:if="${log}">
+        <div id="panelLogowania" th:if="${log}">
             <div class="ukryteLogowanie">
-                <button id="Logout" onclick="location.href='/Neuca/logout'" th:text="#{start.wyloguj}"></button>
-                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'" th:text="#{start.konto}"></button>
-                <button id="koszyk" onclick="location.href='/Neuca/koszyk'" th:text="#{start.koszyk}"></button>
+                <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
             </div>
 
         </div>
-
         <img src="/img/avatar.png" id="avatar">
     </div>
     <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='lekarze.html'">Lekarze</button></div>
+
         <div class="menu-item">
-            <button id="doctorsButton" th:text="#{start.lekarze}">Lekarze</button>
-            <div class="submenu">
-                <a th:each="spec : ${lekarze}" th:text="${spec}"></a>
-            </div>
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'">Apteki</button>
+
         </div>
 
         <div class="menu-item">
-            <button id="aptecsButton" onclick="location.href='pharmacy.html'" th:text="#{start.apteki}"></button>
-            <div class="submenu">
-                <a href="#">Całodobowe</a>
-                <a href="#">Najbliższe</a>
-            </div>
+            <button id="servicesButton" onclick="location.href='uslugi.html'">Usługi</button>
+
         </div>
 
         <div class="menu-item">
-            <button id="servicesButton" th:text="#{start.uslugi}"></button>
-            <div class="submenu">
-                <a href="#" th:text="#{start.rehabilitacja}"></a>
-                <a href="#" th:text="#{start.badania}"></a>
-            </div>
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'">Leki</button>
+
         </div>
 
         <div class="menu-item">
-            <button id="medicinesButton" onclick="location.href='/Neuca/buy'" th:text="#{start.leki}"></button>
-            <div class="submenu">
-                <a th:each="lek : ${leki}" th:href="@{/Neuca/buy(rodzajLeku=${lek})}" th:text="${lek.slowo}"></a>
-            </div>
+            <button id="contactButton" onclick="location.href='kontakt.html'">Kontakt</button>
+
         </div>
 
         <div class="menu-item">
-            <button id="contactButton" th:text="#{start.kontakt}"></button>
+            <button id="usButton" onclick="location.href='oNas.html'">O nas</button>
             <div class="submenu">
-                <a href="#" th:text="#{start.formularz}"></a>
-                <a href="#" th:text="#{start.adresy}"></a>
-            </div>
-        </div>
 
-        <div class="menu-item">
-            <button id="usButton" th:text="#{start.onas}"></button>
-            <div class="submenu">
-                <a href="#" th:text="#{start.historia}"></a>
-                <a href="#" th:text="#{start.zespol}"></a>
-            </div>
-        </div>
-        <div class="menu-item">
-            <button id="contactButton" th:text="#{start.jezyk}"></button>
-            <div class="submenu">
-                <a th:href="@{/nic?lang=pl}" th:text="#{lang.pl}"></a>
-                <a th:href="@{/nic?lang=en}" th:text="#{lang.en}"></a>
             </div>
         </div>
     </div>
@@ -107,29 +84,42 @@
 
 </div>
 <div id="line"></div>
-<div id="pills_buy_offer">
-    <div id="pills">
-        <div id="pills_text">
-            <h2 th:text="#{start.kom1}"></h2>
-            <p th:text="#{start.kom2}"></p>
+<div id="tiles_section">
+    <h1>Witaj na stronie HealthCenter!</h1>
+    <h3>To platforma, która umożliwia szybkie i wygodne korzystanie z usług medycznych.</h3>
+    <div class="tiles_container">
+        <div class="tile">
+            <img src="/img/lekarze.png" alt="Lekarze">
+            <h3>Lekarze</h3>
+            <p>Sprawdź dostępnych lekarzy oraz ich specjalizacje.</p>
+        </div>
+        <div class="tile">
+            <img src="/img/apteka.png" alt="Apteki">
+            <h3>Apteki</h3>
+            <p>Znajdź najbliższe apteki i sprawdź ich dostępność leków.</p>
+        </div>
+        <div class="tile">
+            <img src="/img/leki.png" alt="Leki">
+            <h3>Leki</h3>
+            <p>Wyszukaj i porównaj ceny oraz dostępność leków.</p>
+        </div>
+        <div class="tile">
+            <img src="/img/wizytaOnLine.png" alt="Usługi">
+            <h3>Usługi</h3>
+            <p>Umów się na badanie, konsultację lub rehabilitację.</p>
+        </div>
+        <div class="tile">
+            <img src="/img/aptekarz.png" alt="Usługi">
+            <h3>Profil Aptekarza</h3>
+            <p>Zarejestruj swoją aptekę i rozwijaj ją z nami.</p>
         </div>
     </div>
-    <div id="buy">
-        <img src="logo/buy.png" id="buy_logo">
-        <div id="buy_text">
-            <h2 th:text="#{start.kom3}"></h2>
-            <p th:text="#{start.kom4}"></p>
-        </div>
-    </div>
-    <div id="offer">
-        <img src="logo/offer.png" id="offer_logo">
-        <div id="offer_text">
-            <h2 th:text="#{start.kom5}"></h2>
-            <p th:text="#{start.kom6}"></p>
-        </div>
-    </div>
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="JP60NVXL88Rk_RtulDjeL";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
 
 
 </div>
+
 </body>
 </html>

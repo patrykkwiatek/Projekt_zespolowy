@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Zmieniamy tryb pracy w
+<span th:text="${dzien}"></span>
+<form th:action="@{/Neuca/strefaLekarza/zapiszGodziny}" method="post">
+
+    Zamkniete:    <input type="checkbox" name="zamkniete" th:checked="${zamkniete}"> </br>
+    Godzina otwarcia: <input type="time" name="start" th:value="${start}"> </br>
+    Godzina Zamkniecie<input type="time" name="koniec" th:value="${koniec}"></br>
+    <input type="submit" value="Zapisz">
+    <input type="hidden" name="dzien" th:value="${intdzien}">
+
+</form>
+
+<form th:action="@{/Neuca/strefaLekarza}">
+    <input type="submit" value="Anuluj">
+</form>
+
+</body>
+</html>

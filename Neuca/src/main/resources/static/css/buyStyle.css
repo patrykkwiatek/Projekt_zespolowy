@@ -63,10 +63,13 @@ body {
     transition: all 0.4s ease;
 }
 
-#wyszukiwarka form {
-    display: flex;
-    width: 100%;
-    gap: 10px;
+#wyszukiwarka form{
+display:flex;
+width: 100%;
+}
+form {
+  all: unset;           /* resetuje wszystkie style */
+  display: contents;    /* sprawia, że form nie wpływa na layout */
 }
 
 #wyszukiwarka button:hover {
@@ -76,7 +79,7 @@ body {
 }
 
 /* Panel logowania */
-.panelLogowania {
+#panelLogowania {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -85,17 +88,17 @@ body {
 }
 
 /* Główne przyciski logowania */
-.panelLogowania button {
+#panelLogowania button {
     padding: 10px;
     font-size: 16px;
     background-color: #c90606;
     color: white;
     border-radius: 4px;
-    width: 11\0px;
+    width: 110px;
     transition: all 0.4s ease;
 }
 
-.panelLogowania button:hover {
+#panelLogowania button:hover {
     background-color: white;
     color: #c90606;
     cursor: pointer;
@@ -271,7 +274,11 @@ body {
     width: 100%; /* Ustawiamy pełną szerokość */
 }
 
-
+.wrapper form{
+display:flex;
+width=100%;
+height=100%;
+}
 .content {
     flex-grow: 1; /* Umożliwia zajmowanie dostępnej przestrzeni przez treść */
     text-align: left; /* Wyrównanie treści do lewej */
@@ -290,10 +297,8 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.4s ease;
-    height: 55px;
+    height: 40px;
 }
-
-
 
 .card-btn:hover {
     background-color: white;
@@ -426,6 +431,11 @@ body {
     text-align: center;
 }
 
+#page-controls form {
+    margin: 0;      /* Usuwa domyślne marginesy */
+    display: inline-block;  /* Dodatkowe zabezpieczenie */
+}
+
 /* Informacje o stronie */
 #page-info {
     font-size: 14px;
@@ -454,17 +464,20 @@ body {
     background-color: #e0e0e0;
 }
 
-#page-controls form {
-    margin: 0;      /* Usuwa domyślne marginesy */
-    display: inline-block;  /* Dodatkowe zabezpieczenie */
-}
-
 
 .items-per-page {
     margin-left: auto;
     text-align: right;
     white-space: nowrap;
 }
+
+
+.items-per-page form {
+    display: inline-block;
+    margin: 0;
+}
+
+
 /* Wybór liczby elementów na stronie */
 .items-per-page-option {
     background-color: #c90606;
@@ -478,15 +491,6 @@ body {
 .items-per-page-option:hover {
     background-color: white;
     color: #c90606;
-}
-
-.items-per-page form {
-    display: inline-block;
-    margin: 0;
-}
-
-.active-size {
-    background-color: #F03C3C;
 }
 
 /* Responsywność dla małych ekranów */
@@ -588,54 +592,54 @@ body {
 
 
 .card__counter {
+    margin: 0;
+    align-self: center; /* Wyrównanie do środka */
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 5px 10px;
+    gap: 15px;
+    padding: 5px;
     background: #F7F7F7;
     border-radius: 50px;
-    width: fit-content;
-    margin-bottom: 10px;
-    height: 36px;
-}
-
-.card__btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 36px;
-    height: 36px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 50%;
-    border: none;
-    background: #ddd;
-    color: var(--main-color);
-    cursor: pointer;
-    transition: background 0.3s ease;
-    padding: 0;
-}
-
-.card__btn:hover {
-    background: #ccc;
-}
-
-.card__btn-plus {
-    background: #ddd; /* lub np. var(--main-color) jeśli chcesz czerwony */
-    color: var(--main-color);
 }
 
 .card__counter-score {
-    width: 50px;
-    height: 36px;
-    font-size: 16px;
+    width: 30px;      /* lub np. 50px, 80px — według uznania */
+    height: 36px;     /* możesz dostosować */
+    font-size: 16px;  /* mniejszy tekst */
     text-align: center;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    padding: 0;
-}
+    border-radius: 4px;
+  }
+
+
+
+  .card__btn {
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--main-color);
+  }
+
+  .card__btn {
+      align-items: center;
+      height: 30px;
+      top: 50%;
+      border-radius: 100%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .card__btn-plus {
+      background: var(--bg-color);
+      cursor: pointer;
+    }
+
+
+  .active-size {
+      background-color: #F03C3C;
+  }
+
 
   /* Dla Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button,
@@ -648,3 +652,4 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wizyta</title>
+</head>
+<body>
+
+  <span th:text="'wizyta o id: ' + ${wizytaId}"></span> </br></br>
+
+  <span th:text="'informacje o pacjencie o id: '+ ${pacjentId}"></span></br>
+  <span th:text="${imie} +' ' + ${nazwisko}"></span> </br>
+  <span th:text="'login: ' + ${login}"></span> </br>
+  <span th:text="'Email: ' + ${email}"></span> </br>
+  <span th:text="'Plec: ' + ${plec}"></span></br></br></br>
+
+  <span th:text="'informacje o wizycie'"></span></br>
+  <span th:text="'opis: '+ ${opis}"></span> </br>
+  <span th:text="'Data: '"></span>
+  <span th:text="${#temporals.format(data, 'yyyy-MM-dd HH:mm')}"></span> </br></br>
+
+  <span th:text="'Status: ' + ${status.slowo}"></span> </br> </br>
+
+  <a th:if="${czyAnulowana}" th:href="@{/Neuca/strefaLekarza/anuluj(id=${wizytaId})}">
+    <button>Anuluj Wizyte</button>
+  </a>
+
+  <a th:if="${czyPotw}" th:href="@{/Neuca/strefaLekarza/potwierdz(id=${wizytaId})}">
+    <button>Potwierdz Wizyte</button>
+  </a>
+
+  <a th:if="${czyZreal}" th:href="@{/Neuca/strefaLekarza/realizuj(id=${wizytaId})}">
+    <button>Zrealizuj/Zakoncz Wizyte</button>
+  </a>
+</body>
+</html>

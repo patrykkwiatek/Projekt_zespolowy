@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj wizyty</title>
+</head>
+<body>
+<h2>Dostępne godziny wizyt</h2>
+
+<form th:action="@{/Neuca/strefaLekarza/zapiszWizyty}" method="post">
+    <div class="checkbox-grid">
+        <div class="checkbox-item" th:each="godzina : ${lista}">
+            <label>
+                <input type="checkbox" name="godziny" th:value="${godzina}" />
+                <span th:text="${godzina} + ':00'"></span>
+            </label>
+        </div>
+    </div>
+
+    <input type="hidden" name="dzien" th:value="${param.dzien}" />
+    <button type="submit">Zapisz</button>
+</form>
+
+<form th:action="@{/Neuca/strefaLekarza}">
+    <input type="submit" value="Anuluj">
+</form>
+
+
+
+
+</body>
+</html>

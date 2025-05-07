@@ -76,29 +76,35 @@ public class KontrolerKlient {
         return "apteki";
     }
 
-    @RequestMapping("/buy")
-    public String oferta(Authentication authentication,
-                         @RequestParam(defaultValue = "0") int page,
-                         @RequestParam(defaultValue = "10") int size,
-                         @RequestParam(defaultValue = "Ids") String sort,
-                         @RequestParam(defaultValue = "") String wzorzec,
-                         @RequestParam(defaultValue = "0") int minPrize,
-                         @RequestParam(defaultValue = "1000") int maxPrize,
-                         @RequestParam(required = false) MarkaLeku markaLeku,
-                         @RequestParam(required = false) RodzajLeku rodzajLeku,
-                         Model model) {
-        boolean isLogged = authentication != null && authentication.isAuthenticated();
+    @RequestMapping("/pill")
+    public String pill(){
+        return "pill";
+    }
 
-        // Domyślne wartości dla filtra marki i kategorii
+    @RequestMapping("/buy")
+    public String buy(Authentication authentication,Model model,
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(defaultValue = "Ids") String sort,
+                       @RequestParam(defaultValue = "") String wzorzec,
+                       @RequestParam(defaultValue = "0") int minPrize,
+                       @RequestParam(defaultValue = "1000") int maxPrize,
+                       @RequestParam(required = false) MarkaLeku markaLeku,
+                       @RequestParam(required = false) RodzajLeku rodzajLeku){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
         if (markaLeku == null) {
             markaLeku = MarkaLeku.WSZYSTKIE;
         }
         if (rodzajLeku == null) {
             rodzajLeku = RodzajLeku.WSZYSTKIE;
         }
-
         Page<Lek> wyniki = sP.getAllDtoLeki(page, size, sort, wzorzec, minPrize, maxPrize, markaLeku, rodzajLeku,true);
+        List<RodzajLeku> rodzaje = Arrays.asList(RodzajLeku.values());
+        List<MarkaLeku> marki = Arrays.asList(MarkaLeku.values());
 
+        if(minPrize!=0){
+            model.addAttribute("minPrize",minPrize);
+        }
         int total=wyniki.getTotalPages();
         boolean czy0;
         if(total==0){
@@ -106,6 +112,8 @@ public class KontrolerKlient {
         }else{
             czy0=false;
         }
+
+
         boolean czyPierwsza;
         if(page==0){
             czyPierwsza=true;
@@ -121,11 +129,6 @@ public class KontrolerKlient {
         }
         int nastepna=page+1;
         int poprzednia=page-1;
-        List<RodzajLeku> leki = Arrays.asList(RodzajLeku.values());
-        List<MarkaLeku> marki = Arrays.asList(MarkaLeku.values());
-        List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
-
-
 
         model.addAttribute("total",total);
         model.addAttribute("total1",total-1);
@@ -136,30 +139,17 @@ public class KontrolerKlient {
         model.addAttribute("czyPierwsza",czyPierwsza);
         model.addAttribute("czyOstatnia",czyOstatnia);
         model.addAttribute("czy0",czy0);
-        model.addAttribute("wzorzec", wzorzec);
-        model.addAttribute("wyniki", wyniki);
-        model.addAttribute("lekarze", lekarze);
-        model.addAttribute("marki", marki);
-        model.addAttribute("leki", leki);
-        model.addAttribute("log", isLogged);
-        model.addAttribute("size", size);
-        model.addAttribute("minPrize", minPrize);
+        model.addAttribute("wzorzec",wzorzec);
         model.addAttribute("maxPrize", maxPrize);
         model.addAttribute("sort", sort);
         model.addAttribute("rodzajLeku", rodzajLeku);
         model.addAttribute("markaLeku", markaLeku);
-
+        model.addAttribute("rodzaje", rodzaje);
+        model.addAttribute("marki", marki);
+        model.addAttribute("wyniki", wyniki);
+        model.addAttribute("log", isLogged);
+        model.addAttribute("size",size);
         return "buy";
     }
-
-    @RequestMapping("/pill")
-    public String pill(){
-        return "pill";
-    }
-
-
-
-
-
 
 }

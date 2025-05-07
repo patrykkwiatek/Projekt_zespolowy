@@ -31,38 +31,46 @@ public class KontrolerKoszyk {
 
 
     @RequestMapping("/dodanoKoszyk")
-    public String dodanoKoszyk(@RequestParam("lekId") Long lekId,
-                               @RequestParam("ilosc") int ilosc,
-                               Model model,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size,
-                               @RequestParam(defaultValue = "Ids") String sort,
-                               @RequestParam(defaultValue = "") String wzorzec,
-                               @RequestParam(defaultValue = "0") int minPrize,
-                               @RequestParam(defaultValue = "1000") int maxPrize,
-                               @RequestParam(required = false) MarkaLeku markaLeku,
-                               @RequestParam(required = false) RodzajLeku rodzajLeku,
-                               Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "error";
+    public String dodanoKoszyk(Authentication authentication, Model model,
+                                @RequestParam("lekId") Long lekId,
+                                @RequestParam("ilosc") int ilosc,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size,
+                                @RequestParam(defaultValue = "Ids") String sort,
+                                @RequestParam(defaultValue = "") String wzorzec,
+                                @RequestParam(defaultValue = "0") int minPrize,
+                                @RequestParam(defaultValue = "1000") int maxPrize,
+                                @RequestParam(required = false) MarkaLeku markaLeku,
+                                @RequestParam(required = false) RodzajLeku rodzajLeku
+    ){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
+        if(isLogged==false){
+            return "redirect:/Neuca/login";
+        }else{
+            String username = authentication.getName();
+            MyUser user = serwisMyUser.zwrocUser(username);
+            Lek lek=sK.zwrocLek(lekId);
+            int cena=ilosc*lek.getPriceGR();
+            String cenaString;
+            sKoszyk.dodajDoKoszyka(user,lek, ilosc);
+            int zlote = cena / 100;
+            int grosze = cena % 100;
+            cenaString= String.format("%d,%02d zł", zlote, grosze);
+            model.addAttribute("pageN",page);
+            model.addAttribute("sizeN",size);
+            model.addAttribute("sortN",sort);
+            model.addAttribute("wzorzecN",wzorzec);
+            model.addAttribute("minPrizeN",minPrize);
+            model.addAttribute("maxPrizeN",maxPrize);
+            model.addAttribute("markaLekuN",markaLeku);
+            model.addAttribute("rodzajLekuN",rodzajLeku);
+            model.addAttribute("cenaString",cenaString);
+            model.addAttribute("ilosc",ilosc);
+            model.addAttribute("lek",lek);
+            return "dodanoKoszyk";
         }
-        String username = authentication.getName();
-        MyUser user = serwisMyUser.zwrocUser(username);
 
-        Lek lek = sK.zwrocLek(lekId);
-        sKoszyk.dodajDoKoszyka(user,lek, ilosc);
 
-        model.addAttribute("pageN",page);
-        model.addAttribute("sizeN",size);
-        model.addAttribute("sortN",sort);
-        model.addAttribute("wzorzecN",wzorzec);
-        model.addAttribute("minPrizeN",minPrize);
-        model.addAttribute("maxPrizeN",maxPrize);
-        model.addAttribute("markaLekuN",markaLeku);
-        model.addAttribute("rodzajLekuN",rodzajLeku);
-        model.addAttribute("lek", lek);
-        model.addAttribute("ile", ilosc);
-        return "dodanoKoszyk";
     }
 
     @RequestMapping("/koszyk")

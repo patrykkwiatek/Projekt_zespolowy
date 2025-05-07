@@ -23,7 +23,7 @@ public class SerwisMyUser {
             MyUser myUser = myUserConverter.createMyUser(myUserDTO);
             myUser.setPassword(passwordEncoder.encode(myUserDTO.getPassword()));
             if (myUserDTO.getRoles() == null || myUserDTO.getRoles().isEmpty()) {
-                List<String> roles = List.of("PACJENT");
+                List<String> roles = List.of("ROLE_PACJENT");
                 myUser.setRoles(roles);
             } else {
                 myUser.setRoles(myUserDTO.getRoles());
@@ -38,7 +38,7 @@ public class SerwisMyUser {
             MyUser myUser = myUserConverter.createMyUser(myUserDTO);
             myUser.setPassword(passwordEncoder.encode(myUserDTO.getPassword()));
             if (myUserDTO.getRoles() == null || myUserDTO.getRoles().isEmpty()) {
-                List<String> roles = List.of("APTEKARZ");
+                List<String> roles = List.of("ROLE_APTEKARZ");
                 myUser.setRoles(roles);
             } else {
                 myUser.setRoles(myUserDTO.getRoles());
@@ -54,7 +54,7 @@ public class SerwisMyUser {
             MyUser myUser = myUserConverter.createMyUser(myUserDTO);
             myUser.setPassword(passwordEncoder.encode(myUserDTO.getPassword()));
             if (myUserDTO.getRoles() == null || myUserDTO.getRoles().isEmpty()) {
-                List<String> roles = List.of("LEKARZ");
+                List<String> roles = List.of("ROLE_LEKARZ");
                 myUser.setRoles(roles);
             } else {
                 myUser.setRoles(myUserDTO.getRoles());
@@ -70,9 +70,7 @@ public class SerwisMyUser {
                 .orElseThrow(() -> new UsernameNotFoundException("Użytkownik o nazwie " + username + " nie istnieje"));
     }
 
-    public boolean czyMaROle(String rola, MyUser myUser){
-        return myUser.getRoles() != null && myUser.getRoles().contains(rola);
-    }
+
 
 
 

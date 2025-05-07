@@ -2,7 +2,7 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Utworz Gaiet</title>
+    <title>Utworz Gabinet</title>
 </head>
 <body>
 
@@ -13,7 +13,21 @@
         Data urodzenia: <input type="date" th:field="*{dataUrodzenia}"></br>
         adres1Gabinetu: <input type="text" th:field="*{adres1Gabinetu}"></br>
         adres1Gabinetu: <input type="text" th:field="*{adres2Gabinetu}"></br>
+        Miasto: <input type="text" th:field="*{miasto}">
         telefon do Gabinetu <input type="number" th:field="*{telefonGabinet}"> </br>
+        Cena Wizyty: <input type="number" th:field="*{cena}"> </br>
+
+
+        Specializacja
+        <select th:field="*{spec}">>
+            <option th:each="spec : ${spece}"
+            th:value="${spec}"
+            th:text="${spec}"
+            th:field="*{spec}">
+
+            </option>
+        </select></br>
+        Sredni czas wizyty[min]<input type="number" th:field="*{sredniCzasWizyty}">
 
         <button>utworz gabinet</button>
     </form>

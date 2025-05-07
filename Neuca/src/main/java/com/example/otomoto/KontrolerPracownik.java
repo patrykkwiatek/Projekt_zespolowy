@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -75,8 +76,9 @@ public class KontrolerPracownik {
     public String dodano(Lek lek, @RequestParam("sciezkaPliku") MultipartFile plik, Model model) {
         if (!plik.isEmpty()) {
             try {
+
                 // Ścieżka do katalogu 'uploads' w katalogu głównym projektu
-                String folderPath = System.getProperty("user.dir") + "/uploads";
+                String folderPath = "C:/Users/User/Desktop/naGita/Neuca/uploads";
                 File folder = new File(folderPath);
                 if (!folder.exists()) {
                     folder.mkdirs(); // Tworzymy folder, jeśli nie istnieje
@@ -128,12 +130,13 @@ public class KontrolerPracownik {
         model.addAttribute("lek",lek);
         return "edycjaLeku";
     }
+
     @RequestMapping("/strefaPracownika/edytowano/{id}")
     public String edytowano(@PathVariable Long id, @RequestParam("sciezkaPliku") MultipartFile plik, Lek lek, Model model) {
         if (!plik.isEmpty()) {
             try {
                 // Ścieżka do katalogu 'uploads' w katalogu głównym projektu
-                String folderPath = System.getProperty("user.dir") + "/uploads";
+                String folderPath = "C:/Users/User/Desktop/naGita/Neuca/uploads";
                 File folder = new File(folderPath);
                 if (!folder.exists()) {
                     folder.mkdirs(); // Tworzymy folder, jeśli nie istnieje
@@ -253,7 +256,8 @@ public class KontrolerPracownik {
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         try {
-            Path file = Paths.get(System.getProperty("user.dir"), "uploads").resolve(filename);
+            Path file = Paths.get("C:/Users/User/Desktop/naGita/Neuca/uploads").resolve(filename);
+
             System.out.println("🔍 Szukam pliku: " + filename);
             System.out.println("📂 Ścieżka fizyczna: " + file.toAbsolutePath());
             Resource resource = new UrlResource(file.toUri());
@@ -270,6 +274,7 @@ public class KontrolerPracownik {
             return ResponseEntity.badRequest().build();
         }
     }
+
 
     @RequestMapping("/strefaPracownika/potwierdzanieUzytkownikowLekarze")
     public String potwierdzanieUzytkownikowLekarze(Model model){
@@ -288,9 +293,7 @@ public class KontrolerPracownik {
 
     @RequestMapping("/strefaPracownika/uzytkownikLekarzPotwierdz")
     public String uzytkownikLekarzPotwierdz(Model model,Authentication authentication, @RequestParam Long id){
-        String username=authentication.getName();
-        MyUser myUser=serwisMyUser.zwrocUser(username);
-        Lekarz lekarz=myUser.getLekarz();
+        Lekarz lekarz=s.znajdzLekarza(id);
         s.potwierdzLekarz(lekarz);
         return "uzytkownikLekarzPotwierdz";
     }

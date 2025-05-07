@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekarze</title>
+    <link rel="stylesheet" href="/css/lekarze.css">
+</head>
+<body>
+<div id="line"></div>
+<div id="mainContainer">
+
+    <div id="topMenu">
+        <a href="main.html"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <input type="text" id="search" placeholder="Wyszukaj lekarza...">
+            <button id="searchButton">Szukaj</button>
+        </div>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="loginButton">Zaloguj</button>
+                <div class="ukryteLogowanie-content">
+                    <button onclick="location.href='zalogujPacjent.html'">Zaloguj jako Pacjent</button>
+                    <button onclick="location.href='zalogujAptekarz.html'">Zaloguj jako Aptekarz</button>
+                </div>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="registerButton">Zarejestruj</button>
+                <div class="ukryteLogowanie-content">
+                    <button onclick="location.href='zarejestrujPacjent.html'">Zarejestruj jako Pacjent</button>
+                    <button onclick="location.href='zarejestrujAptekarz.html'">Zarejestruj jako Aptekarz</button>
+                </div>
+            </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='lekarze.html'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='buy.html'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
+    </div>
+</div>
+
+<div id="mainContainer2">
+    <!-- Filtry po lewej stronie -->
+    <div id="filters">
+        <h3>Filtry</h3>
+
+        <div class="filter-item">
+            <label for="specialization">Specjalizacja:</label>
+            <select id="specialization">
+                <option th:each="spec : ${spece}"
+                        th:value="${spec}"
+                th:text="${spec}"></option>
+
+
+            </select>
+        </div>
+
+        <div class="filter-item">
+            <label for="city">Miasto:</label>
+            <input type="text" id="city" value="miasto" placeholder="Wpisz miasto">
+        </div>
+
+        <button id="applyFilters">Zastosuj filtry</button>
+    </div>
+
+    <!-- Lista lekarzy po prawej stronie -->
+    <div id="products">
+        <div id="pills_list">
+            <div class="card" th:each ="lekarz : ${lekarze}">
+                <div class="wrapper">
+                    <div class="pill image"><img src="doctors/doc1.jpg" width="300" height="200" alt="Dr Kowalski"></div>
+                    <div class="content">
+                        <p class="title" th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></p>
+                        <p class="title" th:text="${lekarz.spec}"></p>
+
+                        <p class="title price" th:text="${lekarz.cena}+' zl'"></p>
+                        <p th:text="${lekarz.miasto}"></p>
+                    </div>
+                    <a href="umow.html"><button class="card-btn">Umów wizytę</button></a>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tu możesz dodać obsługę filtrowania JS w przyszłości
+</script>
+
+</body>
+</html>

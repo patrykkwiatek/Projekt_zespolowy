@@ -57,7 +57,11 @@ public class SerwisPracownik {
         existingLek.setRodzajLeku(updatedLek.getRodzajLeku());
         existingLek.setSklad(updatedLek.getSklad());
         existingLek.setDawkowanie(updatedLek.getDawkowanie());
-        existingLek.setSciezka(updatedLek.getSciezka());
+        existingLek.setGramatura(updatedLek.getGramatura());
+        if(updatedLek.getSciezka()!=null){
+            existingLek.setSciezka(updatedLek.getSciezka());
+        }
+
 
         return r.save(existingLek);
     }

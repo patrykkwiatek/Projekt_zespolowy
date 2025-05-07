@@ -1,7 +1,8 @@
 package com.example.otomoto;
 
 public enum StatusWizyty {
-    ZAREZERWOWANA("zarezerwowana"),
+    ZAREZERWOWANABRAKPOTW("zarezerwowana, nie potwierdzona przez lekarza"),
+    ZAREZERWOWANAPOTW("zarezerwowana, potwierdzona przez lekarza"),
     ANULOWANA("anulowana"),
     ZREALIZOWANA("zrealizowana");
 

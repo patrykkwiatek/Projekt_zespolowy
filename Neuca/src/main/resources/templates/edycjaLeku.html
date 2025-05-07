@@ -26,10 +26,13 @@
             <p> <span th:text="#{lek.cena}"/>: <input type="text"  value="*{priceGR}" th:field="*{priceGR}"></p>
         </div>
         <div class="miejsce">
-            <p> Sklad: <textarea type="text"  value="*{sklad}" th:field="*{sklad}"></textarea></p>
+            <p> Sklad: <textarea   value="*{sklad}" th:field="*{sklad}"></textarea></p>
         </div>
         <div class="miejsce">
-            <p> Dawkowanie: <textarea type="text"  value="*{dawkowanie}" th:field="*{dawkowanie}"></textarea></p>
+            <p> Dawkowanie: <textarea   value="*{dawkowanie}" th:field="*{dawkowanie}"></textarea></p>
+        </div>
+        <div class="miejsce">
+            <p> Gramatura: <textarea value="*{gramatura}" th:field="*{gramatura}"></textarea></p>
         </div>
         <select name="rodzajLeku">
             <option th:each="rodzaj : ${rodzaje}"

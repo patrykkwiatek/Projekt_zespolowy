@@ -2,27 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="/css/dodanoDoKoszyka.css">
+
 </head>
 <body>
-<span th:text="#{dodanoKoszyk.kom1}"></span>
-<span th:text="${lek.name}"></span>
-<span th:text="#{dodanoKoszyk.kom2}"></span>
-<span th:text="${ile}"></span>
-<form th:action="@{/Neuca/koszyk}" method="get">
-    <button>Idz do koszyka</button>
-</form>
-<form th:action="@{/Neuca/buy}">
-    <button>Kontynuj zakupy</button>
-    <input type="hidden" name="page" th:value="${pageN}">
-    <input type="hidden" name="size" th:value="${sizeN}">
-    <input type="hidden" name="sort" th:value="${sortN}">
-    <input type="hidden" name="wzorzec" th:value="${wzorzecN}">
-    <input type="hidden" name="minPrize" th:value="${minPrizeN}">
-    <input type="hidden" name="maxPrize" th:value="${maxPrizeN}">
-    <input type="hidden" name="markaLeku" th:value="${markaLekuN}">
-    <input type="hidden" name="rodzajLeku" th:value="${rodzajLekuN}">
-</form>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}" method="get">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+            </form>
+
+        </div>
+
+        <div id="panelLogowania" >
+            <div class="ukryteLogowanie">
+                <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+            </div>
+
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item">
+            <button id="doctorsButton">Lekarze</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'">Apteki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton">Usługi</button>
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'">Leki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton">Kontakt</button>
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton">O nas</button>
+        </div>
+
+
+    </div>
+    <!-- Sekcja dodano do koszyka-->
+    <div id="koszyk-container">
+        <h2>Dodano do koszyka!</h2>
+        <p>Poniższy produkt został dodany do Twojego koszyka:</p>
+
+        <div class="produkty">
+            <div class="produkt">
+                <p th:text="'ilość sztuk: '+ ${ilosc}"></p>
+                <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}"
+                     alt="Ibuprofen" width="300" height="200">
+                <h3 th:text="${lek.name}"></h3>
+
+                <p th:text="${lek.gramatura}"></p>
+                <p th:text="'Cena za sztuke: ' + ${lek.cenaString}"></p>
+                <p th:text="'Cena razem: ' +${cenaString}"></p>
+            </div>
+
+        </div>
+        <div class="koszyk-buttons">
+            <form th:action="@{/Neuca/koszyk}" method="get">
+                <button >Przejdź do koszyka</button>
+            </form>
+            <form th:action="@{/Neuca/buy}" method="post">
+                <button >Kontynuuj zakupy</button>
+                <input type="hidden" name="page" th:value="${pageN}">
+                <input type="hidden" name="size" th:value="${sizeN}">
+                <input type="hidden" name="sort" th:value="${sortN}">
+                <input type="hidden" name="wzorzec" th:value="${wzorzecN}">
+                <input type="hidden" name="minPrize" th:value="${minPrizeN}">
+                <input type="hidden" name="maxPrize" th:value="${maxPrizeN}">
+                <input type="hidden" name="markaLeku" th:value="${markaLekuN}">
+                <input type="hidden" name="rodzajLeku" th:value="${rodzajLekuN}">
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
 
 </body>
 </html>

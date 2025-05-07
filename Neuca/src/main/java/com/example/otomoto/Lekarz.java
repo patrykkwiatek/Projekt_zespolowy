@@ -24,7 +24,11 @@ public class Lekarz {
     private LocalDate dataUrodzenia;
     private String adres1Gabinetu;
     private String adres2Gabinetu;
+    private String miasto;
     private int telefonGabinet;
+    private  int cena;
+    private LekarzSpec spec;
+    private int sredniCzasWizyty;
 
     private boolean potwierdzenie=false;
 

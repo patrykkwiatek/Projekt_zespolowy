@@ -1,0 +1,315 @@
+/* Ogólne style dla całej strony */
+body {
+    background-color: whitesmoke;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Główny kontener */
+#mainContainer {
+    width: 100%; /* Zajmuje całą szerokość okna */
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+/* Menu górne */
+#topMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%; /* Rozciąga się na całą szerokość */
+    flex-wrap: wrap; /* Zezwala na łamanie wierszy */
+    padding: 10px 20px; /* Dodaje wewnętrzne odstępy */
+    box-sizing: border-box; /* Wlicza padding do szerokości */
+}
+
+/* Logo */
+#logo {
+    max-width: 100px;
+    width: auto;
+}
+
+/* Wyszukiwarka */
+#wyszukiwarka {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: auto;
+}
+
+#wyszukiwarka input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border-color: #c90606;
+}
+
+#wyszukiwarka button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 100px;
+    transition: all 0.4s ease;
+}
+
+#wyszukiwarka button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+#wyszukiwarka form{
+display:flex;
+width: 100%;
+}
+/* Panel logowania */
+#panelLogowania {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    position: relative;
+}
+
+/* Główne przyciski logowania */
+#panelLogowania button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 110px;
+    transition: all 0.4s ease;
+}
+
+#panelLogowania button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+/* Dropdown - ukryte menu */
+.ukryteLogowanie {
+    position: relative;
+}
+
+.ukryteLogowanie-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 4px;
+    z-index: 1000;
+    width: 250px;
+}
+
+.ukryteLogowanie-content button {
+    display: block;
+    width: 210px !important;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 14px;
+    background-color: #c90606;
+    border: 1px solid #c90606;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.ukryteLogowanie-content button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie:hover .ukryteLogowanie-content {
+    display: block;
+}
+
+/* Avatar */
+#avatar {
+    max-width: 60px;
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* Separator */
+#line {
+    width: 100%;
+    height: 3px;
+    background-color: #c90606;
+}
+
+/* Menu nawigacyjne (Top2Menu) */
+#top2Menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%; /* Rozciąga na całą szerokość */
+    background-color: #c90606;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+#top2Menu button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+}
+
+#top2Menu button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+/* Media queries dla responsywności */
+@media (max-width: 768px) {
+    #topMenu {
+        flex-wrap: wrap;
+    }
+
+    #wyszukiwarka input {
+        max-width: 100%;
+    }
+
+    #panelLogowania {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    #top2Menu {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .info-section{
+        flex-direction: column;
+    }
+}
+/* Styl kontenera menu */
+.menu-item {
+    position: relative;
+    display: inline-block;
+}
+
+/* Styl podmenu */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 4px;
+    min-width: 180px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Styl linków w submenu */
+.submenu a {
+    display: block;
+    padding: 10px;
+    color: #c90606;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.submenu a:hover {
+    background-color: #c90606;
+    color: white;
+}
+
+/* Pokazanie podmenu po najechaniu */
+.menu-item:hover .submenu {
+    display: block;
+}
+
+/*odtąd zaczynamy różnice między mainStyle a dodanoDoKoszyka*/
+
+#koszyk-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#koszyk-container h2 {
+    color: #c90606;
+    font-size: 28px;
+}
+
+#koszyk-container p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.produkty {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.produkt {
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 16px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.produkt img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.produkt h3 {
+    color: #c90606;
+    margin: 10px 0;
+}
+
+.koszyk-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.koszyk-buttons form {
+    margin: 0;
+}
+
+.koszyk-buttons button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.koszyk-buttons button:hover {
+    background-color: white;
+    color: #c90606;
+    border: 1px solid #c90606;
+}

@@ -1,0 +1,543 @@
+/* Ogólne style dla całej strony */
+body {
+    background-color: whitesmoke;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Główny kontener */
+#mainContainer {
+    position: sticky;
+    top: 0;
+    width: 100%; /* Zajmuje całą szerokość okna */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    z-index: 1000;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu górne */
+#topMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%; /* Rozciąga się na całą szerokość */
+    flex-wrap: wrap; /* Zezwala na łamanie wierszy */
+    padding: 10px 20px; /* Dodaje wewnętrzne odstępy */
+    box-sizing: border-box; /* Wlicza padding do szerokości */
+}
+
+/* Logo */
+#logo {
+    max-width: 100px;
+    width: auto;
+}
+
+/* Wyszukiwarka */
+#wyszukiwarka {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: auto;
+}
+
+#wyszukiwarka input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border-color: #c90606;
+}
+
+#wyszukiwarka button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 100px;
+    transition: all 0.4s ease;
+}
+
+#wyszukiwarka button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+/* Panel logowania */
+#panelLogowania {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    position: relative;
+}
+
+/* Główne przyciski logowania */
+#panelLogowania button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 100px;
+    transition: all 0.4s ease;
+}
+
+#panelLogowania button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+/* Dropdown - ukryte menu */
+.ukryteLogowanie {
+    position: relative;
+}
+
+.ukryteLogowanie-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 4px;
+    z-index: 1000;
+    width: 250px;
+}
+
+.ukryteLogowanie-content button {
+    display: block;
+    width: 210px !important;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 14px;
+    background-color: #c90606;
+    border: 1px solid #c90606;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.ukryteLogowanie-content button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie:hover .ukryteLogowanie-content {
+    display: block;
+}
+
+/* Avatar */
+#avatar {
+    max-width: 60px;
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* Separator */
+#line {
+    width: 100%;
+    height: 3px;
+    background-color: #c90606;
+}
+
+/* Menu nawigacyjne (Top2Menu) */
+#top2Menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%; /* Rozciąga na całą szerokość */
+    background-color: #c90606;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+#top2Menu button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+}
+
+#top2Menu button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+/* Media queries dla responsywności */
+@media (max-width: 768px) {
+    #topMenu {
+        flex-wrap: wrap;
+    }
+
+    #wyszukiwarka input {
+        max-width: 100%;
+    }
+
+    #panelLogowania {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    #top2Menu {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+/* Styl kontenera menu */
+.menu-item {
+    position: relative;
+    display: inline-block;
+}
+
+/* Filtry */
+#filters {
+    position: sticky;
+    top: 205px;
+    align-self: flex-start;
+    width: 25%;
+    margin-top: 20px;
+    margin-left: 25px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Nagłówek filtrów */
+#filters h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Każdy element filtra */
+.filter-item {
+    margin-bottom: 20px;
+}
+
+/* Etykieta filtra */
+.filter-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-item input[type="number"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Pola wejściowe */
+#filters input,
+#filters select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Przycisk zastosowania filtrów */
+#applyFilters {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-height: 40px;
+}
+
+#applyFilters:hover {
+    background-color: #b00505;
+}
+
+/* Layout główny - kontener z ofertami lekarzy */
+#mainContainer2 {
+    display: flex;
+    gap: 20px;
+}
+
+/* Produkty (oferty lekarzy) */
+#pills_list {
+    display: block;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: row;
+}
+
+/* Karta lekarza */
+.pill {
+    flex: 1 1 calc(33.33% - 20px);
+    box-sizing: border-box;
+    max-width: 300px;
+    text-align: center;
+}
+
+.pill img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex: start;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: all 0.4s ease;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-link:hover .title,
+.card-link:hover .price {
+    text-decoration: none;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.content {
+    flex-grow: 1;
+    text-align: left;
+}
+#products {
+    width: 70%; /* Produkty zajmują 70% szerokości */
+}
+
+/* Przyciski na kartach */
+.card-btn {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    height: 40px;
+}
+
+.card-btn:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+/* Paginacja na dole */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    position: relative;
+}
+
+#page-controls {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+#page-info {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#page-controls button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#page-controls button:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+#page-controls button:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+.items-per-page {
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.items-per-page-option {
+    background-color: #c90606;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.items-per-page-option:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+/* Responsywność */
+@media screen and (max-width: 768px) {
+    #mainContainer2 {
+        flex-direction: column;
+    }
+
+    #filters {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #products {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    #pagination {
+        flex-direction: column;
+    }
+
+    #page-controls {
+        margin-top: 10px;
+    }
+}
+
+/* Brak wyników */
+.doctor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    left: 50%;
+    font-size: 30px;
+    object-fit: cover;
+    animation: wiggle 2s infinite alternate;
+}
+
+.doctor-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+}
+
+/* Karta lekarza */
+.card2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.wrapper2 {
+    display: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.tekst {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+#clearFiltersBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
