@@ -8,13 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 @RequestMapping("/Neuca")
@@ -170,7 +174,7 @@ public class KontrolerLekarz {
     public String lekarze(@RequestParam int page,
                           @RequestParam int size,
                           @RequestParam(defaultValue = "WSZYSTKIE") LekarzSpec spec,
-                          @RequestParam String miasto,
+                          @RequestParam(defaultValue = "all")String miasto,
                           Model model){
         Page<Lekarz> lekarze=serwisLekarz.getALL(page,size);
         List<LekarzSpec> spece=Arrays.asList(LekarzSpec.values());
@@ -195,10 +199,33 @@ public class KontrolerLekarz {
 
 
     @RequestMapping("/strefaLekarza/edytowanoGabinet")
-    public String edytowanoGabinet(Authentication authentication, Lekarz lekarzN){
+    public String edytowanoGabinet(Authentication authentication, Lekarz lekarzN,
+                                   @RequestParam("sciezkaPliku") MultipartFile plik){
         String username= authentication.getName();
         MyUser myUser =serwisMyUser.zwrocUser(username);
         Lekarz lekarz=myUser.getLekarz();
+        if (!plik.isEmpty()) {
+            try {
+                // Ścieżka do katalogu 'uploads' w katalogu głównym projektu
+                String folderPath = "C:/Users/User/Desktop/naGita/Neuca/uploads";
+                File folder = new File(folderPath);
+                if (!folder.exists()) {
+                    folder.mkdirs(); // Tworzymy folder, jeśli nie istnieje
+                }
+
+                // Unikalna nazwa pliku (żeby nie nadpisać)
+                String fileName = UUID.randomUUID() + "_" + plik.getOriginalFilename();
+                File targetFile = new File(folderPath + "/" + fileName);
+                lekarz.setFoto(fileName);
+                // Zapis pliku
+                plik.transferTo(targetFile);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         serwisLekarz.editLekarz(lekarz,lekarzN);
         return "edytowanoGabinet";
     }
@@ -220,8 +247,40 @@ public class KontrolerLekarz {
             StatusWizyty statusWizyty=StatusWizyty.valueOf(status);
             wizyty=serwisLekarz.zwrocWizytyStatus(page,sort,lekarz,statusWizyty);
         }
+        int total=wizyty.getTotalPages();
+        boolean czyPoprzednia;
+        if(page==0){
+            czyPoprzednia=false;
+        }else{
+            czyPoprzednia=true;
+        }
+        model.addAttribute("czyPoprzednia",czyPoprzednia);
+
+        boolean czyNastepna;
+        if(page>=(total-1)){
+            czyNastepna=false;
+        }else{
+            czyNastepna=true;
+        }
+        model.addAttribute("czyNastepna",czyNastepna);
+        System.out.println(total);
+        boolean czyStron;
+        if(total==0){
+            czyStron=false;
+        }else{
+            czyStron=true;
+        }
+        model.addAttribute("czyStron",czyStron);
+
 
         List<StatusWizyty> statusy=Arrays.asList(StatusWizyty.values());
+        model.addAttribute("naKoniec",total-1);
+        model.addAttribute("page",page+1);
+        model.addAttribute("total",total);
+        model.addAttribute("status", status);
+        model.addAttribute("sort",sort);
+        model.addAttribute("poprzednia",page-1);
+        model.addAttribute("nastepna",page+1);
         model.addAttribute("statusN",status);
         model.addAttribute("statusy", statusy);
         model.addAttribute("wizyty",wizyty);

@@ -29,6 +29,7 @@ public class Lekarz {
     private  int cena;
     private LekarzSpec spec;
     private int sredniCzasWizyty;
+    private String foto;
 
     private boolean potwierdzenie=false;
 

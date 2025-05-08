@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edycja Gabietu</title>
+  <meta charset="UTF-8">
+  <title>Edycja Gabinetu</title>
 </head>
 <body>
 <a href="/Neuca/strefaLekarza">Strefa Lekarza</a>
 
-<form action="#" th:action="@{/Neuca/strefaLekarza/edytowanoGabinet}" th:object="${lekarz}" method="post">
-  Imie: <input type="text" value="*{imie}" th:field="*{imie}">  </br>
-  Nazwisko: <input type="text" th:field="*{nazwisko}">   </br>
-  Nazwa Gabinetu: <input type="text" th:field="*{nazwaGabinetu}">   </br>
-  Data urodzenia: <input type="date" th:field="*{dataUrodzenia}"></br>
-  adres1Gabinetu: <input type="text" th:field="*{adres1Gabinetu}"></br>
-  adres1Gabinetu: <input type="text" th:field="*{adres2Gabinetu}"></br>
-  Miasto: <input type="text" th:field="*{miasto}">  </br>
-  telefon do Gabinetu <input type="number" th:field="*{telefonGabinet}"> </br>
-  Cena Wizyty: <input type="number" th:field="*{cena}"> </br>
-  Sredni czas wizyty[min]<input type="number" th:field="*{sredniCzasWizyty}">  </br>
+<form th:action="@{/Neuca/strefaLekarza/edytowanoGabinet}" th:object="${lekarz}" method="post" enctype="multipart/form-data">
+  Imię: <input type="text" th:field="*{imie}"> <br/>
+  Nazwisko: <input type="text" th:field="*{nazwisko}"> <br/>
+  Nazwa Gabinetu: <input type="text" th:field="*{nazwaGabinetu}"> <br/>
+  Data urodzenia: <input type="date" th:field="*{dataUrodzenia}"> <br/>
+  Adres 1: <input type="text" th:field="*{adres1Gabinetu}"> <br/>
+  Adres 2: <input type="text" th:field="*{adres2Gabinetu}"> <br/>
+  Miasto: <input type="text" th:field="*{miasto}"> <br/>
+  Telefon do gabinetu: <input type="number" th:field="*{telefonGabinet}"> <br/>
+  Cena wizyty: <input type="number" th:field="*{cena}"> <br/>
+  Średni czas wizyty [min]: <input type="number" th:field="*{sredniCzasWizyty}"> <br/>
 
-  Specializacja
-  <select th:field="*{spec}">>
-    <option th:each="spec : ${spece}"
-            th:value="${spec}"
-            th:text="${spec}">
-
-
-    </option>
+  Specjalizacja:
+  <select th:field="*{spec}">
+    <option th:each="spec : ${spece}" th:value="${spec}" th:text="${spec}">Specjalizacja</option>
   </select>
-  </br>
+  <br/>
 
+  Zdjęcie: <input type="file" name="sciezkaPliku" onchange="previewImage(event)" /> <br/>
 
-  <button>Edytuj gabinet</button>
+  <img id="preview"
+       th:src="${lekarz.foto} != null ? @{'/Neuca/images/' + ${lekarz.foto}} : ''"
+       width="150"
+       style="display: [[${lekarz.foto} != null ? 'block' : 'none']]; margin-top: 10px;" />
+
+  <script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+    }
+  </script>
+
+  <br/>
+  <button type="submit">Edytuj gabinet</button>
 </form>
 
 </body>

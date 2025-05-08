@@ -110,6 +110,10 @@ public class SerwisLekarz {
         pageable = PageRequest.of(page, 15, sortowanie);
         return repoWizyta.findByLekarzAndStatusWizyty(lekarz,statusWizyty,pageable);
     }
+    void ustawSciezke(String sciezka, Lekarz lekarz){
+        lekarz.setFoto(sciezka);
+        repoLekarz.save(lekarz);
+    }
 
 
 

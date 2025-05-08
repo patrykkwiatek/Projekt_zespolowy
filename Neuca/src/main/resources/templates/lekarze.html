@@ -74,7 +74,8 @@
         <div id="pills_list">
             <div class="card" th:each ="lekarz : ${lekarze}">
                 <div class="wrapper">
-                    <div class="pill image"><img src="doctors/doc1.jpg" width="300" height="200" alt="Dr Kowalski"></div>
+                    <img th:if="${lekarz.foto}" th:src="@{/Neuca/images/{filename}(filename=${lekarz.foto})}" width="300" height="200" alt="Dr"/>
+                    width="300" height="200" alt="Dr Kowalski"></div>
                     <div class="content">
                         <p class="title" th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></p>
                         <p class="title" th:text="${lekarz.spec}"></p>
