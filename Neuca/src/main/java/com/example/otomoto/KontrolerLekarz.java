@@ -265,7 +265,11 @@ public class KontrolerLekarz {
             czyZreal=false;
         }
         model.addAttribute("czyZreal",czyZreal);
-
+        String zalecenia=wizyta.getZalecenia();
+        if(zalecenia==null){
+            zalecenia=" ";
+        }
+        model.addAttribute("zalecenia",zalecenia);
         model.addAttribute("status",wizyta.getStatusWizyty());
         model.addAttribute("data",wizyta.getData());
         model.addAttribute("opis",wizyta.getOpis());
@@ -296,6 +300,27 @@ public class KontrolerLekarz {
         serwisWizyta.zmienStatus(id, StatusWizyty.ZREALIZOWANA);
         return "redirect:/Neuca/strefaLekarza/wizyta?id=" + id;
     }
+
+
+    @RequestMapping("/strefaLekarza/wizytaZalecenia")
+    public String wizytaZalecenia(Model model, @RequestParam  Long wizytaID){
+        Wizyta wizyta=new Wizyta();
+        wizyta=serwisWizyta.zwrocWizytaID(wizytaID);
+        model.addAttribute("zalecenia",wizyta.getZalecenia());
+        model.addAttribute("id", wizyta.getId());
+        return "wizytaZalecenia";
+
+    }
+    @RequestMapping("/strefaLekarza/wizytaZaleceniaZmien")
+    public String wizytaZaleceniaZmien(@RequestParam String zalecenia,
+                                       @RequestParam Long id){
+        Wizyta wizyta=serwisWizyta.zwrocWizytaID(id);
+        wizyta.setZalecenia(zalecenia);
+        serwisWizyta.zapiszWizyte(wizyta);
+        return "redirect:/Neuca/strefaLekarza/wizyta?id=" + id;
+    }
+
+
 
 
 }

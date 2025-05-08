@@ -20,6 +20,12 @@
   <span th:text="${#temporals.format(data, 'yyyy-MM-dd HH:mm')}"></span> </br></br>
 
   <span th:text="'Status: ' + ${status.slowo}"></span> </br> </br>
+  <span th:text="'Zalecenia: ' + ${zalecenia}"></span>
+
+  <form th:action="@{/Neuca/strefaLekarza/wizytaZalecenia}" method="get">
+    <button>Zmien Zalecenia</button>
+    <input type="hidden" name="wizytaID" th:value="${wizytaId}">
+  </form>
 
   <a th:if="${czyAnulowana}" th:href="@{/Neuca/strefaLekarza/anuluj(id=${wizytaId})}">
     <button>Anuluj Wizyte</button>

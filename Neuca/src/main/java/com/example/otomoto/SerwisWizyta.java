@@ -20,4 +20,8 @@ public class SerwisWizyta {
         repoWizyta.save(wizyta);
     }
 
+    void zapiszWizyte(Wizyta wizyta){
+        repoWizyta.save(wizyta);
+    }
+
 }

@@ -20,6 +20,7 @@ public class Wizyta {
     private StatusWizyty statusWizyty;
     private String opis;
     private LocalDateTime data;
+    private String zalecenia;
 
 
     @ManyToOne(fetch= FetchType.LAZY)

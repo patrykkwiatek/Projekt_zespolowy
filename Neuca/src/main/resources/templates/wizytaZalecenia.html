@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zalecenia</title>
+</head>
+<body>
+
+<a href="/Neuca/strefaLekarza">StrefaLekarza</a>
+<form th:action="@{/Neuca/strefaLekarza/wizytaZaleceniaZmien}">
+    <textarea rows="10" cols="50" th:text="${zalecenia}" name="zalecenia"></textarea>
+    <input type="hidden" name="id" th:value="${id}">
+    <button>Zmien</button>
+</form>
+<form th:action="@{/Neuca/strefaLekarza/wizyta}">
+    <input type="hidden" name="id" th:value="${id}">
+    <button>Anuluj</button>
+</form>
+
+</body>
+</html>
