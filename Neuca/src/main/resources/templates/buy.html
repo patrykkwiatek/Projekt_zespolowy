@@ -26,7 +26,7 @@
             </form>
 
         </div>
-        <div id="panelLogowania" th:if="${not log}">
+        <div class="panelLogowania" th:if="${not log}">
             <div class="ukryteLogowanie">
                 <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
             </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div id="panelLogowania" th:if="${log}">
+        <div class="panelLogowania" th:if="${log}">
             <div class="ukryteLogowanie">
                 <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
             </div>
@@ -181,6 +181,9 @@
                             <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
                         </div>
                         <button type ="submit" class="card-btn">Dodaj do koszyka</button>
+                    </form>
+                    <form th:action="@{/Neuca/login}" method="get">
+                        <button type ="submit" class="card-btn">Zarezerwuj</button>
                     </form>
 
                 </div>
