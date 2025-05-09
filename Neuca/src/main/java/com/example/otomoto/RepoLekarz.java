@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface RepoLekarz extends JpaRepository<Lekarz, Long> {
     List<Lekarz> findByPotwierdzenie(boolean potwierdzenie);
-    Page<Lekarz> findByMiastoIgnoreCaseAndSpec(String miasto, LekarzSpec spec, Pageable pageable);
-    Page<Lekarz> findByMiastoIgnoreCase(String miasto, Pageable pageable);
+        Page<Lekarz> findBySpecAndMiastoContainingIgnoreCase(LekarzSpec spec, String miasto, Pageable pageable);
+        Page<Lekarz> findByMiastoContainingIgnoreCase(String miasto, Pageable pageable);
     Page<Lekarz> findBySpec(LekarzSpec spec, Pageable pageable);
 
 

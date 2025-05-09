@@ -64,13 +64,24 @@ public class SerwisLekarz {
     public Page<Lekarz> getAllFiltry(int page, int size, String miasto, LekarzSpec spec) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
 
-        boolean hasCity = miasto != null && !miasto.trim().isEmpty();
-        boolean hasSpec = spec != null && spec != LekarzSpec.WSZYSTKIE;
-
-        if (hasCity && hasSpec) {
-            return repoLekarz.findByMiastoIgnoreCaseAndSpec(miasto, spec, pageable);
-        } else if (hasCity) {
-            return repoLekarz.findByMiastoIgnoreCase(miasto, pageable);
+        boolean hasCity;
+        if(miasto.equals("")){
+            hasCity=false;
+            System.out.println("false");
+        }else{
+            hasCity=true;
+            System.out.println("true");
+        }
+        boolean hasSpec;
+        if(spec != LekarzSpec.WSZYSTKIE){
+            hasSpec=true;
+        }else{
+            hasSpec=false;
+        }
+        if (hasCity==true && hasSpec==true) {
+            return repoLekarz.findBySpecAndMiastoContainingIgnoreCase(spec, miasto, pageable);
+        } else if (hasCity==true) {
+            return repoLekarz.findByMiastoContainingIgnoreCase(miasto, pageable);
         } else if (hasSpec) {
             return repoLekarz.findBySpec(spec, pageable);
         } else {

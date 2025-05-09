@@ -68,9 +68,14 @@ body {
     color: #c90606;
     cursor: pointer;
 }
+#wyszukiwarka form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
 
 /* Panel logowania */
-#panelLogowania {
+.panelLogowania {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -79,17 +84,17 @@ body {
 }
 
 /* Główne przyciski logowania */
-#panelLogowania button {
+.panelLogowania button {
     padding: 10px;
     font-size: 16px;
     background-color: #c90606;
     color: white;
     border-radius: 4px;
-    width: 100px;
+    width: 110px;
     transition: all 0.4s ease;
 }
 
-#panelLogowania button:hover {
+.panelLogowania button:hover {
     background-color: white;
     color: #c90606;
     cursor: pointer;

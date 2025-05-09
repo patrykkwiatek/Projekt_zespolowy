@@ -177,6 +177,7 @@ public class DataBaseloader implements CommandLineRunner {
             repoMyUser.save(user);
             serwisLekarz.dodajLekarza(lekarz, user);
         }
+        System.out.println("lekarze");
 
     }
 
@@ -197,6 +198,7 @@ public class DataBaseloader implements CommandLineRunner {
             myUser.setWizyty(new ArrayList<>());
             repoMyUser.save(myUser);
         }
+        System.out.println("pacjenci");
     }
     void wizyty() {
         Random random = new Random();
@@ -218,7 +220,6 @@ public class DataBaseloader implements CommandLineRunner {
                 System.out.println("Nie znaleziono użytkownika: myuser" + i);
                 continue;
             }
-            System.out.println(user.getImie());
 
             Wizyta wizyta = new Wizyta();
             wizyta.setLekarz(lekarz);
@@ -232,10 +233,12 @@ public class DataBaseloader implements CommandLineRunner {
             LocalDateTime randomDate = LocalDateTime.ofEpochSecond(randomEpochSecond, 0, java.time.ZoneOffset.UTC);
             wizyta.setData(randomDate);
 
-            repoWizyta.save(wizyta); // zapisujemy tylko wizytę
+            repoWizyta.save(wizyta);
+
 
 
         }
+        System.out.println("wizyty");
     }
 
 

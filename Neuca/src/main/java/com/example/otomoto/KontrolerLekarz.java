@@ -175,18 +175,16 @@ public class KontrolerLekarz {
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "20")int size,
                           @RequestParam(defaultValue = "WSZYSTKIE") LekarzSpec spec,
-                          @RequestParam(defaultValue = "")String miasto,
+                          @RequestParam(defaultValue = "") String miasto,
                           Model model){
         boolean isLogged = authentication != null && authentication.isAuthenticated();
         model.addAttribute("log",isLogged);
         Page<Lekarz> lekarze= serwisLekarz.getAllFiltry(page,size,miasto,spec);
-
         List<LekarzSpec> spece=Arrays.asList(LekarzSpec.values());
         model.addAttribute("miasto",miasto);
         model.addAttribute("specW",spec);
         model.addAttribute("lekarze", lekarze);
         model.addAttribute("spece", spece);
-
         return "lekarze";
     }
 
