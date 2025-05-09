@@ -49,24 +49,28 @@
     <!-- Filtry po lewej stronie -->
     <div id="filters">
         <h3>Filtry</h3>
+        <form th:action="@{/Neuca/lekarze}" method="get">
+            <div class="filter-item">
+                <label for="specialization">Specjalizacja:</label>
+                <select id="specialization" name="spec">
+                    <option th:each="spec : ${spece}"
+                            th:value="${spec}"
+                            th:text="${spec}"
+                            th:selected="${specW == spec}"
+                    >
+                    </option>
 
-        <div class="filter-item">
-            <label for="specialization">Specjalizacja:</label>
-            <select id="specialization">
-                <option th:each="spec : ${spece}"
-                        th:value="${spec}"
-                th:text="${spec}"></option>
 
+                </select>
+            </div>
 
-            </select>
-        </div>
+            <div class="filter-item">
+                <label for="city">Miasto:</label>
+                <input name="miasto" th:value="${miasto}" type="text" id="city"  placeholder="Wpisz miasto">
+            </div>
 
-        <div class="filter-item">
-            <label for="city">Miasto:</label>
-            <input type="text" id="city" value="miasto" placeholder="Wpisz miasto">
-        </div>
-
-        <button id="applyFilters">Zastosuj filtry</button>
+            <button id="applyFilters">Zastosuj filtry</button>
+        </form>
     </div>
 
     <!-- Lista lekarzy po prawej stronie -->
@@ -74,8 +78,8 @@
         <div id="pills_list">
             <div class="card" th:each ="lekarz : ${lekarze}">
                 <div class="wrapper">
-                    <img th:if="${lekarz.foto}" th:src="@{/Neuca/images/{filename}(filename=${lekarz.foto})}" width="300" height="200" alt="Dr"/>
-                    width="300" height="200" alt="Dr Kowalski"></div>
+                    <img  th:src="${lekarz.foto} != null ? @{/Neuca/images/{filename}(filename=${lekarz.foto})} : @{/Neuca/images/brakZdjecia.jpg}"
+                         width="300" height="200" /></div>
                     <div class="content">
                         <p class="title" th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></p>
                         <p class="title" th:text="${lekarz.spec}"></p>

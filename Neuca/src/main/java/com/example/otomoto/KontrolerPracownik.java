@@ -151,7 +151,6 @@ public class KontrolerPracownik {
 
                 // Ścieżka do obrazka widoczna w HTML - endpoint będzie potrzebny
                 lek.setSciezka(fileName);
-                System.out.println("edytowano leko i sciezka to: " +lek.getSciezka());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -258,15 +257,13 @@ public class KontrolerPracownik {
         try {
             Path file = Paths.get("C:/Users/User/Desktop/naGita/Neuca/uploads").resolve(filename);
 
-            System.out.println("🔍 Szukam pliku: " + filename);
-            System.out.println("📂 Ścieżka fizyczna: " + file.toAbsolutePath());
+
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() && resource.isReadable()) {
                 return ResponseEntity.ok()
                         .contentType(MediaTypeFactory.getMediaType(resource).orElseThrow())
                         .body(resource);
             } else {
-                System.out.println("❌ Plik nie istnieje.");
                 return ResponseEntity.notFound().build();
             }
         } catch (MalformedURLException e) {

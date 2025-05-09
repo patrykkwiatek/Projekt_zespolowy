@@ -135,11 +135,10 @@ public class DataBaseloader implements CommandLineRunner {
 
         Random random = new Random();
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 50; i++) {
             String imie = imiona.get(random.nextInt(imiona.size()));
             String nazwisko = nazwiska.get(random.nextInt(nazwiska.size()));
             String miasto = miasta.get(random.nextInt(miasta.size()));
-
             String nazwaGabinetu = nazwisko + "Med" ;
 
             MyUser user = new MyUser();
@@ -169,6 +168,9 @@ public class DataBaseloader implements CommandLineRunner {
             lekarz.setSpec(specjalizacje.get(random.nextInt(specjalizacje.size())));
             lekarz.setCena(100 + random.nextInt(31) * 10);
             lekarz.setMyUser(user);
+            if(i>=1 && i<=27){
+                lekarz.setFoto("lekarz"+i+".jpg");
+            }
             lekarz.setWizyty(new ArrayList<>());
 
             repoLekarz.save(lekarz);

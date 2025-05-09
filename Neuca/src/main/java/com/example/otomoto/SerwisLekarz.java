@@ -61,12 +61,25 @@ public class SerwisLekarz {
         return lekarz;
     }
 
-    public Page<Lekarz> getALL(int page, int size){
-        Pageable pageable;
-        Sort sortowanie=Sort.by("id").ascending();;
-        pageable= PageRequest.of(page,size,sortowanie);
-        return repoLekarz.findAll(pageable);
+    public Page<Lekarz> getAllFiltry(int page, int size, String miasto, LekarzSpec spec) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+
+        boolean hasCity = miasto != null && !miasto.trim().isEmpty();
+        boolean hasSpec = spec != null && spec != LekarzSpec.WSZYSTKIE;
+
+        if (hasCity && hasSpec) {
+            return repoLekarz.findByMiastoIgnoreCaseAndSpec(miasto, spec, pageable);
+        } else if (hasCity) {
+            return repoLekarz.findByMiastoIgnoreCase(miasto, pageable);
+        } else if (hasSpec) {
+            return repoLekarz.findBySpec(spec, pageable);
+        } else {
+            return repoLekarz.findAll(pageable);
+        }
     }
+
+
+
     public Lekarz editLekarz(Lekarz lekarz, Lekarz lekarzN){
         lekarz.setImie(lekarzN.getImie());
         lekarz.setNazwisko(lekarzN.getNazwisko());
