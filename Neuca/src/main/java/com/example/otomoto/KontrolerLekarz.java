@@ -181,6 +181,30 @@ public class KontrolerLekarz {
         model.addAttribute("log",isLogged);
         Page<Lekarz> lekarze= serwisLekarz.getAllFiltry(page,size,miasto,spec);
         List<LekarzSpec> spece=Arrays.asList(LekarzSpec.values());
+        int total= lekarze.getTotalPages();
+        boolean czyPoczatek;
+        if(page==0){
+            czyPoczatek=false;
+        }else{
+            czyPoczatek=true;
+        }
+        model.addAttribute("czyPoczatek",czyPoczatek);
+        boolean czyKoniec;
+        if(page==(total-1)){
+            czyKoniec=false;
+        }else{
+            czyKoniec=true;
+        }
+        model.addAttribute("size",size);
+        model.addAttribute("spec",spec);
+        model.addAttribute("miasto",miasto);
+        model.addAttribute("czyKoniec",czyKoniec);
+        model.addAttribute("nastepna",page+1);
+        model.addAttribute("poprzednia",page-1);
+        model.addAttribute("naKoniec",total-1);
+        model.addAttribute("pageN",page+1);
+        model.addAttribute("pageWszystkie",total);
+
         model.addAttribute("miasto",miasto);
         model.addAttribute("specW",spec);
         model.addAttribute("lekarze", lekarze);

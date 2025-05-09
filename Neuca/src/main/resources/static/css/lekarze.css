@@ -360,7 +360,7 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.4s ease;
-    height: 40px;
+    min-height: 40px;
 }
 
 .card-btn:hover {
@@ -411,6 +411,10 @@ body {
     cursor: not-allowed;
     background-color: #e0e0e0;
 }
+#page-controls form {
+    margin: 0;      /* Usuwa domyślne marginesy */
+    display: inline-block;  /* Dodatkowe zabezpieczenie */
+}
 
 .items-per-page {
     margin-left: auto;
@@ -425,6 +429,15 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.items-per-page form {
+    display: inline-block;
+    margin: 0;
+}
+
+.active-size {
+    background-color: #F03C3C;
 }
 
 .items-per-page-option:hover {

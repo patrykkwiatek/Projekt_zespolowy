@@ -99,7 +99,9 @@
                         <p class="title price" th:text="${lekarz.cena}+' zl'"></p>
                         <p th:text="${lekarz.miasto}"></p>
                     </div>
+                    <form th:action="@{/Neuca/umow}" method="get">
                     <a href="umow.html"><button class="card-btn">Umów wizytę</button></a>
+                    </form>
                 </div>
             </div>
 
@@ -109,6 +111,72 @@
 
 
         </div>
+    </div>
+</div>
+
+<div id="pagination">
+    <div id="page-info">
+        <!-- Możesz dynamicznie zmieniać te wartości za pomocą JS -->
+    </div>
+    <div id="page-controls">
+        <form th:action="@{/Neuca/lekarze}" th:if="${czyPoczatek}">
+            <button>Wroc na początek</button>
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+        <form th:action="@{/Neuca/lekarze}" method="get" th:if="${czyPoczatek}">
+            <button>Poprzednia</button>
+            <input type="hidden" name="page" th:value="${poprzednia}">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+        <span th:text="'Strona '+ ${pageN}+ ' z ' + ${pageWszystkie}" ></span>
+        <form th:action="@{/Neuca/lekarze}" method="get" th:if="${czyKoniec}">
+            <button>Następna</button>
+            <input type="hidden" name="page" th:value="${nastepna}">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+        <form th:action="@{/Neuca/lekarze}" th:if="${czyKoniec}" >
+            <button>Idz na koniec</button>
+            <input type="hidden" name="page" th:value="${naKoniec}">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+
+    </div>
+    <div class="items-per-page">
+        <span id="itemsPerPage">Ilość produktów na stronie:</span>
+        <form th:action="@{/Neuca/lekarze}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 5} ? 'active-size' : ''"  th:disabled="${size == 5}">5</button>
+            <input type="hidden" name="size" th:value="5">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+        </form>
+        <form th:action="@{/Neuca/lekarze}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 10} ? 'active-size' : ''"  th:disabled="${size == 10}">10</button>
+            <input type="hidden" name="size" th:value="10">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+        </form>
+        <form th:action="@{/Neuca/lekarze}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 15} ? 'active-size' : ''"  th:disabled="${size == 15}">15</button>
+            <input type="hidden" name="size" th:value="15">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+        </form>
+        <form th:action="@{/Neuca/lekarze}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 20} ? 'active-size' : ''"  th:disabled="${size == 20}">20</button>
+            <input type="hidden" name="size" th:value="20">
+            <input type="hidden" name="miasto" th:value="${miasto}">
+            <input type="hidden" name="spec" th:value="${spec}">
+        </form>
+
     </div>
 </div>
 
