@@ -41,7 +41,7 @@ public class DataBaseloader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         leki();
-        //apteki();
+
         MyUser user=new MyUser();
         user.setUsername("patrykP");
         user.setPassword(passwordEncoder.encode("haslo"));
@@ -52,6 +52,13 @@ public class DataBaseloader implements CommandLineRunner {
         user.setEmail("patryk@wp.pl");
         user.setPhone(794291002);
         repoMyUser.save(user);
+
+        MyUser aptekarz= new MyUser();
+        aptekarz.setUsername("aptekarz");
+        aptekarz.setPassword(passwordEncoder.encode("aptekarz"));
+        aptekarz.setRoles(new ArrayList<>());
+        aptekarz.getRoles().add("ROLE_APTEKARZ");
+        repoMyUser.save(aptekarz);
 
 
         MyUser user1=new MyUser();

@@ -1,0 +1,107 @@
+body {
+    background-color: #610818;
+    color: #ffffff;
+    font-family: "Lato", serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rectangle {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+#name {
+    font-family: "Josefin Sans", serif;
+    font-size: 50px;
+    text-align: center;
+    color: #610818;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    min-height: 150px;
+}
+.tile i {
+    font-family: "Lato", serif;
+}
+
+.tile1 { background-color: #db1212; }
+.tile2 { background-color: /*#de7e15;*/ #db1212 }
+.tile3 { background-color: #1047bd; }
+.mainBack { background-color: #c92222;}
+.logOut { background-color: #db1212; }
+
+.tile:hover {
+    background-color: #508ad2;
+}
+
+.rectangle_footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background-color: #610818;
+    margin-top: 30px;
+}
+
+
+#calendar-tile {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    background-color: transparent;
+    padding: 0;
+}
+
+#calendar-container {
+    background-color: #fdfdfd;
+    border-radius: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+    width: 100%;
+}
+
+.calendar {
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+.calendar-days div {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+}
+
+.calendar-week-day {
+    font-size: 12px;
+}

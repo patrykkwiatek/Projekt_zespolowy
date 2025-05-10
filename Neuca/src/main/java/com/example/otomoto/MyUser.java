@@ -38,6 +38,9 @@ public class MyUser {
     @OneToOne(mappedBy = "myUser")
     private Lekarz lekarz;
 
+    @OneToOne(mappedBy = "myUser")
+    private Apteka apteka;
+
 
 
 

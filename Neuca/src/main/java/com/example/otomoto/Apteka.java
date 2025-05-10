@@ -1,8 +1,6 @@
 package com.example.otomoto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -17,19 +15,26 @@ public class Apteka {
     private Long id;
     private boolean potwierdzenie;
     private String name;
-    private String adres1;
+    private String ulica;
+    private String numerBud;
+    private String numerLokalu;
+    private String kodPocztowy;
     private String miasto;
-    private String kod;
     private String telefon;
     private Wojewodztwo wojewodztwo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "my_user_id")
+    private MyUser myUser;
 
-    public Apteka(String name, String adres1, String miasto, String kod, String telefon, Wojewodztwo wojewodztwo) {
-        this.potwierdzenie=false;
-        this.name = name;
-        this.adres1 = adres1;
+
+    public Apteka(Long id, boolean potwierdzenie, String numerBud, String numerLokalu, String kodPocztowy, String miasto, String telefon, Wojewodztwo wojewodztwo) {
+        this.id = id;
+        this.potwierdzenie = potwierdzenie;
+        this.numerBud = numerBud;
+        this.numerLokalu = numerLokalu;
+        this.kodPocztowy = kodPocztowy;
         this.miasto = miasto;
-        this.kod=kod;
         this.telefon = telefon;
         this.wojewodztwo = wojewodztwo;
     }

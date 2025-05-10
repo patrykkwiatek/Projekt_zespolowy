@@ -57,24 +57,7 @@ public class KontrolerKlient {
     }
 
 
-    @RequestMapping("/startK/apteki")
-    public String apteki(@RequestParam(defaultValue = "0") int page,
-                         @RequestParam(defaultValue = "10") int size,
-                         @RequestParam(defaultValue = "Id") String sort,
-                         @RequestParam(defaultValue = "") String wzorzec,
-                         @RequestParam(defaultValue ="ALL") Wojewodztwo wojewodztwo,
-                         Model model){
-        Page<Apteka> wynik=sK.getAllDto(page, size, sort, wzorzec,wojewodztwo);
-        model.addAttribute("lista", wynik);
-        model.addAttribute("sort", sort);
-        model.addAttribute("size", size);
-        model.addAttribute("numbers", sP.createPageNumbers(page, wynik.getTotalPages()));
-        model.addAttribute("total",wynik.getTotalPages());
-        model.addAttribute("pageA",page+1);
-        model.addAttribute("wzorzec",wzorzec);
-        model.addAttribute("wojewodztwo",wojewodztwo);
-        return "apteki";
-    }
+
 
     @RequestMapping("/pill")
     public String pill(){

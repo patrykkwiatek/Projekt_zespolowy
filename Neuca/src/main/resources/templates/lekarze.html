@@ -82,6 +82,7 @@
             </div>
 
             <button id="applyFilters">Zastosuj filtry</button>
+            <input type="hidden" name="size" th:value="${size}">
         </form>
     </div>
 
@@ -91,7 +92,7 @@
             <div class="card" th:each ="lekarz : ${lekarze}">
                 <div class="wrapper">
                     <img  th:src="${lekarz.foto} != null ? @{/Neuca/images/{filename}(filename=${lekarz.foto})} : @{/Neuca/images/brakZdjecia.jpg}"
-                         width="300" height="200" /></div>
+                          width="300" height="200" />
                     <div class="content">
                         <p class="title" th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></p>
                         <p class="title" th:text="${lekarz.spec}"></p>
@@ -99,21 +100,18 @@
                         <p class="title price" th:text="${lekarz.cena}+' zl'"></p>
                         <p th:text="${lekarz.miasto}"></p>
                     </div>
-                    <form th:action="@{/Neuca/umow}" method="get">
                     <a href="umow.html"><button class="card-btn">Umów wizytę</button></a>
-                    </form>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
+
+
+
+
+
+
     </div>
 </div>
-
 <div id="pagination">
     <div id="page-info">
         <!-- Możesz dynamicznie zmieniać te wartości za pomocą JS -->
@@ -179,6 +177,7 @@
 
     </div>
 </div>
+
 
 <script>
     // Tu możesz dodać obsługę filtrowania JS w przyszłości
