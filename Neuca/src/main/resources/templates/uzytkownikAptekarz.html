@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aptekarz</title>
+</head>
+<body>
+Nazwa: <span th:text="${apteka.name}"></span> </br>
+Adres: <span th:text="${apteka.ulica} + ' ' + ${apteka.numerBud} +' '"></span>
+
+<span th:if="${apteka.numerLokalu != null and !apteka.numerLokalu.isEmpty()}"
+      th:text="${apteka.numerLokalu}"></span><br/>
+
+
+Adres: <span th:text="${apteka.kodPocztowy} + ' ' + ${apteka.miasto}"></span></br>
+Województwo: <span th:text="${apteka.wojewodztwo}"></span></br>
+Telefon: <span th:text="${apteka.telefon}"></span></br>
+<form th:action="@{/Neuca/strefaPracownika/uzytkownikAptekarzPotwierdz}">
+    <button>Potwierdz</button>
+    <input type="hidden" name="id" th:value="${apteka.id}">
+</form>
+</body>
+</html>

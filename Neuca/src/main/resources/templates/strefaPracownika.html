@@ -1,32 +1,62 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>STREFA PRACOWNIKA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil pracownika</title>
+  <link rel="stylesheet" href="/css/panelPracownikaStyle.css" type="text/css">
+  <link rel="stylesheet" href="/css/kalendarzPracownika.css" type="text/css">
+  <link rel="stylesheet" href="/css/fontelloCSS/fontello.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
-<body>
-<a href="start"   > <span th:text="#{menu.start}"></span> </a> </br>
-<div class="okienko">
-  <a href="/Neuca/strefaPracownika/dodawanieLeku"> Dodaj Lek </a>
+<body class="pracownik">
+<div id="container">
+  <!--
+  <div class="rectangle">
+      <h1 id="name">[ NAZWA APTEKI ]</h1>
+  </div>
+  -->
+  <div class="grid-container">
+    <a href="/Neuca/strefaPracownika/autoryzacja" class="tile tile1"><i class="demo-icon icon-users"></br>Autoryzacja Lekarzy i Aptekarzy</i></a>
+    <a href="/Neuca/strefaPracownika/przegladajLeki" class="tile tile1"><i class="icon-medkit"></br>Dodaj lub przeglądaj leki</i></a>
+    <a href="/Neuca/logout" class="tile logOut"><i class="icon-off"></br>Wyloguj</i></a>
+    <a href="poczta.html" class="tile tile3"><i class="icon-mail"></br>Skrzynka pocztowa</i></a>
 
+    <!-- Kalendarz osadzony w kafelku -->
+    <div class="tile mainBack" id="calendar-tile">
+      <div id="calendar-container">
+        <div class="calendar">
+          <div class="calendar-header">
+            <span class="month-picker" id="month-picker">Styczeń</span>
+            <div class="year-picker">
+              <span class="year-change" id="prev-year"><pre><</pre></span>
+              <span id="year">2025</span>
+              <span class="year-change" id="next-change"><pre>></pre></span>
+            </div>
+          </div>
+
+          <div class="calendar-body">
+            <div class="calendar-week-day">
+              <div>Poniedziałek</div>
+              <div>Wtorek</div>
+              <div>Środa</div>
+              <div>Czwartek</div>
+              <div>Piątek</div>
+              <div>Sobota</div>
+              <div>Niedziela</div>
+            </div>
+            <div class="calendar-days"></div>
+          </div>
+
+          <div class="month-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="/Neuca/strefaPracownika/realizujZamowienia" class="tile tile2"><i class="demo-icon icon-credit-card"></br>Realizacja zamówień</i></a>
+  </div>
 </div>
 
-<div class="okienko">
-  <a href="/Neuca/strefaPracownika/realizujZamowienia"> <span>Realizuj Zamowienia</span> </a>
-
-</div>
-
-<div class="okienko">
-  <a href="/Neuca/strefaPracownika/przegladajLeki"   > Przeglad edycja, dodawanie i usuwanie Lekow </a>
-</div>
-
-<div class="okienko">
-  <a href="/Neuca/strefaPracownika/potwierdzanieUzytkownikowLekarze"   > Potwierzdzaj Lekarzy </a>
-</div>
-
-<div class="okienko">
-  <a href="/Neuca/strefaPracownika/potwierdzanieUzytkownikowAptekarze"   > Potwierzdzaj Aptekarzy </a>
-</div>
-
+<script src="/js/kal.js"></script>
 </body>
 </html>

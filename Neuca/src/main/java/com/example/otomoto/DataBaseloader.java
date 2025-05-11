@@ -24,9 +24,10 @@ public class DataBaseloader implements CommandLineRunner {
     private  final RepoWizyta repoWizyta;
     SerwisLekarz serwisLekarz;
     SerwisMyUser serwisMyUser;
+    SerwisApteka serwisApteka;
 
 
-    public DataBaseloader(SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
+    public DataBaseloader(SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
         this.repolek = repolek;
         this.repoMyUser = repoMyUser;
         this.repoUzytkownik = repoUzytkownik;
@@ -36,6 +37,8 @@ public class DataBaseloader implements CommandLineRunner {
         this.serwisLekarz=serwisLekarz;
         this.serwisMyUser=serwisMyUser;
         this.repoWizyta=repoWizyta;
+        this.serwisApteka=serwisApteka;
+
     }
 
     @Override
@@ -53,12 +56,35 @@ public class DataBaseloader implements CommandLineRunner {
         user.setPhone(794291002);
         repoMyUser.save(user);
 
+
+
+
         MyUser aptekarz= new MyUser();
         aptekarz.setUsername("aptekarz");
         aptekarz.setPassword(passwordEncoder.encode("aptekarz"));
         aptekarz.setRoles(new ArrayList<>());
         aptekarz.getRoles().add("ROLE_APTEKARZ");
+
+        Apteka apteka= new Apteka();
+        apteka.setName("DOZ zdowie");
+        apteka.setPotwierdzenie(false);
+        apteka.setMyUser(aptekarz);
+        apteka.setUlica("Aleja Jana Pawła II");
+        apteka.setNumerBud("24");
+        apteka.setKodPocztowy("87-800");
+        apteka.setMiasto("Włocławek");
+        apteka.setTelefon("794291002");
+        apteka.setWojewodztwo(Wojewodztwo.KUJAWSKO_POMORSKIE);
+        apteka.setPotwierdzenie(false);
+        repoApteka.save(apteka);
+        aptekarz.setApteka(apteka);
         repoMyUser.save(aptekarz);
+
+
+
+
+
+
 
 
         MyUser user1=new MyUser();
@@ -74,6 +100,8 @@ public class DataBaseloader implements CommandLineRunner {
         pracownik.getRoles().add("ROLE_PRACOWNIK");
         repoMyUser.save(pracownik);
 
+
+
         MyUser lekarz=new MyUser();
         lekarz.setUsername("lekarz");
         lekarz.setEmail("patryk@wp.pl");
@@ -84,7 +112,7 @@ public class DataBaseloader implements CommandLineRunner {
         lekarz.getRoles().add("ROLE_LEKARZ");
 
         Lekarz gabinet=new Lekarz();
-        gabinet.setPotwierdzenie(true);
+        gabinet.setPotwierdzenie(false);
         gabinet.setImie("Jan");
         gabinet.setNazwaGabinetu("zdrowie sp zoo");
         gabinet.setNazwisko("NicolaTesla");

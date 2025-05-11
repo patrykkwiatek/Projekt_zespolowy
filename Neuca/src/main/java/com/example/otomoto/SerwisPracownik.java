@@ -19,12 +19,14 @@ public class SerwisPracownik {
     private final RepoLek r;
     private final RepoZamowienie repoZamowienie;
     private final RepoLekarz repoLekarz;
+    private final RepoApteka repoApteka;
     public int numbers=3;
 
-    public SerwisPracownik(RepoLek r,RepoZamowienie repoZamowienie,RepoLekarz repoLekarz) {
+    public SerwisPracownik( RepoApteka repoApteka, RepoLek r,RepoZamowienie repoZamowienie,RepoLekarz repoLekarz) {
         this.repoZamowienie=repoZamowienie;
         this.r = r;
         this.repoLekarz=repoLekarz;
+        this.repoApteka=repoApteka;
     }
 
 
@@ -208,6 +210,11 @@ public class SerwisPracownik {
         lekarz.setPotwierdzenie(true);
         repoLekarz.save(lekarz);
         return lekarz;
+    }
+
+    public List<Apteka> apteki(){
+        List<Apteka> apteki=repoApteka.findByPotwierdzenie(false);
+        return apteki;
     }
 
 

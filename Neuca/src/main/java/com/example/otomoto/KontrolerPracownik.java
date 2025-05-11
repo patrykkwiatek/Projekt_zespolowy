@@ -30,12 +30,14 @@ public class KontrolerPracownik {
     private final SerwisPracownik s;
     private final SerwisKoszyk serwisKoszyk;
     private final SerwisMyUser serwisMyUser;
+    private final SerwisApteka serwisApteka;
 
 
-    public KontrolerPracownik(SerwisPracownik s,SerwisKoszyk serwisKoszyk,SerwisMyUser serwisMyUser) {
+    public KontrolerPracownik(SerwisPracownik s,SerwisKoszyk serwisKoszyk,SerwisApteka serwisApteka,SerwisMyUser serwisMyUser) {
         this.s = s;
         this.serwisKoszyk=serwisKoszyk;
         this.serwisMyUser=serwisMyUser;
+        this.serwisApteka=serwisApteka;
     }
 
     @RequestMapping("/start")
@@ -288,12 +290,42 @@ public class KontrolerPracownik {
     }
 
 
+
     @RequestMapping("/strefaPracownika/uzytkownikLekarzPotwierdz")
-    public String uzytkownikLekarzPotwierdz(Model model,Authentication authentication, @RequestParam Long id){
+    public String uzytkownikLekarzPotwierdz(Model model,Authentication authentication,
+                                            @RequestParam Long id){
         Lekarz lekarz=s.znajdzLekarza(id);
         s.potwierdzLekarz(lekarz);
         return "uzytkownikLekarzPotwierdz";
     }
+
+    @RequestMapping("/strefaPracownika/potwierdzanieUzytkownikowAptekarze")
+    public String potwierdzanieUzytkownikowAptekarze(Model model){
+        List<Apteka> apetki=s.apteki();
+        model.addAttribute("apteki",apetki);
+        return "potwierdzanieUzytkownikowAptekarze";
+    }
+
+    @RequestMapping("/strefaPracownika/uzytkownikAptekarz")
+    public String uzytkownikAptekarz(Model model, @RequestParam Long id){
+        Apteka apteka=serwisApteka.znajdzApteka(id);
+        model.addAttribute("apteka",apteka);
+        return "uzytkownikAptekarz";
+    }
+
+    @RequestMapping("/strefaPracownika/uzytkownikAptekarzPotwierdz")
+    public String uzytkownikAptekarzPotwierdz(@RequestParam Long id){
+        Apteka apteka=serwisApteka.znajdzApteka(id);
+        serwisApteka.potwierdzApteka(id);
+        return "uzytkownikAptekarzPotwierdz";
+    }
+
+
+    @RequestMapping("/strefaPracownika/autoryzacja")
+    public String autoryzacja(){
+        return "autoryzacja";
+    }
+
 
 
 

@@ -19,14 +19,15 @@
 
 
         Specializacja
-        <select th:field="*{spec}">>
+        <select th:field="*{spec}">
             <option th:each="spec : ${spece}"
             th:value="${spec}"
             th:text="${spec}"
             th:field="*{spec}">
 
             </option>
-        </select></br>
+        </select>
+        </br>
         Sredni czas wizyty[min]<input type="number" th:field="*{sredniCzasWizyty}">
 
         <button>utworz gabinet</button>

@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8">
-    <title>Lekarz</title>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Potwierdź lekarza</title>
+  <link rel="stylesheet" href="potwierdzLekarza.css">
 </head>
 <body>
-  Imie: <span th:text="${lekarz.imie}"></span>  </br>
-  Nazwisko: <span th:text="${lekarz.nazwisko}"></span>   </br>
-  Nazwa Gabinetu: <span th:text="${lekarz.nazwaGabinetu}"></span>   </br>
-  Data urodzenia: <span th:text="${lekarz.dataUrodzenia}"></span>   </br>
-  adres1: <span th:text="${lekarz.adres1Gabinetu}"></span>    </br>
-  adres2:<span th:text="${lekarz.adres2Gabinetu}"></span>     </br>
-  Telefon: <span th:text="${lekarz.telefonGabinet}"></span>     </br>
-  <form th:action="@{/Neuca/strefaPracownika/uzytkownikLekarzPotwierdz}" method="post">
 
-    <input  type="hidden" name="id" th:value="${lekarz.id}">
-    <button>Potwierdz</button>
+<div class="container">
+  <h1>Dane lekarza do potwierdzenia</h1>
+
+  <div class="dane-lekarza">
+    <p><strong>Imię:</strong> <span th:text="${lekarz.imie}"></span></p>
+    <p><strong>Nazwisko:</strong> <span th:text="${lekarz.nazwisko}"></span></p>
+    <p><strong>Nazwa Gabinetu:</strong> <span th:text="${lekarz.nazwaGabinetu}"></span></p>
+    <p><strong>Data urodzenia:</strong> <span th:text="${lekarz.dataUrodzenia}"></span></p>
+    <p><strong>Adres 1:</strong> <span th:text="${lekarz.adres1Gabinetu}"></span></p>
+    <p><strong>Adres 2:</strong> <span th:text="${lekarz.adres2Gabinetu}"></span></p>
+    <p><strong>Miasto:</strong> <span th:text="${lekarz.miasto}"></span></p>
+    <p><strong>Telefon:</strong> <span th:text="${lekarz.telefonGabinet}"></span></p>
+    <p><strong>Cena wizyty [zł]:</strong> <span th:text="${lekarz.cena}"></span> </p>
+    <p><strong>Średni czas wizyty [minuty]: </strong> <span th:text="${lekarz.sredniCzasWizyty}"></span></p>
+    <p><strong>Specjalizacja:</strong> <span th:text="${lekarz.spec}"></span></p>
+  </div>
+
+  <form th:action="@{/Neuca/strefaPracownika/uzytkownikLekarzPotwierdz}" method="post">
+    <input type="hidden" name="id" th:value="${lekarz.id}">
+    <button type="submit" >Potwierdź</button>
+    <button type="button" onclick="window.location.href='potwierdzanieUzytkownikowLekarze.html'">Anuluj</button>
+
   </form>
 
+</div>
 
 </body>
 </html>

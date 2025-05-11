@@ -31,6 +31,7 @@ public class SerwisLekarz {
 
     public Lekarz dodajLekarza(Lekarz lekarz,MyUser myUser){
         lekarz.setMyUser(myUser);
+        lekarz.setPotwierdzenie(false);
         Lekarz lekarzzapisany=repoLekarz.save(lekarz);
         myUser.setLekarz(lekarzzapisany);
         repoMyUser.save(myUser);
@@ -138,6 +139,8 @@ public class SerwisLekarz {
         lekarz.setFoto(sciezka);
         repoLekarz.save(lekarz);
     }
+
+
 
 
 

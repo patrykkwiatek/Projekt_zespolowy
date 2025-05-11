@@ -65,7 +65,7 @@ public class KontrolerLekarz {
 
 
     @RequestMapping("/strefaLekarza/utworzonoGabinet")
-    public String utworzonoGabinet(Lekarz lekarz, Model model,Authentication authentication){
+    public String utworzonoGabinet(Lekarz lekarz, Authentication authentication){
         String username = authentication.getName();
         MyUser myUser = serwisMyUser.zwrocUser(username);
         Lekarz lekarz1=serwisLekarz.dodajLekarza(lekarz,myUser);

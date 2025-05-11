@@ -1,32 +1,37 @@
+
+
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Autoryzacja lekarzy</title>
-  <link rel="stylesheet" href="/css/autoryzacjaLekarzy.css">
+  <title>Potwierdzanie aptekarzy</title>
+  <link rel="stylesheet" href="/css/autoryzacjaAptekarzy.css">
 </head>
 <body>
-<h2 class="naglowek">Lista niepotwierdzonych lekarzy:</h2>
+<h2 class="naglowek">Lista niepotwierdzonych aptekarzy:</h2>
+
 
 <table class="aptekarze-table">
   <thead>
   <tr>
     <th>ID</th>
-    <th>Imię</th>
-    <th>Nazwisko</th>
-    <th>Gabinet</th>
+    <th>Nazwa</th>
+    <th>Miasto</th>
+    <th>Województwo</th>
     <th>Akcja</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="lekarz : ${lekarze}">
-    <td th:text="${lekarz.id}">id</td>
-    <td th:text="${lekarz.imie}">Imię</td>
-    <td th:text="${lekarz.nazwisko}">Nazwisko</td>
-    <td th:text="${lekarz.nazwaGabinetu}">Gabinet</td>
+  <tr th:each="aptekarz : ${apteki}">
+    <td th:text="${aptekarz.id}"></td>
+    <td th:text="${aptekarz.name}"></td>
+    <td th:text="${aptekarz.miasto}"></td>
+    <td th:text="${aptekarz.wojewodztwo}"></td>
     <td>
-      <form th:action="@{/Neuca/strefaPracownika/uzytkownikLekarz}" method="get">
-        <input name="id" type="hidden" th:value="${lekarz.id}">
+      <form th:action="@{/Neuca/strefaPracownika/uzytkownikAptekarz}" method="get">
+        <input name="id" type="hidden" th:value="${aptekarz.id}">
         <button type="submit" class="action-btn" >Obejrzyj Użytkownika</button>
       </form>
     </td>
@@ -37,5 +42,6 @@
   <a href="/Neuca/strefaPracownika/autoryzacja" class="nav-button">⬅ Wróć do wyboru </a>
   <a href="/Neuca/strefaPracownika" class="nav-button">🏠 Panel główny</a>
 </div>
+
 </body>
 </html>
