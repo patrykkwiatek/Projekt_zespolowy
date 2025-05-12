@@ -168,6 +168,7 @@ public class KontrolerPracownik {
 
 
 
+
     @RequestMapping("/strefaPracownika/przegladajLeki")
     public String przegladajLeki(@RequestParam(defaultValue = "0") int page,
 
@@ -192,8 +193,13 @@ public class KontrolerPracownik {
         model.addAttribute("czyNastepna",czyNastepna);
 
         model.addAttribute("lista", wynik);
-        model.addAttribute("nas",page+1);
+
         model.addAttribute("pop",page-1);
+        if(wynik.getTotalElements()==0){
+            model.addAttribute("nas",page);
+        }else{
+            model.addAttribute("nas",page+1);
+        }
         model.addAttribute("all",wynik.getTotalPages());
         model.addAttribute("wzorzec",wzorzec);
         return "przegladajLeki";

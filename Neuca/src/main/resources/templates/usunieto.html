@@ -1,14 +1,19 @@
+
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>usunieto lek</title>
+    <title>Lek usunięty</title>
+    <link rel="stylesheet" href="/css/usunieto.css">
 </head>
 <body>
-<a href="/Neuca/strefaPracownika"   > <span th:text="#{menu.start}"></span> </a> </br>
-<label th:text="#{usun.komunikat}"></label> </br>
-<a href="/Neuca/strefaPracownika/przegladajLeki"><span th:text="#{menu.powrot.lista}"></span></a>
-
-
+<div class="container">
+    <h1>Lek został pomyślnie usunięty</h1>
+    <p>Operacja przebiegła pomyślnie. Lek został usunięty z systemu.</p>
+    <div class="links">
+        <a href="/Neuca/strefaPracownika">Strefa Pracownika</a>
+        <a href="/Neuca/strefaPracownika/przegladajLeki">Powrót do listy leków</a>
+    </div>
+</div>
 </body>
 </html>

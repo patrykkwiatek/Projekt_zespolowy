@@ -2,79 +2,123 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edytujemy Lek</title>
+    <title>Edytuj Lek</title>
+    <link rel="stylesheet" href="/css/formularzDodawaniaLeku.css">
 </head>
 <body>
-<a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
+<div class="form-container">
+    <h2>Edytuj dane leku</h2>
+    <form action="#" th:action="@{/Neuca/strefaPracownika/edytowano/{id}(id=${lek.id})}" th:object="${lek}"  class="lek-form" enctype="multipart/form-data" method="post">
+        <div class="form-columns">
+            <!-- LEWA KOLUMNA -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="nazwa">Nazwa:</label>
+                    <input type="text" id="nazwa" value="*{name}" th:field="*{name}" required>
+                </div>
 
-    <form action="#" th:action="@{/Neuca/strefaPracownika/edytowano/{id}(id=${lek.id})}" th:object="${lek}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nazwa">Gramatura:</label>
+                    <input type="text" id="gramatura" value="*{gramatura}" th:field="*{gramatura}" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="cena">Cena w groszach:</label>
+                    <input type="number" id="cena" min="0" value="*{priceGR}" th:field="*{priceGR}" required>
+                </div>
 
-        <div class="miejsce">
-            <p> Nazwa: <input type="text" value="*{name}" th:field="*{name}"> </p>
-        </div>
-        <div class="miejsce">
-            <p> Opis: <input type="text"  value="*{desc}" th:field="*{desc}"></p>
-        </div>
-        <div class="miejsce">
-            <p> minWiek: <input type="number"  value="*{minWiek}" th:field="*{minWiek}"></p>
-        </div>
-        <div class="miejsce">
-            <p> maxWiek: <input type="number"  value="*{maxWiek}" th:field="*{maxWiek}"></p>
-        </div>
-        <div class="miejsce">
-            <p> <span th:text="#{lek.cena}"/>: <input type="text"  value="*{priceGR}" th:field="*{priceGR}"></p>
-        </div>
-        <div class="miejsce">
-            <p> Sklad: <textarea   value="*{sklad}" th:field="*{sklad}"></textarea></p>
-        </div>
-        <div class="miejsce">
-            <p> Dawkowanie: <textarea   value="*{dawkowanie}" th:field="*{dawkowanie}"></textarea></p>
-        </div>
-        <div class="miejsce">
-            <p> Gramatura: <textarea value="*{gramatura}" th:field="*{gramatura}"></textarea></p>
-        </div>
-        <select name="rodzajLeku">
-            <option th:each="rodzaj : ${rodzaje}"
-                    th:value="${rodzaj}"
-                    th:text="${rodzaj}"
-                    th:selected="${lek.rodzajLeku == rodzaj}"
-            >
-            </option>
-        </select>
-        </br>
-        <select name="markaLeku">
-            <option th:each=" marka :${marki}"
-                    th:value="${marka}"
-                    th:text="${marka}"
-                    th:selected="${marka == markaLeku}"
-            >
-            </option>
-        </select>
-        </br>
+                <div class="form-group">
+                    <label for="minWiek">Minimalny wiek:</label>
+                    <input type="number" id="minWiek" min="0" value="*{minWiek}" th:field="*{minWiek}">
+                </div>
 
-        <div>
-            <span th:text="#{lek.oferta}"></span>
-            <input type="checkbox" th:field="*{oferta}" th:checked="*{oferta}">
+                <div class="form-group">
+                    <label for="maxWiek">Maksymalny wiek:</label>
+                    <input type="number" id="maxWiek" min="0" value="*{maxWiek}" th:field="*{maxWiek}">
+                </div>
+
+                <div class="form-group">
+                    <label for="rodzaj">Rodzaj leku:</label>
+                    <select id="rodzaj" name="rodzajLeku">
+                        <option th:each="rodzaj : ${rodzaje}"
+                                th:value="${rodzaj}"
+                                th:text="${rodzaj}"
+                                th:selected="${lek.rodzajLeku == rodzaj}"
+                        >
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="marka">Marka leku:</label>
+                    <select id="marka" name="markaLeku">
+                        <option th:each=" marka :${marki}"
+                                th:value="${marka}"
+                                th:text="${marka}"
+                                th:selected="${marka == markaLeku}"
+                        >
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PRAWA KOLUMNA -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="opis">Opis:</label>
+                    <textarea id="opis" rows="4" minlength="10" required value="*{desc}" th:field="*{desc}" ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="sklad">Skład:</label>
+                    <textarea id="sklad" rows="4" minlength="10" value="*{sklad}" th:field="*{sklad}" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dawkowanie">Dawkowanie:</label>
+                    <textarea id="dawkowanie" rows="4" minlength="10" value="*{dawkowanie}" th:field="*{dawkowanie}" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="zdjecie">Zdjęcie leku:</label>
+                    <input type="file" id="zdjecie" name="sciezkaPliku" onchange="previewImage(event)">
+                    <div id="preview-container">
+                        <img th:if="${lek.sciezka}" th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" id="preview"/>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" th:field="*{oferta}" th:checked="*{oferta}">
+                        <span class="checkmark"></span> Przedmiot w ofercie
+                    </label>
+                </div>
+            </div>
         </div>
 
-        <input type="file" name="sciezkaPliku" onchange="previewImage(event)" />
-        <img id="preview" th:if="${lek.sciezka}" th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" width="150"/>
+        <div class="form-submit">
+            <!-- <button type="submit">Zapisz zmiany</button> --> <!-- To musi wrócić a to co poniżej zniknąć jak już będziesz łączył-->
 
-        <script>
-            function previewImage(event) {
-                const preview = document.getElementById('preview');
-                preview.src = URL.createObjectURL(event.target.files[0]);
-            }
-        </script>
+            <!-- zmiana na type button aby zobaczyć jak działa-->
+            <button type="submit" name="action" value="edit" >Zapisz zmiany</button>
 
+            <button type="button"
+                    th:onclick="'window.location.href=\'/Neuca/strefaPracownika/usunLek/'  + ${lek.id} + '\''"
+                    class="delete-button">
+                Usuń lek
+            </button>
+            <button type="button" onclick="history.back()">Wróć do leków</button>
 
-        <input type="submit" th:value="#{lista.lek.edytuj}">
-
+        </div>
     </form>
-<form th:action="@{/Neuca/strefaPracownika/przegladajLeki}">
-    <input type="submit" th:value="#{lista.lek.edytuj.nie}">
-</form>
+</div>
 
+<script>
+    function previewImage(event) {
+      const preview = document.getElementById('preview');
+      preview.src = URL.createObjectURL(event.target.files[0]);
+      preview.style.display = 'block';
+    }
+</script>
 </body>
 </html>

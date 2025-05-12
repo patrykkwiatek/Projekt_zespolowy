@@ -1,0 +1,89 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4faff;
+    margin: 0;
+    padding: 40px;
+    text-align: center;
+  }
+
+  #kontener {
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .link-top {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .link-top a {
+    color: #176dce;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .Prostokat {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+
+  .Prostokat h1 {
+    text-align: center;
+    color: #176dce;
+    margin-bottom: 20px;
+  }
+
+  .Prostokat p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  img {
+    display: block;
+    margin: 20px auto 0;
+    max-width: 150px;
+    border-radius: 8px;
+  }
+
+  .button-group {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .button-group button {
+    background-color: #176dce;
+    color: white;
+    font-weight: bold;
+    padding: 14px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .button-group button:hover {
+    background-color: #288ddf;
+  }
+
+.links a {
+    display: inline-block;
+    margin: 0 15px;
+    font-weight: bold;
+    color: #176dce;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.links a:hover {
+    border-color: #176dce;
+}
+
+.Prostokat .links{
+    text-align: center;
+    margin-top: 30px;
+}

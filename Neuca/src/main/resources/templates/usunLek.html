@@ -1,35 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>usunietoLek</title>
+    <title>Potwierdzenie usunięcia leku</title>
+    <link rel="stylesheet" href="/css/czyUsunacLek.css">
 </head>
 <body>
-<a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
-<label th:text="#{usun.potwierdz}"></label>
+
+<h1>Czy na pewno chcesz usunąć ten lek?</h1>
+
 <div class="Prostokat">
-    <p>Nazwa: <span th:text="${lek.name}"/></p>
-    <p>Opis: <span th:text="${lek.desc}"/></p>
-    <p>cena w Groszach: <span th:text="${lek.priceGR}"/></p>
-    <p>minimum wiek: <span th:text="${lek.minWiek}"/></p>
-    <p>Rodzaj leku <span th:text="${lek.rodzajLeku}"/></p>
-    <p>Marka leku <span th:text="${lek.markaLeku}"/></p>
-    <p>Sklad: <span th:text="${lek.sklad}"/></p>
-    <p>Dawkowanie <span th:text="${lek.dawkowanie}"/></p>
-
+    <p><strong>Nazwa:</strong> <span th:text="${lek.name}"></span> </p>
+    <p><strong>Opis:</strong> <span th:text="${lek.desc}"></span></p>
+    <p><strong>Cena w Groszach:</strong> <span th:text="${lek.priceGR}"></span></p>
+    <p><strong>Minimalny wiek:</strong> <span th:text="${lek.minWiek}"></span></p>
+    <p><strong>Maxymalny wiek:</strong> <span th:text="${lek.maxWiek}"></span></p>
+    <p><strong>Rodzaj leku:</strong> <span th:text="${lek.rodzajLeku}"></span></p>
+    <p><strong>Marka leku:</strong> <span th:text="${lek.markaLeku}"></span></p>
+    <p><strong>Skład:</strong> <span th:text="${lek.sklad}"></span></p>
+    <p><strong>Dawkowanie:</strong> <span th:text="${lek.dawkowanie}"></span></p>
     <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" width="150" height="200" alt="Zdjęcie leku" />
-
-
 
 </div>
 
-<form action="#" th:action="@{/Neuca/strefaPracownika/usunieto/{id}(id=${lek.id})}"  method="get">
-    <input type="submit" th:value="#{usun.zgoda}">
-</form>
-<form action="#" th:action="@{/Neuca/strefaPracownika/przegladajLeki}"  method="get">
-    <input type="submit" th:value="#{usun.brakzgody}">
-</form>
+<div class="button-group">
+    <a th:href="@{/Neuca/strefaPracownika/usunieto/{id}(id=${lek.id})}">
+        <button class="yes">Tak</button>
+    </a>
 
-
+    <a th:href="@{/Neuca/strefaPracownika/edycjaLeku/{id}(id=${lek.id})}">
+        <button class="no">Nie</button>
+    </a>
+</div>
 </body>
 </html>

@@ -2,90 +2,121 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dodajemy Lek</title>
+    <title>Dodaj Lek</title>
+    <link rel="stylesheet" href="/css/formularzDodawaniaLeku.css">
 </head>
 <body>
-<a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
-<form action="#" th:action="@{/Neuca/strefaPracownika/dodanoLek}" th:object="${lek}" method="post" enctype="multipart/form-data">
+<div class="form-container">
+    <h2>Uzupełnij dane aby dodać nowy lek</h2>
+    <form class="lek-form" action="#" th:action="@{/Neuca/strefaPracownika/dodanoLek}" th:object="${lek}" method="post" enctype="multipart/form-data">
+        <div class="form-columns">
+            <!-- LEWA KOLUMNA -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="nazwa">Nazwa:</label>
+                    <input type="text" id="nazwa" th:field="*{name}" required>
+                </div>
 
-    <div class="miejsce">
-        <p> Nazwa: <input type="text" th:field="*{name}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="cena">Cena w groszach:</label>
+                    <input type="number" id="cena" min="0" th:field="*{priceGR}" required>
+                </div>
 
-    <div class="miejsce">
-        <p> Cena w groszach: <input type="number" th:field="*{priceGR}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="gramatura">Gramatura:</label>
+                    <input type="text" id="gramatura" th:field="*{gramatura}" required>
+                </div>
 
-    <div class="miejsce">
-        <p> Gramatura: <input type="text" th:field="*{gramatura}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="minWiek">Minimalny wiek:</label>
+                    <input type="number" id="minWiek" th:field="*{minWiek}" min="0">
+                </div>
 
-    <div class="miejsce">
-        <p> Opis: <input type="text" th:field="*{desc}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="maxWiek">Maksymalny wiek:</label>
+                    <input type="number" id="maxWiek" th:field="*{maxWiek}" min="0">
+                </div>
 
-    <div class="miejsce">
-        <p> minWiek: <input type="number" th:field="*{minWiek}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="marka">Wybierz markę leku:</label>
+                    <select id="marka" th:field="*{markaLeku}">
+                        <option th:each="marka :${marki}"
+                                th:text="${marka}"
+                                th:value="${marka}">
+                        </option>
+                    </select>
+                </div>
 
-    <div class="miejsce">
-        <p>maxWiek: <input type="number" th:field="*{maxWiek}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="rodzaj">Wybierz rodzaj leku:</label>
+                    <select id="rodzaj" th:field="*{rodzajLeku}">
+                        <option th:each="rodzaj :${rodzaje}"
+                                th:text="${rodzaj.slowo}"
+                                th:value="${rodzaj}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-    <div class="miejsce">
-        <p> sklad: <input type="text" th:field="*{sklad}"> </p>
-    </div>
+            <!-- PRAWA KOLUMNA -->
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="opis">Opis:</label>
+                    <textarea id="opis" rows="4" minlength="10" th:field="*{desc}" required></textarea>
+                </div>
 
-    <div class="miejsce">
-        <p> dawkowanie: <input type="text" th:field="*{dawkowanie}"> </p>
-    </div>
+                <div class="form-group">
+                    <label for="sklad">Skład:</label>
+                    <textarea id="sklad" rows="4" minlength="10" th:field="*{sklad}" required></textarea>
+                </div>
 
-    Wybierz Marke Leku
-    <select name="markaLeku">
-        <option th:each="marka :${marki}"
-                th:text="${marka}">
+                <div class="form-group">
+                    <label for="dawkowanie">Dawkowanie:</label>
+                    <textarea id="dawkowanie" rows="4" minlength="10" th:field="*{dawkowanie}" required></textarea>
+                </div>
 
-        </option>
-    </select>
-    </br>
-
-
-    Wybierz rodzaj leku
-    <select>
-        <option th:each="rodzaj :${rodzaje}"
-        th:text="${rodzaj.slowo}">
-    </select>
-    </br>
-
-
-
-
-    <div>
-        <span th:text="#{lek.oferta}"></span>
-        <input type="checkbox" th:field="*{oferta}" >
-    </div>
-
-
-    <div class="miejsce">
-        <p>
-            Zdjęcie leku:
-            <input type="file" name="sciezkaPliku" onchange="previewImage(event)">
-
-        </p>
-    </div>
-    <img id="preview"  src="" width="150"/>
-
-
-    <script>
-        function previewImage(event) {
-            const preview = document.getElementById('preview');
-            preview.src = URL.createObjectURL(event.target.files[0]);
-        }
-    </script>
+                <div class="form-group">
+                    <label for="zdjecie">Zdjęcie leku:</label>
+                    <input type="file" id="zdjecie" name="sciezkaPliku">
+                    <div id="preview-container">
+                        <img id="preview" src="#" style="display: none; max-width: 200px; max-height: 200px;" alt="Podgląd zdjęcia">
 
 
-    <input type="submit" th:value="#{lek.przycisk}">
-</form>
+                    </div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" th:field="*{oferta}">
+                        <span class="checkmark"></span> Przedmiot w ofercie
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" >Dodaj lek</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('zdjecie').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }else {
+        preview.src = "#";
+        preview.style.display = 'none';
+    }
+    });
+</script>
+
 
 </body>
 </html>

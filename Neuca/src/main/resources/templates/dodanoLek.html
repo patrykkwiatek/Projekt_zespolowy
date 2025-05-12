@@ -2,33 +2,38 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>POZYTYWNIE DODANO Lek</title>
+    <title>Pozytywnie dodano lek</title>
+    <link rel="stylesheet" href="/css/dodanoLek.css">
 </head>
 <body>
 
 <div id="kontener">
 
-    <a href="start"   > <span th:text="#{menu.start}"></span> </a> </br>
     <div class="Prostokat">
-        Dodano Lek taki jak nizej
-        <p>Nazwa: <span th:text="${lek.name}"/></p>
-        <p>Opis: <span th:text="${lek.desc}"/></p>
-        <p>cena w Groszach: <span th:text="${lek.priceGR}"/></p>
-        <p>minimum wiek: <span th:text="${lek.minWiek}"/></p>
-        <p>Rodzaj leku <span th:text="${lek.rodzajLeku}"/></p>
-        <p>Marka leku <span th:text="${lek.markaLeku}"/></p>
-        <p>Sklad: <span th:text="${lek.sklad}"/></p>
-        <p>Dawkowanie <span th:text="${lek.dawkowanie}"/></p>
+        <h1>Dodano lek o następujących danych:</h1>
+
+        <p><strong>Nazwa:</strong> <span th:text="${lek.name}"></span> </p>
+        <p><strong>Opis:</strong> <span th:text="${lek.desc}"></span> </p>
+        <p><strong>Cena w groszach:</strong> <span th:text="${lek.priceGR}"></span> </p>
+        <p><strong>Minimalny wiek:</strong> <span th:text="${lek.minWiek}"></span> </p>
+        <p><strong>Maksymalny wiek:</strong> <span th:text="${lek.maxWiek}"></span> </p>
+        <p><strong>Rodzaj leku:</strong> <span th:text="${lek.rodzajLeku}"></span> </p>
+        <p><strong>Marka leku:</strong> <span th:text="${lek.markaLeku}"></span> </p>
+        <p><strong>Skład:</strong> <span th:text="${lek.sklad}"></span> </p>
+        <p><strong>Dawkowanie:</strong> <span th:text="${lek.dawkowanie}"></span> </p>
 
         <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}" width="150" height="200" alt="Zdjęcie leku" />
 
 
-
-
-        <button th:text="#{powrot.leki}"></button>
-
+        <!-- <div class="button-group">
+          <button onclick="window.location.href='lekiPracownik.html'">Powrót do listy leków</button>
+        </div> -->
+        <div class="links">
+            <a href="/Neuca/strefaPracownika">Strefa Pracownika</a>
+            <a href="/Neuca/strefaPracownika/przegladajLeki">Powrót do listy leków</a>
+        </div>
     </div>
-    <a href="/Neuca/strefaPracownika"   > <span th:text="#{pracownik.wroc}"></span> </a>
+
 </div>
 
 </body>

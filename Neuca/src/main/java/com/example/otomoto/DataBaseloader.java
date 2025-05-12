@@ -119,6 +119,7 @@ public class DataBaseloader implements CommandLineRunner {
         gabinet.setDataUrodzenia(LocalDate.of(1982,2,4));
         gabinet.setAdres1Gabinetu("aleja niepodlegosci 456/45");
         gabinet.setAdres2Gabinetu("00-001 Warszawa");
+        gabinet.setAdres2Gabinetu("00-001 Warszawa");
         gabinet.setTelefonGabinet(794291002);
         gabinet.setSredniCzasWizyty(20);
         gabinet.setSpec(LekarzSpec.ALERGOLOGIA);
@@ -130,6 +131,7 @@ public class DataBaseloader implements CommandLineRunner {
         serwisLekarz.dodajLekarza(gabinet,lekarz);
         lekarze();
         pacjenci();
+        wizyty();
         aptekiNiePotwierdzone();
 
 

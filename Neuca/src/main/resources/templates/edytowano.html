@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Pomyslnie edytowano lek</title>
+    <title>Pomyślnie edytowano lek</title>
+    <link rel="stylesheet" href="/css/edytowano.css">
 </head>
 <body>
-<a href="/Neuca/strefaPracownika"   > Strefa Pracownika</span> </a> </br>
-<label th:text="#{edytuj.komunikat}"></label> </br>
-<a href="/Neuca/strefaPracownika/przegladajLeki"><span th:text="#{menu.powrot.lista}"></span></a>
-
-
+<div class="container">
+    <h1>Lek został zaktualizowany</h1>
+    <p>Operacja zakończyła się sukcesem.</p>
+    <div class="links">
+        <a href="/Neuca/strefaPracownika">Strefa Pracownika</a>
+        <a href="/Neuca/strefaPracownika/przegladajLeki">Powrót do listy leków</a>
+    </div>
+</div>
 </body>
 </html>
