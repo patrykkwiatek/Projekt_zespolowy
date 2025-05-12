@@ -42,7 +42,14 @@ public class MyUser {
     private Apteka apteka;
 
 
-
-
-
+    public MyUser(List<String> roles, String password, boolean plec, int phone, String email, String username, String nazwisko, String imie) {
+        this.roles = roles;
+        this.password = password;
+        this.plec = plec;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.nazwisko = nazwisko;
+        this.imie = imie;
+    }
 }

@@ -24,4 +24,8 @@ public class SerwisWizyta {
         repoWizyta.save(wizyta);
     }
 
+    void usunWizyte(Wizyta wizyta){
+        repoWizyta.delete(wizyta);
+    }
+
 }

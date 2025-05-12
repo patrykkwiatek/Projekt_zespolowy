@@ -31,13 +31,15 @@ public class KontrolerPracownik {
     private final SerwisKoszyk serwisKoszyk;
     private final SerwisMyUser serwisMyUser;
     private final SerwisApteka serwisApteka;
+    private final SerwisLekarz serwisLekarz;
 
 
-    public KontrolerPracownik(SerwisPracownik s,SerwisKoszyk serwisKoszyk,SerwisApteka serwisApteka,SerwisMyUser serwisMyUser) {
+    public KontrolerPracownik(SerwisLekarz serwisLekarz, SerwisPracownik s,SerwisKoszyk serwisKoszyk,SerwisApteka serwisApteka,SerwisMyUser serwisMyUser) {
         this.s = s;
         this.serwisKoszyk=serwisKoszyk;
         this.serwisMyUser=serwisMyUser;
         this.serwisApteka=serwisApteka;
+        this.serwisLekarz=serwisLekarz;
     }
 
     @RequestMapping("/start")
@@ -168,19 +170,32 @@ public class KontrolerPracownik {
 
     @RequestMapping("/strefaPracownika/przegladajLeki")
     public String przegladajLeki(@RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "10") int size,
-                        @RequestParam(defaultValue = "WSZYSTKIE") MarkaLeku markaLeku,
+
                         @RequestParam(defaultValue = "") String wzorzec,
                         Model model) {
-        Page<Lek> wynik = s.getAllDtoLeki(page,size,"Id",wzorzec,0,1000,markaLeku,null,false);
-        List<MarkaLeku> marki = Arrays.asList(markaLeku.values());
-        model.addAttribute("marki", marki);
+        Page<Lek> wynik = s.getAllDtoLeki(page,3,"Id",wzorzec,0,1000,MarkaLeku.WSZYSTKIE,null,false);
+
+        boolean czyPoprzednia;
+        if(page==0){
+            czyPoprzednia=false;
+        }else{
+            czyPoprzednia=true;
+        }
+        model.addAttribute("czyPoprzednia",czyPoprzednia);
+
+        boolean czyNastepna;
+        if(page== wynik.getTotalPages()-1){
+            czyNastepna=false;
+        }else{
+            czyNastepna=true;
+        }
+        model.addAttribute("czyNastepna",czyNastepna);
+
         model.addAttribute("lista", wynik);
-        model.addAttribute("size", size);
-        model.addAttribute("numbers", s.createPageNumbers(page, wynik.getTotalPages()));
-        model.addAttribute("pageA",page+1);
+        model.addAttribute("nas",page+1);
+        model.addAttribute("pop",page-1);
+        model.addAttribute("all",wynik.getTotalPages());
         model.addAttribute("wzorzec",wzorzec);
-        model.addAttribute("markaLeku", markaLeku);
         return "przegladajLeki";
     }
     @RequestMapping("/strefaPracownika")
@@ -292,11 +307,17 @@ public class KontrolerPracownik {
 
 
     @RequestMapping("/strefaPracownika/uzytkownikLekarzPotwierdz")
-    public String uzytkownikLekarzPotwierdz(Model model,Authentication authentication,
-                                            @RequestParam Long id){
+    public String uzytkownikLekarzPotwierdz(@RequestParam Long id){
         Lekarz lekarz=s.znajdzLekarza(id);
         s.potwierdzLekarz(lekarz);
         return "uzytkownikLekarzPotwierdz";
+    }
+
+    @RequestMapping("/strefaPracownika/uzytkownikLekarzAnuluj")
+    public String uzytkownikLekarzAnuluj(@RequestParam Long id){
+        Lekarz lekarz=s.znajdzLekarza(id);
+        serwisLekarz.usunLekarza(lekarz);
+        return "uzytkownikLekarzAnuluj";
     }
 
     @RequestMapping("/strefaPracownika/potwierdzanieUzytkownikowAptekarze")
@@ -318,6 +339,13 @@ public class KontrolerPracownik {
         Apteka apteka=serwisApteka.znajdzApteka(id);
         serwisApteka.potwierdzApteka(id);
         return "uzytkownikAptekarzPotwierdz";
+    }
+
+    @RequestMapping("/strefaPracownika/uzytkownikAptekarzAnuluj")
+    public String uzytkownikAptekarzAnuluj(@RequestParam Long id){
+        Apteka apteka=serwisApteka.znajdzApteka(id);
+        serwisApteka.usunApteke(apteka);
+        return "uzytkownikAptekarzAnuluj";
     }
 
 

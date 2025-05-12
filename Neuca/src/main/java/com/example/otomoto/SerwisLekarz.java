@@ -19,17 +19,52 @@ public class SerwisLekarz {
     RepoMyUser repoMyUser;
     RepoWizyta repoWizyta;
     SerwisGrafik serwisGrafik;
+    SerwisWizyta serwisWizyta;
 
-    SerwisLekarz(RepoLekarz repoLekarz, RepoMyUser repoMyUser,SerwisGrafik serwisGrafik, RepoWizyta repoWizyta){
+    SerwisLekarz(SerwisWizyta serwisWizyta, RepoLekarz repoLekarz, RepoMyUser repoMyUser,SerwisGrafik serwisGrafik, RepoWizyta repoWizyta){
         this.repoLekarz=repoLekarz;
         this.repoMyUser=repoMyUser;
         this.serwisGrafik=serwisGrafik;
         this.repoWizyta=repoWizyta;
+        this.serwisWizyta=serwisWizyta;
     }
 
 
 
     public Lekarz dodajLekarza(Lekarz lekarz,MyUser myUser){
+        lekarz.setMyUser(myUser);
+        lekarz.setPotwierdzenie(true);
+        Lekarz lekarzzapisany=repoLekarz.save(lekarz);
+        myUser.setLekarz(lekarzzapisany);
+        repoMyUser.save(myUser);
+        List<GrafikLekarz> lista=new ArrayList<>();
+        GrafikLekarz pon=new GrafikLekarz(DayOfWeek.MONDAY,true,lekarz);
+        lista.add(pon);
+        GrafikLekarz wt=new GrafikLekarz(DayOfWeek.TUESDAY,true,lekarz);
+        lista.add(wt);
+        GrafikLekarz sr=new GrafikLekarz(DayOfWeek.WEDNESDAY,true,lekarz);
+        lista.add(sr);
+        GrafikLekarz czw=new GrafikLekarz(DayOfWeek.THURSDAY,true,lekarz);
+        lista.add(czw);
+        GrafikLekarz pt=new GrafikLekarz(DayOfWeek.FRIDAY,true,lekarz);
+        lista.add(pt);
+        GrafikLekarz sob=new GrafikLekarz(DayOfWeek.SATURDAY,true,lekarz);
+        lista.add(sob);
+        GrafikLekarz ndz=new GrafikLekarz(DayOfWeek.SUNDAY,true,lekarz);
+        lista.add(ndz);
+        lekarz.setGrafikLekarz(lista);
+        serwisGrafik.zapiszGrafik(pon);
+        serwisGrafik.zapiszGrafik(wt);
+        serwisGrafik.zapiszGrafik(sr);
+        serwisGrafik.zapiszGrafik(czw);
+        serwisGrafik.zapiszGrafik(pt);
+        serwisGrafik.zapiszGrafik(sob);
+        serwisGrafik.zapiszGrafik(ndz);
+        repoLekarz.save(lekarz);
+        return lekarz;
+    }
+
+    public Lekarz dodajLekarzaNie(Lekarz lekarz,MyUser myUser){  //lekarz nie potwierdzony
         lekarz.setMyUser(myUser);
         lekarz.setPotwierdzenie(false);
         Lekarz lekarzzapisany=repoLekarz.save(lekarz);
@@ -60,6 +95,18 @@ public class SerwisLekarz {
         serwisGrafik.zapiszGrafik(ndz);
         repoLekarz.save(lekarz);
         return lekarz;
+    }
+
+    public void usunLekarza(Lekarz lekarz){
+        List<GrafikLekarz> grafiki=lekarz.getGrafikLekarz();
+        for(GrafikLekarz g : grafiki ){
+            serwisGrafik.usunGrafik(g);
+        }
+        List<Wizyta> wizyty=lekarz.getWizyty();
+        for(Wizyta w :wizyty){
+            serwisWizyta.usunWizyte(w);
+        }
+        repoLekarz.delete(lekarz);
     }
 
     public Page<Lekarz> getAllFiltry(int page, int size, String miasto, LekarzSpec spec) {

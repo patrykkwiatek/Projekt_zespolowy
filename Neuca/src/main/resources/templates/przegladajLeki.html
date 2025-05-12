@@ -1,101 +1,70 @@
+
+
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Neuca-miliony leków w jednym miejscu</title>
-    <link rel="stylesheet" href="/style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/lekiPracownik.css">
+    <title>Dodaj lub przeglądaj leki</title>
 </head>
 <body>
-    <a href="/Neuca/start"   > <span th:text="#{menu.start}"></span> </a> </br>
-    <form th:action="@{/Neuca/strefaPracownika/przegladajLeki(size=${size}, page=${pageA - 1})}" method="post">
-        <input type="text" th:name="wzorzec" th:value="${wzorzec}">
-        <input type="hidden" name="markaLeku" th:value="${markaLeku}">
-        <input type="hidden" name="size" th:value="${size}">
-        <input type="hidden" name="page" th:value="0">
-        <input type="submit" th:value="#{lista.szukaj}">
-    </form>
+<div id="container">
+    <div class="top-bar">
+        <a href="/Neuca/strefaPracownika/dodawanieLeku" class="addPill">Dodaj lek</a>
+        <div class="search-wrapper">
+            <form>
+            <input type="text" name="wzorzec" th:value="${wzorzec}" placeholder="Szukaj..." class="search-input">
+            <button class="search-button">Szukaj</button>
+            </form>
+        </div>
 
-
-
-    <form th:action="@{/Neuca/strefaPracownika/przegladajLeki}" method="get">
-        <select name="markaLeku">
-            <option th:each="marka : ${marki}"
-                    th:value="${marka}"
-                    th:text="${marka}"
-                    th:selected="${marka == markaLeku}">
-            </option>
-        </select>
-        <input type="hidden" name="size" th:value="${size}">
-        <input type="hidden" name="page" th:value="0">
-        <input type="hidden" name="wzorzec" th:value="${wzorzec}">
-        <button th:text="#{filtruj}"></button>
-    </form>
-
-
-
-
-    <span th:text="#{lista.kom1}"></span>  <span th:text="${total}"></span>    <span th:text="#{lista.kom2}"></span> </br>
-    <span th:text="#{lista.kom3}"></span>    <span th:text="${pageA}"></span>
-    <div  th:each="lek : ${lista}">
-        <p>
-            <div class="o">
-                <span th:text="#{lista.lek.nazwa}"></span> <span th:text="${lek.name}"></span> </br>
-                <span th:text="#{lista.lek.opis}"></span> <span th:text="${lek.desc}"></span> </br>
-                <span th:text="#{lista.lek.kategoria}"></span> <span th:text="${lek.markaLeku}"></span> </br>
-                <span th:text="#{lista.lek.cena}"></span> <span th:text="${lek.priceGR}"></span> </br>
-                <span th:text="#{lista.lek.oferta}"></span>
-                <span th:if="${lek.oferta} == true" th:text="#{lista.lek.oferta.tak}"></span>
-                <span th:if="${lek.oferta} == false" th:text="#{lista.lek.oferta.nie}"></span>
-
-
-                <form action="#" th:action="@{/Neuca/strefaPracownika/edycjaLeku/{id}(id=${lek.id})}"  method="get">
-                        <input type="submit" th:value="#{lista.lek.edytuj}">
-                </form>
-
-
-                <form action="#" th:action="@{/Neuca/strefaPracownika/usunLek/{id}(id=${lek.id})}"  method="get">
-                    <input type="submit" th:value="#{lista.lek.usun}">
-                </form>
-            </div>
-        </p>
+        <a href="/Neuca/strefaPracownika" class="nav-button">🏠 Panel główny</a>
     </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID Leku</th>
+            <th>Nazwa Leku</th>
+            <th>Gramatura Leku</th>
+            <th>Marka Leku</th>
+            <th>Cena</th>
+            <th>Edycja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lek : ${lista}" >
+            <td> <span th:text="${lek.id}"></span> </td>
+            <td> <span th:text="${lek.name}"></span> </td>
+            <td>  <span th:text="${lek.gramatura}"></span> </td>
+            <td> <span th:text="${lek.markaLeku}"></span> </td>
+            <td> <span th:text="${lek.cenaString}"></span> </td>
+            <td><a th:href="@{'/Neuca/strefaPracownika/edycjaLeku/' + ${lek.id}}" class="edit-button">EDYTUJ</a></td>
+        </tr>
 
 
 
 
 
-    <div class="ramka">
-        <form action="/Neuca/strefaPracownika/przegladajLeki" method="get">
-            <span th:text="#{lista.ilosc}"></span>
-            <select name="size">
-                <option value="10" th:selected="${size == 10}">10</option>
-                <option value="20" th:selected="${size == 20}">20</option>
-                <option value="50" th:selected="${size == 50}">50</option>
-            </select>
-            <span th:text="#{lista.sortowanie}"></span>
-            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+
+        </tbody>
+    </table>
+</div>
+
+<div id="pagination">
+    <div id="page-info"></div>
+    <div id="page-controls">
+        <form th:action="@{/Neuca/strefaPracownika/przegladajLeki}" method="get">
+            <input type="hidden" name="page" th:value="${pop}">
             <input type="hidden" name="wzorzec" th:value="${wzorzec}">
-
-
-            <input type="submit" th:value="#{sort.zastosuj}">
+            <button th:if="${czyPoprzednia}" type="submit">Poprzednia</button>
+        </form>
+        <span th:text="'Strona '+${nas}+' z '+ ${all} "></span>
+        <form th:action="@{/Neuca/strefaPracownika/przegladajLeki}" method="get">
+            <input type="hidden" name="page" th:value="${nas}">
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <button th:if="${czyNastepna}">Następna</button>
         </form>
     </div>
-
-
-
-    <div >
-        <span  th:text="#{wszystkie.strony}"></span>
-        <span th:each="number : ${numbers}">
-            <a th:if="${number} != -1"
-               th:href="@{/Neuca/strefaPracownika/przegladajLeki
-               (size=${size}, page=${number}, sort=${sort},wzorzec=${wzorzec},markaLeku=${markaLeku} )}" th:text="${number + 1}">
-            </a>
-            <span th:unless="${number} != -1">...</span>
-        </span>
-    </div>
-
-
-
 </body>
 </html>

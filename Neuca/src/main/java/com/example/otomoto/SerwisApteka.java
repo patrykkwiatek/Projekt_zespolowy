@@ -23,6 +23,9 @@ public class SerwisApteka {
         myUser.setApteka(aptekaZapisana);
         repoMyUser.save(myUser);
     }
+    public void usunApteke(Apteka apteka){
+        repoApteka.delete(apteka);
+    }
 
     public Apteka znajdzApteka(Long id){
         Optional<Apteka> apteka=repoApteka.findById(id);

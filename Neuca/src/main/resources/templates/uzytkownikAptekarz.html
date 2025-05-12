@@ -2,22 +2,38 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Aptekarz</title>
+    <title>Potwierdź Aptekarza </title>
+    <link rel="stylesheet" href="/css/potwierdzAptekarza.css">
 </head>
 <body>
-Nazwa: <span th:text="${apteka.name}"></span> </br>
-Adres: <span th:text="${apteka.ulica} + ' ' + ${apteka.numerBud} +' '"></span>
 
-<span th:if="${apteka.numerLokalu != null and !apteka.numerLokalu.isEmpty()}"
-      th:text="${apteka.numerLokalu}"></span><br/>
+<div class="container">
+    <h1>Dane Aptekarza do potwierdzenia</h1>
 
+    <div class="dane-lekarza">
+        <p><strong>Nazwa apteki:</strong> <span th:text="${apteka.name}"></span> </p>
+        <p><strong>Adres:</strong> <span th:text="${apteka.ulica} + ' ' + ${apteka.numerBud} +' '"></span>
+            <span th:if="${apteka.numerLokalu != null and !apteka.numerLokalu.isEmpty()}"
+                  th:text="${apteka.numerLokalu}"></span>
+            <span th:text="'  '+${apteka.kodPocztowy} + ' ' + ${apteka.miasto}"></span>
+            <br/>
+        </p>
+        <p><strong>Województwo:</strong> <span th:text="${apteka.wojewodztwo}"></span></p>
 
-Adres: <span th:text="${apteka.kodPocztowy} + ' ' + ${apteka.miasto}"></span></br>
-Województwo: <span th:text="${apteka.wojewodztwo}"></span></br>
-Telefon: <span th:text="${apteka.telefon}"></span></br>
-<form th:action="@{/Neuca/strefaPracownika/uzytkownikAptekarzPotwierdz}">
-    <button>Potwierdz</button>
-    <input type="hidden" name="id" th:value="${apteka.id}">
-</form>
+        <p><strong>Telefon:</strong> <span th:text="${apteka.telefon}"></span></p>
+
+    </div>
+
+    <form th:action="@{/Neuca/strefaPracownika/uzytkownikAptekarzPotwierdz}" method="get">
+        <input type="hidden" name="id" th:value="${apteka.id}">
+        <button type="submit" >Potwierdź</button>
+    </form>
+<form th:action="@{/Neuca/strefaPracownika/uzytkownikAptekarzAnuluj}" method="get">
+        <input type="hidden" name="id" th:value="${apteka.id}">
+        <button type="submit" >Anuluj</button>
+    </form>
+
+</div>
+
 </body>
 </html>

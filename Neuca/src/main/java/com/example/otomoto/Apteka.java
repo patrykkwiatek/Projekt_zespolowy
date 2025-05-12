@@ -38,6 +38,19 @@ public class Apteka {
         this.telefon = telefon;
         this.wojewodztwo = wojewodztwo;
     }
+
+    public Apteka( boolean potwierdzenie, String name, String ulica, String numerBud, String numerLokalu, String kodPocztowy, String miasto, String telefon, Wojewodztwo wojewodztwo) {
+        this.potwierdzenie = potwierdzenie;
+        this.name = name;
+        this.ulica = ulica;
+        this.numerBud = numerBud;
+        this.numerLokalu = numerLokalu;
+        this.kodPocztowy = kodPocztowy;
+        this.miasto = miasto;
+        this.telefon = telefon;
+        this.wojewodztwo = wojewodztwo;
+    }
+
 }
 
 

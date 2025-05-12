@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Uzytkownik zostal Potwierdzony</title>
+    <title>Użytkownik został potwierdzony</title>
+    <script>
+        // Przekierowanie po 3 sekundach
+        setTimeout(function() {
+          window.location.href = '/Neuca/strefaPracownika/potwierdzanieUzytkownikowLekarze';
+        }, 3000);
+    </script>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #f4faff;
+          margin: 0;
+          padding: 40px;
+          text-align: center;
+        }
+
+        .container {
+          max-width: 800px;
+          margin: auto;
+          background-color: #ffffff;
+          padding: 40px;
+          border-radius: 12px;
+          box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+          font-size: 30px;
+          color: #be1212;
+          margin-bottom: 20px;
+        }
+
+        p {
+          font-size: 20px;
+          color: #333;
+        }
+    </style>
 </head>
 <body>
-Uzytkownik zostal potwierdzony
-
+<div class="container">
+    <h1>Użytkownik został potwierdzony!</h1>
+    <p>Za chwilę zostaniesz przeniesiony do listy lekarzy...</p>
+</div>
 </body>
 </html>

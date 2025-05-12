@@ -67,7 +67,7 @@ public class DataBaseloader implements CommandLineRunner {
 
         Apteka apteka= new Apteka();
         apteka.setName("DOZ zdowie");
-        apteka.setPotwierdzenie(false);
+        apteka.setPotwierdzenie(true);
         apteka.setMyUser(aptekarz);
         apteka.setUlica("Aleja Jana Pawła II");
         apteka.setNumerBud("24");
@@ -75,7 +75,7 @@ public class DataBaseloader implements CommandLineRunner {
         apteka.setMiasto("Włocławek");
         apteka.setTelefon("794291002");
         apteka.setWojewodztwo(Wojewodztwo.KUJAWSKO_POMORSKIE);
-        apteka.setPotwierdzenie(false);
+        apteka.setPotwierdzenie(true);
         repoApteka.save(apteka);
         aptekarz.setApteka(apteka);
         repoMyUser.save(aptekarz);
@@ -130,7 +130,7 @@ public class DataBaseloader implements CommandLineRunner {
         serwisLekarz.dodajLekarza(gabinet,lekarz);
         lekarze();
         pacjenci();
-        wizyty();
+        aptekiNiePotwierdzone();
 
 
 
@@ -181,7 +181,7 @@ public class DataBaseloader implements CommandLineRunner {
             user.setEmail("lekarz" + i + "@example.com");
             user.setPhone(600000000 + random.nextInt(99999999));
             user.setPlec(random.nextBoolean());
-            user.setPassword(passwordEncoder.encode("haslo" + i));
+            user.setPassword(passwordEncoder.encode("haslo"));
             user.setRoles(new ArrayList<>());
             user.getRoles().add("ROLE_LEKARZ");
 
@@ -210,7 +210,12 @@ public class DataBaseloader implements CommandLineRunner {
 
             repoLekarz.save(lekarz);
             repoMyUser.save(user);
-            serwisLekarz.dodajLekarza(lekarz, user);
+            if(i>5){
+                serwisLekarz.dodajLekarza(lekarz, user);
+            }else{
+                serwisLekarz.dodajLekarzaNie(lekarz,user);
+            }
+
         }
         System.out.println("lekarze");
 
@@ -227,7 +232,7 @@ public class DataBaseloader implements CommandLineRunner {
             myUser.setNazwisko(nazwiska.get(random.nextInt(nazwiska.size())));
             myUser.setUsername("myuser" + i);
             myUser.setEmail("myuser" + i + "@example.com");
-            myUser.setPassword(passwordEncoder.encode("haslo" + i));
+            myUser.setPassword(passwordEncoder.encode("haslo" ));
             myUser.setRoles(new ArrayList<>());
             myUser.getRoles().add("ROLE_PACJENT");
             myUser.setWizyty(new ArrayList<>());
@@ -275,6 +280,30 @@ public class DataBaseloader implements CommandLineRunner {
         }
         System.out.println("wizyty");
     }
+
+
+    void aptekiNiePotwierdzone(){
+        Apteka apteka1=new Apteka(false, "Apteka Zdrowie", "Słoneczna", "12", "1", "00-001", "Warszawa", "123456789", Wojewodztwo.MAZOWIECKIE);
+        Apteka apteka2=new Apteka(false, "Apteka Centrum", "Główna", "45", "2", "30-002", "Kraków", "987654321", Wojewodztwo.MALOPOLSKIE);
+        Apteka apteka3= new Apteka(false, "Apteka Nova", "Leśna", "3", "5", "41-200", "Sosnowiec", "111222333", Wojewodztwo.SLASKIE);
+        Apteka apteka4=new Apteka(false, "Apteka Prima", "Lipowa", "9", "8", "60-123", "Poznań", "444555666", Wojewodztwo.WIELKOPOLSKIE);
+        Apteka apteka5=new Apteka(false, "Apteka Vita", "Brzozowa", "7A", "", "80-100", "Gdańsk", "555666777", Wojewodztwo.POMORSKIE);
+
+        MyUser myUser1=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 500111222, "adam.kowalski@example.com", "adamk", "Kowalski", "Adam");
+        MyUser myUser2=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", false, 501222333, "ewa.nowak@example.com", "ewan", "Nowak", "Ewa");
+        MyUser myUser3=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 502333444, "jan.zielinski@example.com", "janz", "Zieliński", "Jan");
+        MyUser myUser4=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", false, 503444555, "magda.wojciechowska@example.com", "magdaw", "Wojciechowska", "Magda");
+        MyUser myUser5=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 504555666, "piotr.lewandowski@example.com", "piotrl", "Lewandowski", "Piotr");
+        serwisApteka.dodajApteke(myUser1,apteka1);
+        serwisApteka.dodajApteke(myUser2,apteka2);
+        serwisApteka.dodajApteke(myUser3,apteka3);
+        serwisApteka.dodajApteke(myUser4,apteka4);
+        serwisApteka.dodajApteke(myUser5,apteka5);
+
+
+    }
+
+
 
 
 

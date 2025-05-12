@@ -103,4 +103,9 @@ public class SerwisGrafik {
         }
         return lista;
     }
+
+
+    public void usunGrafik(GrafikLekarz grafikLekarz){
+        repoGrafikLekarz.delete(grafikLekarz);
+    }
 }
