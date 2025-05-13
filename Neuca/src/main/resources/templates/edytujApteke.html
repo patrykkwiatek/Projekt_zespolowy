@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form action="#" th:action="@{/Neuca/strefaAptekarza/edytowanoApteke}" th:object="${apteka}" method="post">
+  Nazwa: <input type="text"   value="*{name}" th:field="*{name}"> </br>
+  Ulica: <input type="text" value="*{ulica}" th:field="*{ulica}"></br>
+  Numer Budynku: <input type="text" value="*{numerBud}" th:field="*{numerBud}"></br>
+  Numer Lokalu: <input type="text" value="*{numerLokalu}" th:field="*{numerLokalu}"></br>
+  Kod pocztowy: <input type="text" value="*{kodPocztowy}" th:field="*{kodPocztowy}"></br>
+  Miasto: <input type="text" value="*{miasto}" th:field="*{miasto}"></br>
+  Województwo:
+  <select th:field="*{wojewodztwo}">
+    <option th:each="woj :${wojewodztwa}"
+            th:value="${woj}"
+            th:text="${woj}"
+            th:field="*{wojewodztwo}">
+
+    </option>
+  </select></br>
+  Telefon: <input type="text"  th:field="*{telefon}"></br>
+  <button>Edytuj</button>
+</form>
+
+</body>
+</html>

@@ -41,4 +41,18 @@ public class Faktura {
         this.displayDateWystawienia=displayDateWystawienia;
         this.zamowienie = zamowienie;
     }
+    public Faktura( boolean czyFaktura){
+        this.czyFaktura=czyFaktura;
+    }
+
+    public Faktura( boolean czyFaktura, String nazwaFirmy, String adres1, String adres2, String nip, LocalDateTime data,  String displayDateWystawienia) {
+        this.id = id;
+        this.czyFaktura = czyFaktura;
+        this.nazwaFirmy = nazwaFirmy;
+        this.adres1 = adres1;
+        this.adres2 = adres2;
+        this.nip = nip;
+        this.dataWystawienia = dataWystawienia;
+        this.displayDateWystawienia=displayDateWystawienia;
+    }
 }

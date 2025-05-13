@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Godziny otwarcia</title>
+
+</head>
+<body>
+
+<h2 style="text-align:center;">Godziny otwarcia apteki</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Dzień</th>
+        <th>Czy otwarte?</th>
+        <th>Od</th>
+        <th>Do</th>
+        <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Poniedziałek</td>
+        <td th:text="${pon ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${ponstart}"></td>
+        <td th:text="${ponstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=1)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Wtorek</td>
+        <td th:text="${wt ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${wtstart}"></td>
+        <td th:text="${wtstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=2)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Środa</td>
+        <td th:text="${sr ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${srstart}"></td>
+        <td th:text="${srstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=3)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Czwartek</td>
+        <td th:text="${czw ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${czwstart}"></td>
+        <td th:text="${czwstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=4)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Piątek</td>
+        <td th:text="${pt ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${ptstart}"></td>
+        <td th:text="${ptstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=5)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Sobota</td>
+        <td th:text="${sob ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${sobstart}"></td>
+        <td th:text="${sobstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=6)}">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Niedziela</td>
+        <td th:text="${ndz ? 'OTWARTE' : 'ZAMKNIETE'}"></td>
+        <td th:text="${ndzstart}"></td>
+        <td th:text="${ndzstop}"></td>
+        <td><a th:href="@{/Neuca/strefaAptekarza/edytujGodzinyApteka(liczba=7)}">Edytuj</a></td>
+    </tr>
+
+
+    </tbody>
+</table>
+
+</body>
+</html>

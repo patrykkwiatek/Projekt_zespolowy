@@ -168,18 +168,21 @@ public class SerwisPracownik {
         Specification<Lek> spec = new LekSpecification(wzorzec, minPrize*100, maxPrize*100, markaLeku, rodzajLeku,oferta);
         return r.findAll(spec, pageable);
     }
-    public List<Zamowienie> pobierzListeZamowien(Status status) {
+
+
+    public Page<Zamowienie> pobierzListeZamowien(Status status, Pageable pageable) {
         if (status == Status.ALL) {
-            return repoZamowienie.findAll()
-                    .stream()
-                    .filter(z -> z.getStatus() != Status.BRAK)
-                    .collect(Collectors.toList());
+            return repoZamowienie.findByStatusNot(Status.BRAK, pageable); // <--- to klucz!
+        } else if (status == Status.BRAK) {
+            // Gdyby ktoś ręcznie podał ?status=BRAK — zwróć pustą stronę
+            return Page.empty(pageable);
+        } else {
+            return repoZamowienie.findByStatus(status, pageable);
         }
-        if (status == Status.BRAK) {
-            return Collections.emptyList();
-        }
-        return repoZamowienie.findByStatus(status);
     }
+
+
+
 
 
     public Zamowienie zwrocZamowienie(Long id) {
@@ -216,6 +219,7 @@ public class SerwisPracownik {
         List<Apteka> apteki=repoApteka.findByPotwierdzenie(false);
         return apteki;
     }
+
 
 
 

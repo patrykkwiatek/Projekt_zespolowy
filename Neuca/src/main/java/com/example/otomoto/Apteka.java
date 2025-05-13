@@ -3,6 +3,8 @@ package com.example.otomoto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalTime;
+
 
 @Entity
 @Getter
@@ -22,6 +24,30 @@ public class Apteka {
     private String miasto;
     private String telefon;
     private Wojewodztwo wojewodztwo;
+
+    private boolean pon;
+    private boolean wt;
+    private boolean sr;
+    private boolean czw;
+    private boolean pt;
+    private boolean sb;
+    private boolean ndz;
+
+    private LocalTime ponStart;
+    private LocalTime ponStop;
+    private LocalTime wtStart;
+    private LocalTime wtStop;
+    private LocalTime srStart;
+    private LocalTime srStop;
+    private LocalTime czwStart;
+    private LocalTime czwStop;
+    private LocalTime ptStart;
+    private LocalTime ptStop;
+    private LocalTime sbStart;
+    private LocalTime sbStop;
+    private LocalTime ndzStart;
+    private LocalTime ndzStop;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "my_user_id")

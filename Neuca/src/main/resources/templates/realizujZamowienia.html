@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/zamowieniaPracownik.css">
+  <title>Zamówienia</title>
 </head>
 <body>
-<span>Filtracja po Statusie</span>
-<form th:action="@{/Neuca/strefaPracownika/realizujZamowienia}" method="get">
-  <select name="status">
-    <option th:each="status : ${statusy}"
-            th:value="${status.name()}"
-            th:text="${status.slowo}"
-            th:selected="${status} == ${wybranyStatus}">
-    </option>
+<div id="container">
+  <div class="top-bar">
+    <div class="search-wrapper">
+      <input type="text" placeholder="Szukaj..." class="search-input">
+      <button class="search-button">Szukaj</button>
+    </div>
+    <form>
+      <select class="filter" name="status">
+        <option th:each="status : ${statusy}"
+                th:value="${status.name()}"
+                th:text="${status.slowo}"
+                th:selected="${status} == ${wybranyStatus}">
+        </option>
+      </select>
+    </form>
+    <a href="/Neuca/strefaPracownika" class="nav-button">🏠 Panel główny</a>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID Zamówienia</th>
+      <th>Data zamówienia</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="zamowienie : ${zamowienia}">
+      <td th:text="${zamowienie.id}"></td>
+      <td th:text="${zamowienie.displayDateZamowienia}"></td>
+      <td th:text="${zamowienie.imie}"></td>
+      <td th:text="${zamowienie.nazwisko}"></td>
+      <td th:text="${zamowienie.email}"></td>
+      <td th:text="${zamowienie.status}"></td>
+      <td><a th:href="@{/Neuca/strefaPracownika/Zamowienie(id=${zamowienie.id})}" class="show-button">WYŚWIETL</a></td>
+    </tr>
 
-  </select>
+    </tbody>
+  </table>
+</div>
 
-  <button>ZASTOSUJ</button>
-
-</form>
-
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Imię</th>
-    <th>Nazwisko</th>
-    <th>Email</th>
-    <th>Status</th>
-  </tr>
-  <tr th:each="zamowienie : ${zamowienia}">
-    <td th:text="${zamowienie.id}"></td>
-    <td th:text="${zamowienie.imie}"></td>
-    <td th:text="${zamowienie.nazwisko}"></td>
-    <td th:text="${zamowienie.email}"></td>
-    <td th:text="${zamowienie.status}"></td>
-    <td >
-      <form th:action="@{/Neuca/strefaPracownika/Zamowienie}" method="get">
-        <button>WYSWIETL</button>
-        <input type="hidden" name="id" th:value="${zamowienie.id}">
-      </form>
-    </td>
-  </tr>
-</table>
-
-
+<div id="pagination">
+  <div id="page-info"></div>
+  <div id="page-controls">
+    <button>Poprzednia</button>
+    <span>Strona 1 z 10</span>
+    <button>Następna</button>
+  </div>
+</div>
 </body>
 </html>

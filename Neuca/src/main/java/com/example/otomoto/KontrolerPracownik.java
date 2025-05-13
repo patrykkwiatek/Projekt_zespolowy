@@ -3,6 +3,7 @@ package com.example.otomoto;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
@@ -174,7 +175,7 @@ public class KontrolerPracownik {
 
                         @RequestParam(defaultValue = "") String wzorzec,
                         Model model) {
-        Page<Lek> wynik = s.getAllDtoLeki(page,3,"Id",wzorzec,0,1000,MarkaLeku.WSZYSTKIE,null,false);
+        Page<Lek> wynik = s.getAllDtoLeki(page,10,"Id",wzorzec,0,1000,MarkaLeku.WSZYSTKIE,null,false);
 
         boolean czyPoprzednia;
         if(page==0){
@@ -211,12 +212,16 @@ public class KontrolerPracownik {
 
     @RequestMapping("/strefaPracownika/realizujZamowienia")
     public String realizujZamowienia(Model model,
-                                     @RequestParam(defaultValue = "ALL") Status status){
+                                     @RequestParam(defaultValue = "ALL") Status status,
+                                     @RequestParam(defaultValue = "0") int page){
+
+        PageRequest pageable = PageRequest.of(page, 10);
+
         List<Status> statusy = Arrays.stream(Status.values())
                 .filter(s -> s != Status.BRAK)
                 .collect(Collectors.toList());
         model.addAttribute("statusy",statusy);
-        List<Zamowienie> zamowienia=s.pobierzListeZamowien(status);
+        Page<Zamowienie> zamowienia=s.pobierzListeZamowien(status,pageable);
         model.addAttribute("zamowienia",zamowienia);
         model.addAttribute("statusy", statusy);
         model.addAttribute("wybranyStatus", status);

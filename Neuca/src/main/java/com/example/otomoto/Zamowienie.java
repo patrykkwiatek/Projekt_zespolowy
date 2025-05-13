@@ -39,7 +39,7 @@ public class Zamowienie {
     @JoinColumn(name = "myuser_id")
     private MyUser myuser;
 
-    @OneToMany(fetch= FetchType.LAZY,mappedBy = "zamowienie")
+    @OneToMany(fetch= FetchType.EAGER,mappedBy = "zamowienie")
     private List<ProduktKoszyk> produktKoszyk;
 
 

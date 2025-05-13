@@ -20,7 +20,7 @@ public class ProduktKoszyk {
     private String cenaJednostkowa;
     private String cenaCalosciowa;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "lek")
     private Lek lek;
     private int ilosc;
@@ -34,6 +34,10 @@ public class ProduktKoszyk {
         this.lek = lek;
         this.ilosc = ilosc;
         this.zamowienie = zamowienie;
+    }
+
+    void ustawCene(){
+
     }
 
 

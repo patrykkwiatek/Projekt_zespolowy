@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,9 +26,11 @@ public class DataBaseloader implements CommandLineRunner {
     SerwisLekarz serwisLekarz;
     SerwisMyUser serwisMyUser;
     SerwisApteka serwisApteka;
+    SerwisPracownik serwisPracownik;
+    SerwisKoszyk serwisKoszyk;
 
 
-    public DataBaseloader(SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
+    public DataBaseloader(SerwisKoszyk serwisKoszyk, SerwisPracownik serwisPracownik, SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
         this.repolek = repolek;
         this.repoMyUser = repoMyUser;
         this.repoUzytkownik = repoUzytkownik;
@@ -38,6 +41,8 @@ public class DataBaseloader implements CommandLineRunner {
         this.serwisMyUser=serwisMyUser;
         this.repoWizyta=repoWizyta;
         this.serwisApteka=serwisApteka;
+        this.serwisPracownik=serwisPracownik;
+        this.serwisKoszyk=serwisKoszyk;
 
     }
 
@@ -76,6 +81,7 @@ public class DataBaseloader implements CommandLineRunner {
         apteka.setTelefon("794291002");
         apteka.setWojewodztwo(Wojewodztwo.KUJAWSKO_POMORSKIE);
         apteka.setPotwierdzenie(true);
+        apteka=serwisApteka.zamknijApteke(apteka);
         repoApteka.save(apteka);
         aptekarz.setApteka(apteka);
         repoMyUser.save(aptekarz);
@@ -133,6 +139,7 @@ public class DataBaseloader implements CommandLineRunner {
         pacjenci();
         wizyty();
         aptekiNiePotwierdzone();
+        zamowienia();
 
 
 
@@ -301,7 +308,150 @@ public class DataBaseloader implements CommandLineRunner {
         serwisApteka.dodajApteke(myUser3,apteka3);
         serwisApteka.dodajApteke(myUser4,apteka4);
         serwisApteka.dodajApteke(myUser5,apteka5);
+    }
 
+
+    void zamowienia(){
+        //zamowienie 1
+        MyUser myUser=serwisMyUser.zwrocUser("patrykP");
+        ProduktKoszyk p1=new ProduktKoszyk();
+        serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(3)),1);
+        serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(4)),8);
+        Zamowienie zamowienie=serwisKoszyk.getAktywnyKoszyk(myUser);
+
+        zamowienie.setImie("Patryk");
+        zamowienie.setNazwisko("Kwiatkowski");
+        zamowienie.setEmail("patryk@wp.pl");
+        zamowienie.setTelefon(600983654);
+        zamowienie.setAdres1("Aleja Jana Pawla II 24");
+        zamowienie.setAdres2("87-800 Włocławek");
+        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setCzyZakonczone(true);
+        zamowienie.setDostawa(Dostawa.POCZTA);
+        zamowienie.setDataZamowienia(LocalDateTime.now());
+        LocalDateTime data= LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        zamowienie.setDisplayDateZamowienia(data.format(formatter));
+        zamowienie.setFaktura(new Faktura(false));
+        int sumaKoszyka=0;
+        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
+            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR();
+            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
+
+
+            sumaKoszyka += cenaCalosciowaGrosze; // Dodanie ceny całkowitej do sumy koszyka
+        }
+
+        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
+        serwisKoszyk.noweZamowienie(zamowienie,myUser);
+
+        //zamowienie 2
+
+        myUser = serwisMyUser.zwrocUser("myuser4");
+        p1 = new ProduktKoszyk();
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(10L), 2);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(5L), 5);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(12L), 1);
+        zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
+        zamowienie.setImie("Anna");
+        zamowienie.setNazwisko("Zielińska");
+        zamowienie.setEmail("anna.zielinska@example.com");
+        zamowienie.setTelefon(501123456);
+        zamowienie.setAdres1("ul. Słoneczna 5");
+        zamowienie.setAdres2("00-123 Warszawa");
+        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setCzyZakonczone(true);
+        zamowienie.setDostawa(Dostawa.KURIER);
+        zamowienie.setDataZamowienia(LocalDateTime.now());
+
+
+
+        zamowienie.setDisplayDateZamowienia(data.format(formatter));
+        String dataF=data.format(formatter);
+
+        zamowienie.setFaktura(new Faktura(true,"firma HandlowoUslugowa","aleja niepodleglosci 2","00-001 Warszaw","8885672356",LocalDateTime.now(),dataF));
+
+        sumaKoszyka = 0;
+        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
+            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR(); // <-- upewnij się, że jesteś wewnątrz @Transactional!
+            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
+            sumaKoszyka += cenaCalosciowaGrosze;
+        }
+
+        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
+        serwisKoszyk.noweZamowienie(zamowienie, myUser);
+
+
+        //zamowienie3
+
+
+        myUser = serwisMyUser.zwrocUser("myuser6");
+        p1 = new ProduktKoszyk();
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(5L)), 2);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(7L)), 31);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(10L)), 5);
+
+        zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
+
+        zamowienie.setImie("Pawel");
+        zamowienie.setNazwisko("Zajdelski");
+        zamowienie.setEmail("Zajdelski@example.com");
+        zamowienie.setTelefon(603906567);
+        zamowienie.setAdres1("Ul. slowa 15");
+        zamowienie.setAdres2("00-123 Warszawa");
+        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setCzyZakonczone(false);
+        zamowienie.setDostawa(Dostawa.KURIER);
+        zamowienie.setDataZamowienia(LocalDateTime.now());
+        zamowienie.setDisplayDateZamowienia(data.format(formatter));
+        zamowienie.setFaktura(new Faktura(false));
+
+        sumaKoszyka = 0;
+        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
+            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR();
+            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
+            sumaKoszyka += cenaCalosciowaGrosze; // Dodanie ceny całkowitej do sumy koszyka
+        }
+
+        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
+        serwisKoszyk.noweZamowienie(zamowienie, myUser);
+
+        //zamowienie4
+
+        myUser = serwisMyUser.zwrocUser("myuser5");
+        p1 = new ProduktKoszyk();
+
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(5L), 42);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(11L), 6);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(12L), 2);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(7L), 31);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(1L), 5);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(2L), 3);
+
+        zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
+
+        zamowienie.setImie("Jan");
+        zamowienie.setNazwisko("Kowalski");
+        zamowienie.setEmail("jan.kowalski@example.com");
+        zamowienie.setTelefon(604123456);
+        zamowienie.setAdres1("Ul. Pięciomorgowa 15");
+        zamowienie.setAdres2("00-123 Warszawa");
+        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setCzyZakonczone(false);
+        zamowienie.setDostawa(Dostawa.KURIER);
+        zamowienie.setDataZamowienia(LocalDateTime.now());
+        zamowienie.setDisplayDateZamowienia(data.format(formatter));
+        zamowienie.setFaktura(new Faktura(true));
+
+        sumaKoszyka = 0;
+        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
+            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR();
+            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
+            sumaKoszyka += cenaCalosciowaGrosze;
+        }
+
+        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
+        serwisKoszyk.noweZamowienie(zamowienie, myUser);
 
     }
 

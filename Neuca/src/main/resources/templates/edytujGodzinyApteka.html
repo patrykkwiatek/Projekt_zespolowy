@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmien Godziny</title>
+</head>
+<body>
+<form th:action="@{/Neuca/strefaAptekarza/edytowanoGodzinyApteka}">
+  <input type="checkbox" name="czy" th:checked="${czy}">
+  <input type="time" name="start" th:value="${start}">
+  <input type="time" name="stop" th:value="${stop}">
+  <input type="hidden" name="dzien" th:value="${liczba}">
+  <button type="submit">Zapisz</button>
+</form>
+
+
+
+</body>
+</html>
