@@ -160,13 +160,34 @@ public class DataBaseloader implements CommandLineRunner {
         repolek.save(new Lek("ACC 200", 1700, "2 saszetki", "Lek na kaszel mokry", 6, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.ACC, 12, "foto7.png","Acetylocysteina 200mg","2 razy dziennie"));
         repolek.save(new Lek("Pulneo", 1900, "100ml", "Lek na kaszel suchy", 3, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.PULNEO, 14, "foto8.png","Butamirat 4mg/ml","3 razy dziennie"));
         repolek.save(new Lek("Zyrtec", 2200, "12 tabletek", "Lek na alergię", 6, 99, true, RodzajLeku.NA_ALERGIE, MarkaLeku.ZYRTEC, 10, "foto9.png","Cetyryzyna 10mg","raz dziennie"));
-        repolek.save(new Lek("Claritin", 2100, "tabletki", "Lek przeciwhistaminowy", 6, 99, false, RodzajLeku.PRZECIWHISTAMINOWE, MarkaLeku.CLARITINE, 8, "foto10.png","Loratadyna 10mg","raz dziennie"));
+        repolek.save(new Lek("Claritin", 2100, "tabletki", "Lek przeciwhistaminowy", 6, 99, true, RodzajLeku.PRZECIWHISTAMINOWE, MarkaLeku.CLARITINE, 8, "foto10.png","Loratadyna 10mg","raz dziennie"));
         repolek.save(new Lek("Augmentin", 3500, "tabletki", "Antybiotyk na infekcje bakteryjne", 12, 99, false, RodzajLeku.PRZECIWBAKTERYJNE, MarkaLeku.AUGMENTIN, 5, "foto11.png","Amoksycylina 875mg, Kwas klawulanowy 125mg","2 razy dziennie"));
-        repolek.save(new Lek("Duomox", 3300, "tabletki", "Antybiotyk penicylinowy", 12, 99, false, RodzajLeku.PRZECIWBAKTERYJNE, MarkaLeku.DUOMOX, 6, "foto12.png","Amoksycylina 500mg","3 razy dziennie"));
+        repolek.save(new Lek("Duomox", 3300, "tabletki", "Antybiotyk penicylinowy", 12, 99, true, RodzajLeku.PRZECIWBAKTERYJNE, MarkaLeku.DUOMOX, 6, "foto12.png","Amoksycylina 500mg","3 razy dziennie"));
         repolek.save(new Lek("Metronidazol", 2900, "tabletki", "Lek przeciwbakteryjny i przeciwpierwotniakowy", 18, 99, false, RodzajLeku.PRZECIWBAKTERYJNE, MarkaLeku.METRONIDAZOL, 4, "foto13.png","Metronidazol 250mg","3 razy dziennie"));
         repolek.save(new Lek("Flegamina", 1399, "syrop", "Na kaszel mokry", 3, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.FLEGAMINA, 11, "foto14.png","Bromheksyna 4mg/5ml","3 razy dziennie"));
         repolek.save(new Lek("Strepsils", 1360, "pastylki", "Na ból gardła", 6, 99, true, RodzajLeku.NA_GARDŁO, MarkaLeku.VICKS_MEDINAIT, 19, "foto15.png","Amylometakrezol 0,6mg, Alkohol dichlorobenzylowy 1,2mg","co 2-3 godziny"));
         repolek.save(new Lek("Tantum Verde", 1800, "spray", "Lek przeciwzapalny na gardło", 6, 99, true, RodzajLeku.NA_GARDŁO, MarkaLeku.COLDREX, 20, "foto16.png","Benzydamina 1,5mg/ml","3-4 razy dziennie"));
+        repolek.save(new Lek("Metafen Max", 1600, "12 tabletek", "Na ból i gorączkę", 12, 99, true, RodzajLeku.PRZECIWBÓLOWE, MarkaLeku.METAFEN, 16, "foto17.png","Ibuprofen 200mg, Paracetamol 325mg","co 6 godzin"));
+        repolek.save(new Lek("Panadol Extra", 1700, "500mg", "Lek przeciwbólowy i przeciwgorączkowy", 12, 99, true, RodzajLeku.PRZECIWGORĄCZKOWE, MarkaLeku.PANADOL, 18, "foto18.png","Paracetamol 500mg, Kofeina 65mg","co 8 godzin"));
+        repolek.save(new Lek("Fervex Classic", 1800, "saszetki", "Na przeziębienie i grypę", 12, 99, true, RodzajLeku.NA_PRZEZIĘBIENIE, MarkaLeku.FERVEX, 14, "foto19.png","Paracetamol 500mg, Feniramina 25mg","3 razy dziennie"));
+        repolek.save(new Lek("Rutinacea", 1200, "20 tabletek", "Wzmacnia odporność", 6, 99, true, RodzajLeku.NA_PRZEZIĘBIENIE, MarkaLeku.RUTINOSCORBIN, 20, "foto20.png","Rutyna 25mg, Witamina C 100mg","raz dziennie"));
+        repolek.save(new Lek("Coldrex MaxGrip", 1900, "saszetki", "Na przeziębienie i ból", 12, 99, true, RodzajLeku.NA_PRZEZIĘBIENIE, MarkaLeku.COLDREX, 20, "foto21.png","Paracetamol 1000mg, Kofeina 25mg","2 razy dziennie"));
+        repolek.save(new Lek("Scorbolamid", 1500, "20 tabletek", "Na objawy grypy", 12, 99, true, RodzajLeku.NA_PRZEZIĘBIENIE, MarkaLeku.SCORBOLAMID, 22, "foto22.png","Paracetamol 300mg, Rutyna, Witamina C","co 6 godzin"));
+        repolek.save(new Lek("Mucosolvan", 1600, "syrop", "Upłynnia wydzielinę", 6, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.MUCOSOLVAN, 15, "foto23.png","Ambroksol 30mg/5ml","2 razy dziennie"));
+        repolek.save(new Lek("Ambrosol", 1400, "syrop", "Na kaszel mokry", 6, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.AMBROSOL, 13, "foto24.png","Ambroksol 15mg/5ml","3 razy dziennie"));
+        repolek.save(new Lek("Herbapect", 1200, "syrop", "Łagodzi kaszel", 3, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.HERBAPECT, 12, "foto25.png","Wyciąg z tymianku i pierwiosnka","3 razy dziennie"));
+        repolek.save(new Lek("Drosetux", 1250, "syrop", "Na kaszel suchy", 3, 99, true, RodzajLeku.NA_KASZEL, MarkaLeku.DROSETUX, 11, "foto26.png","Wyciągi roślinne","3 razy dziennie"));
+        repolek.save(new Lek("Allegra", 2100, "10 tabletek", "Lek przeciwhistaminowy", 6, 99, true, RodzajLeku.PRZECIWHISTAMINOWE, MarkaLeku.ALLEGRA, 10, "foto27.png","Feksofenadyna 120mg","raz dziennie"));
+        repolek.save(new Lek("Aerius", 2000, "tabletki", "Na alergie sezonowe", 6, 99, true, RodzajLeku.NA_ALERGIE, MarkaLeku.AERIUS, 10, "foto28.png","Desloratadyna 5mg","raz dziennie"));
+        repolek.save(new Lek("Allertec", 1950, "10 tabletek", "Na alergię", 6, 99, true, RodzajLeku.NA_ALERGIE, MarkaLeku.ALLERTEC, 9, "foto29.png","Cetyryzyna 10mg","raz dziennie"));
+        repolek.save(new Lek("Hitaxa Fast", 1850, "tabletki", "Szybkie działanie przeciwalergiczne", 6, 99, true, RodzajLeku.NA_ALERGIE, MarkaLeku.HITAXA, 8, "foto30.png","Bilastyna 20mg","raz dziennie"));
+        repolek.save(new Lek("Amotaks", 3400, "tabletki", "Antybiotyk penicylinowy", 12, 99, true, RodzajLeku.PRZECIWBAKTERYJNE, MarkaLeku.AMOTAKS, 6, "foto31.png","Amoksycylina 500mg","3 razy dziennie"));
+        repolek.save(new Lek("Tribiotic", 1500, "maść", "Na infekcje skórne", 12, 99, true, RodzajLeku.DERMATOLOGICZNE, MarkaLeku.TRIBIOTIC, 5, "foto32.png","Trzy antybiotyki","raz dziennie"));
+        repolek.save(new Lek("Lamisil", 2800, "krem", "Na grzybicę skóry", 12, 99, true, RodzajLeku.PRZECIWGRZYBICZE, MarkaLeku.WSZYSTKIE, 5, "foto33.png","Terbinafina 1%","2 razy dziennie"));
+        repolek.save(new Lek("Mycosyst", 2900, "150 mg", "Lek przeciwgrzybiczy", 12, 99, true, RodzajLeku.PRZECIWGRZYBICZE, MarkaLeku.WSZYSTKIE, 4, "foto34.png","Flukonazol 150mg","raz w tygodniu"));
+        repolek.save(new Lek("Ketokonazol", 2750, "krem", "Na zakażenia grzybicze", 12, 99, true, RodzajLeku.PRZECIWGRZYBICZE, MarkaLeku.WSZYSTKIE, 5, "foto35.png","Ketokonazol 2%","2 razy dziennie"));
+        repolek.save(new Lek("Hydrocortisonum", 1450, "maść", "Na skórne stany zapalne", 12, 99, true, RodzajLeku.DERMATOLOGICZNE, MarkaLeku.WSZYSTKIE, 7, "foto36.png","Hydrokortyzon 1%","2 razy dziennie"));
+
 
 
     }

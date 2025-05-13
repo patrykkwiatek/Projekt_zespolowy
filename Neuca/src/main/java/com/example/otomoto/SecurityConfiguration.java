@@ -14,12 +14,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    private final RepoMyUser repoMyUser;
 
-    public SecurityConfiguration(RepoMyUser repoMyUser){
-        this.repoMyUser=repoMyUser;
+    private CustomSuccessHandler successHandler;
+    private RepoMyUser repoMyUser;
+
+    public SecurityConfiguration(CustomSuccessHandler successHandler, RepoMyUser repoMyUser) {
+        this.successHandler = successHandler;
+        this.repoMyUser = repoMyUser;
     }
-
 
     @Bean
     public UserDetailsService userDetailsService(){
@@ -48,7 +50,7 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/Neuca/login")
                         .loginProcessingUrl("/Neuca/login")
-                        .defaultSuccessUrl("/Neuca/start",true)
+                        .successHandler(successHandler)
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
