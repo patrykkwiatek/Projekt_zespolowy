@@ -1,5 +1,10 @@
 package com.example.otomoto;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 public enum Status {
     BRAK("Brak"),
     OCZEKUJE("Oczekujące"),
@@ -18,6 +23,15 @@ public enum Status {
 
     public String getSlowo() { // Metoda do pobrania nazwy
         return slowo;
+    }
+
+
+    public static Status losowy() {
+        Status[] wartosci = values();
+        List<Status> doLosowania = Arrays.stream(wartosci)
+                .filter(s -> s != BRAK && s != ALL)
+                .collect(Collectors.toList());
+        return doLosowania.get(new Random().nextInt(doLosowania.size()));
     }
 
 

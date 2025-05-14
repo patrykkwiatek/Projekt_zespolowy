@@ -213,7 +213,8 @@ public class KontrolerPracownik {
     @RequestMapping("/strefaPracownika/realizujZamowienia")
     public String realizujZamowienia(Model model,
                                      @RequestParam(defaultValue = "ALL") Status status,
-                                     @RequestParam(defaultValue = "0") int page){
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "") String id){
 
         PageRequest pageable = PageRequest.of(page, 10);
 
@@ -221,12 +222,40 @@ public class KontrolerPracownik {
                 .filter(s -> s != Status.BRAK)
                 .collect(Collectors.toList());
         model.addAttribute("statusy",statusy);
-        Page<Zamowienie> zamowienia=s.pobierzListeZamowien(status,pageable);
+        Page<Zamowienie> zamowienia;
+        if(id.isEmpty()){
+            zamowienia=s.pobierzListeZamowien(status,pageable);
+        }else{
+            Long idL=Long.parseLong(id);
+            zamowienia=s.pobierzListeID(idL,pageable);
+        }
+        boolean czyNas;
+        boolean czyPop;
+        int wszystkie= zamowienia.getTotalPages();
+        if(page==0){
+            czyPop=false;
+        }else{
+            czyPop=true;
+        }
+        if(page==(wszystkie-1)){
+            czyNas=false;
+        }else{
+            czyNas=true;
+        }
+        model.addAttribute("czyPop",czyPop);
+        model.addAttribute("czyNas",czyNas);
+
+        model.addAttribute("nas",page+1);
+        model.addAttribute("pop",page-1);
+        model.addAttribute("wszystkie",zamowienia.getTotalPages());
         model.addAttribute("zamowienia",zamowienia);
         model.addAttribute("statusy", statusy);
         model.addAttribute("wybranyStatus", status);
+        model.addAttribute("id",id);
         return "realizujZamowienia";
     }
+
+
 
     @RequestMapping("strefaPracownika/Zamowienie")
     public String Zamowienie(@RequestParam Long id, Model model){
@@ -241,10 +270,28 @@ public class KontrolerPracownik {
             produkt.setCenaCalosciowa(String.format("%.2f", cenaCalosciowaGrosze / 100.0));
             sumaKoszyka += cenaCalosciowaGrosze; // Dodanie ceny całkowitej do sumy koszyka
         }
+        Status status=koszyk.getStatus();
+        boolean czyW;
+        if(status !=Status.WYSlANE && status !=Status.ODEBRANE && status!= Status.ZAKONCZONE){
+            czyW=true;
+        }else{
+            czyW=false;
+        }
+        String cenaC=String.format("%.2f",sumaKoszyka/100.0);
+        model.addAttribute("czyW",czyW);
+
+        boolean czyA;
+        if(status != Status.ANULOWANE && status !=Status.ODEBRANE && status!= Status.ZAKONCZONE){
+            czyA=true;
+        }else{
+            czyA=false;
+        }
+        model.addAttribute("czyA",czyA);
+
 
         Faktura faktura=koszyk.getFaktura();
         model.addAttribute("koszyk", koszyk.getProduktKoszyk());
-        model.addAttribute("sumaKoszyka", sumaKoszyka);
+        model.addAttribute("sumaKoszyka", cenaC);
 
 
         model.addAttribute("id", koszyk.getId());
@@ -271,7 +318,18 @@ public class KontrolerPracownik {
                               @RequestParam Long id
                               ){
         Zamowienie zamowienie=s.zwrocZamowienie(id);
-        s.zmienStatusZamowienia(zamowienie);
+        s.zmienStatusZamowienia(zamowienie,Status.WYSlANE);
+
+        return "redirect:/Neuca/strefaPracownika/Zamowienie?id=" + id;
+    }
+
+
+    @RequestMapping("/strefaPracownika/anuluj")
+    public String anuluj(Authentication authentication, Model model,
+                              @RequestParam Long id
+    ){
+        Zamowienie zamowienie=s.zwrocZamowienie(id);
+        s.zmienStatusZamowienia(zamowienie,Status.ANULOWANE);
 
         return "redirect:/Neuca/strefaPracownika/Zamowienie?id=" + id;
     }

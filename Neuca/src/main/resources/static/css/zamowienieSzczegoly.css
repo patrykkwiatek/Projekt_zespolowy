@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:#176dce;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    border-top: 2px solid #422727;
+}
+
+.info-section section {
+    flex: 1;
+    min-width: 250px;
+}
+h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #e30e0e;
+    margin-bottom: 10px;
+}
+h3 {
+    font-size: 22px;
+    text-align: center;
+    color: #176dce;
+    margin-bottom: 10px;
+}
+h4 {
+    font-size: 28px;
+    text-align: center;
+    color: #e30e0e;
+    margin-bottom: 10px;
+}
+section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+.koszyk {
+    border-top: 2px solid #24035e;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+table thead {
+    background-color: #176dce;
+    color: white;
+}
+
+.status-section {
+    margin-top: 30px;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.action-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.status-button, .cancel-button, .invoice-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.status-button {
+    background-color: #176dce;
+}
+
+.status-button:hover {
+    background-color: #288ddf;
+}
+
+.cancel-button {
+    background-color: #c62828;
+}
+
+.cancel-button:hover {
+    background-color: #e53935;
+}
+
+.invoice-button {
+    background-color: #2e7d32;
+    margin-top: 15px;
+}
+
+.invoice-button:hover {
+    background-color: #43a047;
+}
+
+.cena-laczna {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 2px solid #24035e;
+
+}
+
+.cena-box {
+    background-color: #94d012;
+    display: inline-block;
+    padding: 20px 40px;
+    border-radius: 12px;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.total-price {
+    font-size: 32px;
+    color: white;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}

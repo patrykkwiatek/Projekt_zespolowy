@@ -13,4 +13,5 @@ public interface RepoZamowienie extends JpaRepository<Zamowienie, Long> {
     Optional <Zamowienie> findById(Long id);
     List<Zamowienie> findByMyuserAndStatusNot(MyUser user, Status status);
     Page<Zamowienie> findByStatusNot(Status status, Pageable pageable);
+    Page<Zamowienie> findById(Long id, Pageable pageable);
 }

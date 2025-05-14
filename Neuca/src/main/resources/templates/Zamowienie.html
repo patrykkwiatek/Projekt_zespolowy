@@ -1,56 +1,83 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/zamowienieSzczegoly.css">
+  <title>Szczegóły zamówienia</title>
 </head>
 <body>
-<h2>Podsumowanie zamówienia</h2>
+<div class="container">
+  <h2>Podsumowanie zamówienia</h2>
+  <div class="info-section">
+    <section class="dane-klienta">
+      <h3>Dane klienta</h3>
+      <p><strong>Imię:</strong> <span th:text="${imie}"></span></p>
+      <p><strong>Nazwisko:</strong> <span th:text="${nazwisko}"></span></p>
+      <p><strong>Email:</strong> <span th:text="${email}"></span></p>
+      <p><strong>Telefon:</strong> <span th:text="${telefon}"></span></p>
+      <p><strong>Adres 1:</strong> <span th:text="${adres1}"></span></p>
+      <p><strong>Adres 2:</strong> <span th:text="${adres2}"></span></p>
+    </section>
 
-<p>Imię: <span th:text="${imie}"></span></p>
-<p>Nazwisko: <span th:text="${nazwisko}"></span></p>
-<p>Email: <span th:text="${email}"></span></p>
-<p>Telefon: <span th:text="${telefon}"></span></p>
-<p>Adres 1: <span th:text="${adres1}"></span></p>
-<p>Adres 2: <span th:text="${adres2}"></span></p>
+    <section class="dostawa">
+      <h3>Sposób dostawy</h3>
+      <p><span th:text="${dostawa.getSlowo()}"></span></p>
+    </section>
 
-<h3>Dostawa:</h3>
-<p th:text="${dostawa.getSlowo()}"></p>
+    <section class="faktura" th:if="${czyFaktura}">
+      <h3>Faktura VAT</h3>
+      <p><strong>Nazwa firmy:</strong> <span th:text="${nazwaFirmy}"></span></p>
+      <p><strong>Adres 1:</strong> <span th:text="${adres1F}"></span></p>
+      <p><strong>Adres 2:</strong> <span th:text="${adres2F}"></span></p>
+      <p><strong>NIP:</strong> <span th:text="${NIP}"></span></p>
+      <button class="invoice-button">Generuj fakturę</button>
+    </section>
+  </div>
 
-<h3>Faktura:</h3>
-<div th:if="${czyFaktura}">
-  <p>Nazwa firmy: <span th:text="${nazwaFirmy}"></span></p>
-  <p>Adres 1: <span th:text="${adres1F}"></span></p>
-  <p>Adres 2: <span th:text="${adres2F}"></span></p>
-  <p>NIP: <span th:text="${NIP}"></span></p>
+  <section class="koszyk">
+    <h3>Zamówione produkty</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Nazwa leku</th>
+        <th>Ilość</th>
+        <th>Cena za 1 sztukę</th>
+        <th>Cena całkowita</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="produkt : ${koszyk}">
+        <td th:text="${produkt.lek.name}"></td>
+        <td th:text="${produkt.ilosc}"></td>
+        <td th:text="${produkt.cenaJednostkowa}"></td>
+        <td th:text="${produkt.cenaCalosciowa}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="status-section">
+    <p><strong>Aktualny stan:</strong> <span th:text="${status}">OCZEKUJE</span></p>
+
+    <div class="action-buttons" >
+      <form th:action="@{/Neuca/strefaPracownika/zmienStatus}" method="post" th:if="${czyW}">
+        <button class="status-button">Ustaw na Wysłane</button>
+        <input type="hidden" name="id" th:value="${id}">
+      </form>
+      <form th:action="@{/Neuca/strefaPracownika/anuluj}" method="post" th:if="${czyA}">
+        <button class="cancel-button">Anuluj zamówienie</button>
+        <input type="hidden" name="id" th:value="${id}">
+      </form>
+    </div>
+  </div>
+
+  <div class="cena-laczna">
+    <h4>Łączna cena produktów:</h4>
+    <div class="cena-box">
+      <p th:text="${sumaKoszyka} + ' PLN'" class="total-price"><strong></strong></p>
+    </div>
+  </div>
 </div>
-
-<h3>Produkty w koszyku:</h3>
-<table>
-  <tr>
-    <th>Nazwa leku</th>
-    <th>Ilość</th>
-    <th>Cena za 1 sztukę</th>
-    <th>Cena całkowita</th>
-  </tr>
-  <tr th:each="produkt : ${koszyk}">
-    <td th:text="${produkt.lek.name}"></td>
-    <td th:text="${produkt.ilosc}"></td>
-    <td th:text="${produkt.cenaJednostkowa}"></td> <!-- Cena jednostkowa w złotych -->
-    <td th:text="${produkt.cenaCalosciowa}"></td> <!-- Cena całkowita w złotych -->
-  </tr>
-</table>
-
-<span > Aktualny stan</span>
-<span  th:text="${status}"></span>
-
-<form th:action="@{/Neuca/strefaPracownika/zmienStatus}" method="post">
-  <input type="hidden" name="id" th:value="${id}">
-  <button>Zmien status</button>
-</form>
-
-<h3>Łączna cena za produkty:</h3>
-<p th:text="'Cena całkowita: ' + ${sumaKoszyka} + ' PLN'"></p>
-
 </body>
 </html>

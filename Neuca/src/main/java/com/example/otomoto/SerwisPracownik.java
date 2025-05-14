@@ -181,6 +181,10 @@ public class SerwisPracownik {
         }
     }
 
+    public Page<Zamowienie> pobierzListeID(Long id,Pageable pageable){
+        return repoZamowienie.findById(id,pageable);
+    }
+
 
 
 
@@ -190,11 +194,9 @@ public class SerwisPracownik {
                 .orElseThrow(() -> new EntityNotFoundException("Zamówienie o ID " + id + " nie istnieje"));
     }
 
-    public void zmienStatusZamowienia(Zamowienie zamowienie){
-        Status status=zamowienie.getStatus();
-        if(status==Status.OCZEKUJE){
-            zamowienie.setStatus(Status.WYSlANE);
-        }
+    public void zmienStatusZamowienia(Zamowienie zamowienie, Status status){
+        zamowienie.setStatus(status);
+
         repoZamowienie.save(zamowienie);
     }
 

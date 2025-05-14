@@ -253,7 +253,7 @@ public class DataBaseloader implements CommandLineRunner {
 
     void pacjenci(){
         List<String> imiona = Arrays.asList("Anna", "Marek", "Katarzyna", "Jan", "Zofia", "Tomasz", "Barbara", "Paweł", "Agnieszka", "Piotr","Tomasz", "Roman", "Justyna","Bartosz");
-        List<String> nazwiska = Arrays.asList("Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kamińska", "Kaczmarek", "Zieliński", "Szymański", "Woźniak", "Dąbrowski", "Byk", "Lewanswoska");
+        List<String> nazwiska = Arrays.asList("Nowak", "Byk", "Jeleń", "Kot", "Kowal", "Kubiak", "Kwiat", "Kozioł", "Mazur", "Krawczyk", "Kaczmarek", "Zając", "Król", "Wieczorek", "Wróbel", "Sikora","Kawa");
         List<String> miasta = Arrays.asList("Warszawa", "Kraków", "Łódź", "Wrocław", "Poznań", "Gdańsk", "Szczecin", "Bydgoszcz", "Lublin", "Katowice", "Toruń", "Włocławek", "Gdynia", "Płock", "Gliwice");
         for(int i = 1; i<40;i++){
             Random random= new Random();
@@ -380,7 +380,7 @@ public class DataBaseloader implements CommandLineRunner {
         zamowienie.setTelefon(501123456);
         zamowienie.setAdres1("ul. Słoneczna 5");
         zamowienie.setAdres2("00-123 Warszawa");
-        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setStatus(Status.losowy());
         zamowienie.setCzyZakonczone(true);
         zamowienie.setDostawa(Dostawa.KURIER);
         zamowienie.setDataZamowienia(LocalDateTime.now());
@@ -403,76 +403,48 @@ public class DataBaseloader implements CommandLineRunner {
         serwisKoszyk.noweZamowienie(zamowienie, myUser);
 
 
-        //zamowienie3
+
+        List<String> imiona = Arrays.asList("Anna", "Bartek", "Celina", "Dawid", "Ewa", "Filip", "Gabriela", "Hubert", "Iwona", "Jakub",
+                "Katarzyna", "Łukasz", "Maja", "Norbert", "Oliwia", "Patryk", "Roksana", "Sebastian", "Tomasz",
+                "Urszula", "Wojciech", "Zofia", "Marcin", "Natalia", "Zenon");
+
+        List<String> nazwiska = Arrays.asList("Nowak", "Byk", "Jeleń", "Kot", "Kowal", "Kubiak", "Kwiat", "Kozioł", "Mazur", "Krawczyk", "Kaczmarek", "Zając", "Król", "Wieczorek", "Wróbel", "Sikora","Kawa");
+        List<String> miasta = Arrays.asList("Warszawa", "Kraków", "Łódź", "Wrocław", "Poznań", "Gdańsk", "Szczecin", "Bydgoszcz", "Lublin", "Katowice", "Toruń", "Włocławek", "Gdynia", "Płock", "Gliwice");
 
 
-        myUser = serwisMyUser.zwrocUser("myuser6");
-        p1 = new ProduktKoszyk();
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(5L)), 2);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(7L)), 31);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(Long.valueOf(10L)), 5);
 
-        zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
+        Random random = new Random();
+        for (int i = 1; i < 25; i++) {
+            myUser = serwisMyUser.zwrocUser("myuser"+i);
+            serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(4L),random.nextInt(12));
+            serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(6L), random.nextInt(12));
+            serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(1L), random.nextInt(12));
 
-        zamowienie.setImie("Pawel");
-        zamowienie.setNazwisko("Zajdelski");
-        zamowienie.setEmail("Zajdelski@example.com");
-        zamowienie.setTelefon(603906567);
-        zamowienie.setAdres1("Ul. slowa 15");
-        zamowienie.setAdres2("00-123 Warszawa");
-        zamowienie.setStatus(Status.OCZEKUJE);
-        zamowienie.setCzyZakonczone(false);
-        zamowienie.setDostawa(Dostawa.KURIER);
-        zamowienie.setDataZamowienia(LocalDateTime.now());
-        zamowienie.setDisplayDateZamowienia(data.format(formatter));
-        zamowienie.setFaktura(new Faktura(false));
+            Zamowienie z1 = serwisKoszyk.getAktywnyKoszyk(myUser);
 
-        sumaKoszyka = 0;
-        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
-            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR();
-            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
-            sumaKoszyka += cenaCalosciowaGrosze; // Dodanie ceny całkowitej do sumy koszyka
+            z1.setImie(imiona.get(random.nextInt(imiona.size())));
+            z1.setNazwisko(nazwiska.get(random.nextInt(nazwiska.size())));
+            z1.setEmail(z1.getImie()+z1.getNazwisko()+"@mail.com");
+            z1.setTelefon(500100100 + i);
+            z1.setAdres1("Ul. Zamówieniowa " + (i + 1));
+            String miasto=miasta.get(random.nextInt(miasta.size()));
+            z1.setAdres2("00-" + String.format("%03d", 100 + i)+" " + miasto);
+            z1.setStatus(Status.losowy());
+            z1.setCzyZakonczone(false);
+            z1.setDostawa(Dostawa.ODBIOR);
+            z1.setDataZamowienia(data);
+            z1.setDisplayDateZamowienia(data.format(formatter));
+            z1.setFaktura(new Faktura(false));
+
+            long suma = z1.getProduktKoszyk().stream()
+                    .mapToLong(p -> p.getLek().getPriceGR() * p.getIlosc())
+                    .sum();
+            z1.setCalkowitaCena(String.format("%.2f", suma / 100.0));
+
+            serwisKoszyk.noweZamowienie(z1, myUser);
         }
 
-        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
-        serwisKoszyk.noweZamowienie(zamowienie, myUser);
-
-        //zamowienie4
-
-        myUser = serwisMyUser.zwrocUser("myuser5");
-        p1 = new ProduktKoszyk();
-
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(5L), 42);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(11L), 6);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(12L), 2);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(7L), 31);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(1L), 5);
-        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(2L), 3);
-
-        zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
-
-        zamowienie.setImie("Jan");
-        zamowienie.setNazwisko("Kowalski");
-        zamowienie.setEmail("jan.kowalski@example.com");
-        zamowienie.setTelefon(604123456);
-        zamowienie.setAdres1("Ul. Pięciomorgowa 15");
-        zamowienie.setAdres2("00-123 Warszawa");
-        zamowienie.setStatus(Status.OCZEKUJE);
-        zamowienie.setCzyZakonczone(false);
-        zamowienie.setDostawa(Dostawa.KURIER);
-        zamowienie.setDataZamowienia(LocalDateTime.now());
-        zamowienie.setDisplayDateZamowienia(data.format(formatter));
-        zamowienie.setFaktura(new Faktura(true));
-
-        sumaKoszyka = 0;
-        for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
-            long cenaJednostkowaGrosze = produkt.getLek().getPriceGR();
-            long cenaCalosciowaGrosze = cenaJednostkowaGrosze * produkt.getIlosc();
-            sumaKoszyka += cenaCalosciowaGrosze;
-        }
-
-        zamowienie.setCalkowitaCena(String.format("%.2f", sumaKoszyka / 100.0));
-        serwisKoszyk.noweZamowienie(zamowienie, myUser);
+        System.out.println("zamowienia");
 
     }
 

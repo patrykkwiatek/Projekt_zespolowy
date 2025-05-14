@@ -31,7 +31,12 @@ public class Lek {
     private int iloscKup;
     private String sciezka;
 
-    @OneToMany(fetch= FetchType.LAZY,mappedBy = "lek")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "lek",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
     private List<ProduktKoszyk> produktKoszyk;
 
 

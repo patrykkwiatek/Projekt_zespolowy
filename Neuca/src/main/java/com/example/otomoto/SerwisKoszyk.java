@@ -92,6 +92,7 @@ public class SerwisKoszyk {
         nowyKoszyk.setMyuser(user);
         nowyKoszyk.setCzyZakonczone(false);
         nowyKoszyk.setStatus(Status.BRAK);
+        nowyKoszyk.setFaktura(new Faktura(false));
         repoZamowienie.save(nowyKoszyk);
     }
 

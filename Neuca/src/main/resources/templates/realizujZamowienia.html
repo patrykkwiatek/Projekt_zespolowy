@@ -10,11 +10,13 @@
 <div id="container">
   <div class="top-bar">
     <div class="search-wrapper">
-      <input type="text" placeholder="Szukaj..." class="search-input">
-      <button class="search-button">Szukaj</button>
+      <form th:action="@{/Neuca/strefaPracownika/realizujZamowienia}">
+        <input type="text" name ="id" th:value="${id}" placeholder="Szukaj po ID..." class="search-input">
+        <button class="search-button">Szukaj</button>
+      </form>
     </div>
     <form>
-      <select class="filter" name="status">
+      <select id="statusSelect" class="filter" name="status" onchange="onStatusChange()">
         <option th:each="status : ${statusy}"
                 th:value="${status.name()}"
                 th:text="${status.slowo}"
@@ -54,10 +56,29 @@
 <div id="pagination">
   <div id="page-info"></div>
   <div id="page-controls">
-    <button>Poprzednia</button>
-    <span>Strona 1 z 10</span>
-    <button>Następna</button>
+    <form th:if="${czyPop}">
+      <button>Poprzednia</button>
+      <input type="hidden" name="status" th:value="${wybranyStatus}">
+      <input type="hidden" name="page" th:value="${pop}">
+    </form>
+    <span th:text="'Strona '+ ${nas} +' z ' +${wszystkie}">Strona 1 z 10</span>
+    <form th:if="${czyNas}">
+      <button>Następna</button>
+      <input type="hidden" name="status" th:value="${wybranyStatus}">
+      <input type="hidden" name="page" th:value="${nas}">
+    </form>
   </div>
 </div>
+
+
+
+<script>
+  function onStatusChange() {
+    const selectedStatus = document.getElementById("statusSelect").value;
+    window.location.href = `/Neuca/strefaPracownika/realizujZamowienia?status=${selectedStatus}&page=0`;
+  }
+</script>
+
+
 </body>
 </html>

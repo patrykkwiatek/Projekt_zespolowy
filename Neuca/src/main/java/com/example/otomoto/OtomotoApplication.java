@@ -9,5 +9,4 @@ public class OtomotoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OtomotoApplication.class, args);
 	}
-
 }
