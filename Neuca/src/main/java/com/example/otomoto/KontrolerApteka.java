@@ -13,16 +13,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/Neuca")
 @Controller
 public class KontrolerApteka {
     SerwisMyUser serwisMyUser;
     SerwisApteka serwisApteka;
+    SerwisPracownik serwisPracownik;
+    SerwisLekStanApteka serwisLekStanApteka;
 
-    public KontrolerApteka(SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
+    public KontrolerApteka(SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik serwisPracownik, SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
+        this.serwisLekStanApteka=serwisLekStanApteka;
         this.serwisMyUser = serwisMyUser;
         this.serwisApteka=serwisApteka;
+        this.serwisPracownik=serwisPracownik;
     }
 
     @RequestMapping("/strefaAptekarza")
@@ -191,6 +196,111 @@ public class KontrolerApteka {
         serwisApteka.editApteka(apteka,aptekaNowa);
         return "edytowanoApteke";
     }
+
+
+
+    @RequestMapping("/strefaAptekarza/lekiDodawanieNaStan")
+    public String lekiDodawanieNaStan(Model model){
+        List<Lek> leki=serwisPracownik.getALL();
+        model.addAttribute("leki",leki);
+
+
+        return "lekiDodawanieNaStan";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/lekiIleSztuk")
+    public String lekiIleSztuk(@RequestParam Long id,
+                                Model model){
+        Lek lek=serwisPracownik.findbyID(id);
+        model.addAttribute("lek", lek);
+        return "lekiIleSztuk";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/dodanoLekApteka")
+    public String dodanoLekApteka(Authentication authentication, Model model,
+                                  @RequestParam Long id, @RequestParam int sztuki){
+        String username= authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+
+        Lek lek=serwisPracownik.findbyID(id);
+        serwisLekStanApteka.dodajDoApteki(apteka,sztuki, lek);
+
+
+        return "dodanoLekApteka";
+    }
+
+
+
+    @RequestMapping("/strefaAptekarza/lekiNaStanie")
+    public String lekiNaStanie(Model model, Authentication authentication){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka = myUser.getApteka();
+        List<LekStanApteka> leki=serwisLekStanApteka.zwrocStan(apteka);
+        model.addAttribute("leki",leki);
+        return "lekiNaStanie";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/lekNaStanieSzczegoly")
+    public String lekNaStanieSzczegoly(Model model, @RequestParam Long id){
+        Lek lek=serwisPracownik.findbyID(id);
+        model.addAttribute("lek",lek);
+        return "lekNaStanieSzczegoly";
+    }
+
+    @RequestMapping("/strefaAptekarza/dodawanieLekiSzczegoly")
+    public String dodawanieLekiSzczegoly(Model model, @RequestParam Long id){
+        Lek lek=serwisPracownik.findbyID(id);
+        model.addAttribute("lek",lek);
+        return "dodawanieLekiSzczegoly";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/lekNaStanieEdytuj")
+    public String lekNaStanieEdytuj(@RequestParam Long id, Model model){
+        LekStanApteka lekStanApteka=serwisLekStanApteka.zwrocPoId(id);
+        Lek lek=lekStanApteka.getLek();
+        int sztuki=lekStanApteka.getSztuk();
+        model.addAttribute("idLekS",lekStanApteka.getId());
+        model.addAttribute("sztuk",sztuki);
+        model.addAttribute("lek",lek);
+        return "lekNaStanieEdytuj";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/edytowanoLekApteka")
+    public String edytowanoLekApteka(@RequestParam  Long id,
+                                     @RequestParam int sztuki,
+                                     Authentication authentication){
+        String username=authentication.getName();
+        MyUser myUser =serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        Lek lek=serwisPracownik.findbyID(id);
+        LekStanApteka lekStanApteka=serwisLekStanApteka.zwrocPoAptekaILek(apteka,lek);
+        serwisLekStanApteka.zapiszStan(lekStanApteka,sztuki);
+        return "edytowanoLekApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/usunLekApteka")
+    public String usunLekApteka(@RequestParam Long id, Model model){
+        LekStanApteka lekStanApteka=serwisLekStanApteka.zwrocPoId(id);
+        model.addAttribute("lek",lekStanApteka);
+        return "usunLekApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/usunLekAptekaPotwierzdz")
+    public String usunLekAptekaPotwierzdz(@RequestParam Long id){
+        LekStanApteka lekStanApteka=serwisLekStanApteka.zwrocPoId(id);
+        serwisLekStanApteka.usunStan(lekStanApteka);
+        return "usunLekAptekaPotwierzdz";
+    }
+
+
+
 
 
 }

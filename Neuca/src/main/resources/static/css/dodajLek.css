@@ -1,0 +1,155 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 95%;
+    margin: 0 auto 30px auto;
+    padding: 10px 0;
+    flex-wrap: wrap;
+}
+.header-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.header-bar h1 {
+    color: #d60000;
+    font-size: 28px;
+}
+
+.add-button {
+    background-color: #0bd729;
+    color: #ffffff;
+    padding: 10px 18px;
+    margin-right: 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-button:hover {
+    background-color: #0ab234;
+}
+
+
+.back-button {
+    background-color: white;
+    color: #0033cc;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border-color: #0033cc;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0033cc;
+    color: white;
+}
+
+/* Main content */
+.main-container {
+    max-width: 95%;
+    margin: auto;
+}
+
+.table-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d60000;
+}
+
+/* Table styles */
+.table-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1200px;
+}
+
+thead {
+    background-color: #0033cc;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Buttons inside actions column */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.small-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.small-btn.green {
+    background-color: #28a745;
+    color: white;
+}
+
+.small-btn.green:hover {
+    background-color: #218838;
+}
+
+.small-btn.red {
+    background-color: #dc3545;
+    color: white;
+}
+
+.small-btn.red:hover {
+    background-color: #c82333;
+}
+
+.small-btn.blue {
+    background-color: #007bff;
+    color: white;
+}
+
+.small-btn.blue:hover {
+    background-color: #0069d9;
+}

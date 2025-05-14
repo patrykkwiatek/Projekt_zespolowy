@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Szczegóły leku</title>
+  <link rel="stylesheet" href="/css/lekSzczegoly.css">
+</head>
+<body>
+<div class="container">
+  <div class="info-row">
+    <span class="label">Nazwa:</span>
+    <span class="value" th:text="${lek.name}">Apap</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Cena:</span>
+    <span class="value" th:text="${lek.cenaString()}">12,99 zł</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Gramatura:</span>
+    <span class="value" th:text="${lek.gramatura}">500mg</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Opis:</span>
+    <span class="value" th:text="${lek.desc}">Lek przeciwbólowy</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Skład:</span>
+    <span class="value" th:text="${lek.sklad}">Paracetamol</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Dawkowanie:</span>
+    <span class="value" th:text="${lek.dawkowanie}">1 tabletka co 6h</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Wiek od:</span>
+    <span class="value" th:text="${lek.minWiek}">12</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Wiek do:</span>
+    <span class="value" th:text="${lek.maxWiek}">99</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Marka:</span>
+    <span class="value" th:text="${lek.markaLeku}">Aflofarm</span>
+  </div>
+
+  <div class="info-row">
+    <span class="label">Rodzaj:</span>
+    <span class="value" th:text="${lek.rodzajLeku}">Przeciwbólowy</span>
+  </div>
+
+  <div class="button-row">
+    <a href="/Neuca/strefaAptekarza/lekiDodawanieNaStan" class="button">Wróć</a>
+  </div>
+</div>
+</body>
+</html>

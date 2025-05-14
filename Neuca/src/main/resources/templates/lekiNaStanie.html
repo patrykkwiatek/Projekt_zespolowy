@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Leki na stanie</title>
+  <link rel="stylesheet" href="/css/lekiNaStanie.css">
+</head>
+<body>
+<div class="header-bar">
+  <h1>Zarządzaj lekami na stanie</h1>
+  <div class="header-buttons">
+    <a href="/Neuca/strefaAptekarza/lekiDodawanieNaStan" class="add-button">Dodaj lek</a>
+    <a href="zarzadzajApteka.html" class="back-button">Wróć</a>
+  </div>
+</div>
+<div class="main-container">
+  <div class="table-scroll">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Status</th>
+        <th>Ilość</th>
+        <th>Cena</th>
+        <th>Gramatura</th>
+        <th>Marka</th>
+        <th>Rodzaj</th>
+        <th>Min. wiek</th>
+        <th>Max. wiek</th>
+        <th>Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="lek : ${leki}">
+        <td th:text="${lek.lek.id}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.name}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|">Na stanie</td>
+        <td th:text="${lek.sztuk}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.cenaString}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.gramatura}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.markaLeku}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.rodzajLeku}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.minWiek}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td th:text="${lek.lek.maxWiek}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/lekNaStanieSzczegoly(id=${lek.lek.id})}'|"></td>
+        <td class="actions">
+          <button class="small-btn blue"
+                  th:onclick="'window.location.href=\'/Neuca/strefaAptekarza/lekNaStanieEdytuj?id=' + ${lek.id} + '\''">
+            Edytuj
+          </button>
+        </td>
+      </tr>
+      <!-- Kolejne wiersze -->
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

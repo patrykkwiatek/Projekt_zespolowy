@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Entity
@@ -49,9 +50,16 @@ public class Apteka {
     private LocalTime ndzStop;
 
 
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "my_user_id")
     private MyUser myUser;
+
+    @OneToMany(fetch= FetchType.EAGER,mappedBy = "apteka")
+    private List<LekStanApteka> lekStanApteka;
+
+
 
 
     public Apteka(Long id, boolean potwierdzenie, String numerBud, String numerLokalu, String kodPocztowy, String miasto, String telefon, Wojewodztwo wojewodztwo) {

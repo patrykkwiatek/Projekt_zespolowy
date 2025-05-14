@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edytuj lek</title>
+  <link rel="stylesheet" href="/css/edytujLek.css">
+</head>
+<body>
+<div class="edit-container">
+  <h2>Edytuj cenę i ilość</h2>
+  <form th:action="@{/Neuca/strefaAptekarza/edytowanoLekApteka}"  method="post" id="editForm">
+    <div class="form-group">
+      <label>Nazwa:</label>
+      <span th:text="${lek.name}"></span>
+    </div>
+    <div class="form-group">
+      <label>Ilość na stanie:</label>
+      <input type="number" name="sztuki" th:value="${sztuk}" required>
+    </div>
+    <input type="hidden" name="id" th:value="${lek.id}">
+
+    <div class="buttons">
+      <button type="submit" class="save">Zapisz</button>
+      <button type="button" class="delete" th:onclick="'window.location.href=\'/Neuca/strefaAptekarza/usunLekApteka?id=' + ${idLekS} + '\''">Usuń lek</button>
+      <a href="/Neuca/strefaAptekarza/lekiNaStanie" class="cancel">Anuluj</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Leki na stanie</title>
+  <link rel="stylesheet" href="/css/dodajLek.css">
+</head>
+<body>
+<div class="header-bar">
+  <h1>Dodaj lek na stan apteki</h1>
+  <div class="header-buttons">
+    <a href="/Neuca/strefaAptekarza/lekiNaStanie" class="back-button">Wróć</a>
+  </div>
+</div>
+<div class="main-container">
+  <div class="table-scroll">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Cena</th>
+        <th>Gramatura</th>
+        <th>Marka</th>
+        <th>Rodzaj</th>
+        <th>Min. wiek</th>
+        <th>Max. wiek</th>
+        <th>Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="lek: ${leki}">
+        <td th:text="${lek.id}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.name}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.cenaString}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.gramatura}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.markaLeku}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.rodzajLeku}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.minWiek}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td th:text="${lek.maxWiek}" th:onclick="|window.location.href='@{/Neuca/strefaAptekarza/dodawanieLekiSzczegoly(id=${lek.id})}'|"></td>
+        <td class="actions">
+          <form th:action="@{/Neuca/strefaAptekarza/lekiIleSztuk}">
+            <button class="small-btn blue" >Dodaj</button>
+            <input type="hidden" name="id" th:value="${lek.id}">
+          </form>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

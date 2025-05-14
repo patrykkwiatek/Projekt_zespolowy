@@ -39,6 +39,14 @@ public class Lek {
     )
     private List<ProduktKoszyk> produktKoszyk;
 
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "lek",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<LekStanApteka> lekStanApteka;
+
 
     public Lek(String name, int priceGR, String gramatura, String desc, int minWiek, int maxWiek, boolean oferta, RodzajLeku rodzajLeku,MarkaLeku markaLeku, int iloscKup, String sciezka, String sklad,String dawkowanie) {
         this.name = name;

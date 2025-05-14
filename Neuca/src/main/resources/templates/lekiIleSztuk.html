@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodaj lek</title>
+  <link rel="stylesheet" href="/css/dodawanie.css">
+</head>
+<body>
+<div class="edit-container">
+  <h2>Dodaj lek na stan</h2>
+  <form id="editForm" th:action="@{/Neuca/strefaAptekarza/dodanoLekApteka}" method="post">
+    <div class="form-group">
+      <label>Nazwa:</label>
+      <span th:text="${lek.name}">Ibuprofen</span>
+    </div>
+    <div class="form-group">
+      <label>Podaj ilość</label>
+      <input type="number" name="sztuki" value="10" required>
+      <input type="hidden" name="id" th:value="${lek.id}">
+    </div>
+
+    <div class="buttons">
+      <button type="submit" class="save">Zapisz</button>
+      <a href="/Neuca/strefaAptekarza/lekiDodawanieNaStan" class="cancel">Anuluj</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

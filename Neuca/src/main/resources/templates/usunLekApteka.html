@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Potwierdzenie usunięcia</title>
+  <style>
+    body {
+      background-color: #f2f6ff;
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 40px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #d60000;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .details {
+      margin-bottom: 30px;
+    }
+
+    .details p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #0033cc;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 10px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .btn-cancel {
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-cancel:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Czy na pewno chcesz usunąć lek?</h2>
+
+  <div class="details">
+    <p><span   class="label">ID:</span> <span th:text="${lek.lek.id}"></span></p>
+    <p><span class="label">Nazwa:</span> <span th:text="${lek.lek.name}"></span> </p>
+    <p><span class="label">Cena:</span> <span th:text="${lek.lek.cenaString}"></span> </p>
+    <p><span class="label">Ilość na stanie:</span> <span th:text="${lek.sztuk}"></span></p>
+    <p><span class="label">Gramatura:</span> <span th:text="${lek.lek.gramatura}"></span></p>
+    <p><span class="label">Marka:</span> <span th:text="${lek.lek.markaLeku}"></span></p>
+    <p><span class="label">Rodzaj:</span> <span th:text="${lek.lek.rodzajLeku}"></span></p>
+    <p><span class="label">Minimalny wiek:</span> <span th:text="${lek.lek.minWiek}"></span></p>
+    <p><span class="label">Maksymalny wiek:</span> <span th:text="${lek.lek.maxWiek}"></span></p>
+  </div>
+
+  <div class="buttons">
+    <form th:action="@{/Neuca/strefaAptekarza/usunLekAptekaPotwierzdz}" method="post">
+      <input type="hidden" name="id" th:value="${lek.id}">
+      <button class="btn btn-danger" onclick="usunLek()">Usuń lek</button>
+    </form>
+    <a th:href="@{/Neuca/strefaAptekarza/lekNaStanieEdytuj(id=${lek.id})}" class="btn btn-cancel">Anuluj</a>
+  </div>
+</div>
+
+</body>
+</html>
