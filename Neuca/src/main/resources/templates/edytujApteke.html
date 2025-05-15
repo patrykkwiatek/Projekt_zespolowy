@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Aptekarza</title>
+  <link rel="stylesheet" href="/css/mojProfil.css">
 </head>
 <body>
+<div class="profile-container">
+  <div class="profile-box">
+    <h1>Edytuj dane</h1>
+    <form action="#" th:action="@{/Neuca/strefaAptekarza/edytowanoApteke}" th:object="${apteka}" id="profileForm" method="post">
+      <input type="text" id="pharmacyName" value="*{name}" th:field="*{name}" placeholder="Nazwa apteki" required>
+      <input type="tel" id="phone" th:field="*{telefon}" placeholder="Numer telefonu" required>
+      <input type="text" id="street" value="*{ulica}" th:field="*{ulica}" placeholder="Ulica" required>
+      <input type="text" id="building" value="*{numerBud}" th:field="*{numerBud}" placeholder="Numer budynku" required>
+      <input type="text" id="local" value="*{numerLokalu}" th:field="*{numerLokalu}" placeholder="Numer lokalu">
+      <select th:field="*{wojewodztwo}" id="voiv" name="voiv" required>
+        <option th:each="woj :${wojewodztwa}"
+                th:value="${woj}"
+                th:text="${woj}"
+                th:field="*{wojewodztwo}">
 
+        </option>
+      </select>
 
-<form action="#" th:action="@{/Neuca/strefaAptekarza/edytowanoApteke}" th:object="${apteka}" method="post">
-  Nazwa: <input type="text"   value="*{name}" th:field="*{name}"> </br>
-  Ulica: <input type="text" value="*{ulica}" th:field="*{ulica}"></br>
-  Numer Budynku: <input type="text" value="*{numerBud}" th:field="*{numerBud}"></br>
-  Numer Lokalu: <input type="text" value="*{numerLokalu}" th:field="*{numerLokalu}"></br>
-  Kod pocztowy: <input type="text" value="*{kodPocztowy}" th:field="*{kodPocztowy}"></br>
-  Miasto: <input type="text" value="*{miasto}" th:field="*{miasto}"></br>
-  Województwo:
-  <select th:field="*{wojewodztwo}">
-    <option th:each="woj :${wojewodztwa}"
-            th:value="${woj}"
-            th:text="${woj}"
-            th:field="*{wojewodztwo}">
+      <input type="text" id="zip" value="*{kodPocztowy}" th:field="*{kodPocztowy}" placeholder="Kod pocztowy" required>
+      <input type="text" id="city" value="*{miasto}" th:field="*{miasto}" placeholder="Miasto" required>
 
-    </option>
-  </select></br>
-  Telefon: <input type="text"  th:field="*{telefon}"></br>
-  <button>Edytuj</button>
-</form>
-
+      <button type="submit" class="save-button">Zapisz zmiany</button>
+      <button type="button" onclick="window.location.href='/Neuca/strefaAptekarza/zarzadzajApteka'" class="cancel-button">Anuluj</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>

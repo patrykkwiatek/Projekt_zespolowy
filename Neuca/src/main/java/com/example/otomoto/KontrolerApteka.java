@@ -158,7 +158,7 @@ public class KontrolerApteka {
         String username= authentication.getName();
         MyUser myUser=serwisMyUser.zwrocUser(username);
         Apteka apteka=myUser.getApteka();
-        if (stop.isBefore(start)) {
+        if (stop.isBefore(start) || stop.equals(start)) {
             return "zleGodzinyApteka";
         }
         serwisApteka.zmienGodziny(apteka,start,stop,dzien,czy);
@@ -195,7 +195,7 @@ public class KontrolerApteka {
         MyUser myUser=serwisMyUser.zwrocUser(username);
         Apteka apteka=myUser.getApteka();
         serwisApteka.editApteka(apteka,aptekaNowa);
-        return "edytowanoApteke";
+        return "redirect:/Neuca/strefaAptekarza";
     }
 
 

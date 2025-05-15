@@ -2,10 +2,63 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Błąd danych</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: whitesmoke;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+
+        .error-box {
+          background-color: white;
+          border-radius: 16px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+          padding: 40px;
+          text-align: center;
+          max-width: 500px;
+        }
+
+        .error-box h1 {
+          color: #d60000;
+          margin-bottom: 20px;
+        }
+
+        .error-box p {
+          font-size: 18px;
+          color: #333;
+          margin-bottom: 30px;
+        }
+
+        .btn {
+          padding: 12px 24px;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px;
+          border: 2px solid #0033cc;
+          background-color: white;
+          color: #0033cc;
+          text-decoration: none;
+          transition: 0.3s ease;
+        }
+
+        .btn:hover {
+          background-color: #0033cc;
+          color: white;
+        }
+    </style>
 </head>
 <body>
-Podales godzine otwarcia pozniejszą niz godzine zamkniecia
-<a href="/Neuca/strefaAptekarza/godzinyApteka">Powrot do godzi otwarcia</a>
+
+<div class="error-box">
+    <h1>Błąd wprowadzania danych</h1>
+    <p>Podałeś godzinę otwarcia późniejszą niż godzinę zamknięcia.</p>
+    <a href="/Neuca/strefaAptekarza/godzinyApteka" class="btn">Powrót do godzin otwarcia</a>
+</div>
+
 </body>
 </html>

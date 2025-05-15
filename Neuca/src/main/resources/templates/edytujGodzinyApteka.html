@@ -2,18 +2,98 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Zmien Godziny</title>
+    <title>Zmień godziny</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: whitesmoke;
+          padding: 30px;
+        }
+
+        .form-container {
+          max-width: 500px;
+          margin: auto;
+          background: white;
+          padding: 30px;
+          border-radius: 16px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+          color: #d60000;
+          text-align: center;
+          margin-bottom: 24px;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+
+        label {
+          font-weight: bold;
+          color: #333;
+        }
+
+        input[type="time"], input[type="checkbox"] {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 16px;
+        }
+
+        .btn {
+          padding: 12px 20px;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          background-color: #0033cc;
+          color: white;
+          transition: 0.3s ease;
+        }
+
+        .btn:hover {
+          background-color: #001f99;
+        }
+
+        .checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{/Neuca/strefaAptekarza/edytowanoGodzinyApteka}">
-  <input type="checkbox" name="czy" th:checked="${czy}">
-  <input type="time" name="start" th:value="${start}">
-  <input type="time" name="stop" th:value="${stop}">
-  <input type="hidden" name="dzien" th:value="${liczba}">
-  <button type="submit">Zapisz</button>
-</form>
 
+<div class="form-container">
+    <h2>Edytuj godziny otwarcia</h2>
 
+    <form th:action="@{/Neuca/strefaAptekarza/edytowanoGodzinyApteka}" method="post">
+        <div class="form-group checkbox-label">
+            <input type="checkbox" name="czy" th:checked="${czy}">
+            <label for="czy">Apteka otwarta tego dnia</label>
+        </div>
+
+        <div class="form-group">
+            <label for="start">Godzina otwarcia:</label>
+            <input type="time" name="start" id="start" th:value="${start}">
+        </div>
+
+        <div class="form-group">
+            <label for="stop">Godzina zamknięcia:</label>
+            <input type="time" name="stop" id="stop" th:value="${stop}">
+        </div>
+
+        <input type="hidden" name="dzien" th:value="${liczba}">
+
+        <button type="submit" class="btn">Zapisz</button>
+    </form>
+</div>
 
 </body>
 </html>
