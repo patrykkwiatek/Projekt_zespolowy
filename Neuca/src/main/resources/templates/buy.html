@@ -166,7 +166,7 @@
                     </div>
                     <form th:action="@{/Neuca/dodanoKoszyk}">
                         <div class="card__counter">
-                            <button type="button" class="card__btn card__btn-plus">-</button>
+                            <button type="button" class="card__btn">-</button>
                             <input type="number" class="card__counter-score" name="ilosc" value="1" min="1">
                             <button type="button" class="card__btn card__btn-plus">+</button>
 
@@ -182,7 +182,8 @@
                         </div>
                         <button type ="submit" class="card-btn">Dodaj do koszyka</button>
                     </form>
-                    <form th:action="@{/Neuca/login}" method="get">
+                    <form th:action="@{/Neuca/rezerwujLek}" method="get">
+                        <input type="hidden" name="id" th:value="${wynik.id}">
                         <button type ="submit" class="card-btn">Zarezerwuj</button>
                     </form>
 

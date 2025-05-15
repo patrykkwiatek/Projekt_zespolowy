@@ -9,4 +9,5 @@ public interface RepoLekStanApteka extends JpaRepository<LekStanApteka, Long> {
     Optional<LekStanApteka> findByLekAndApteka(Lek lek, Apteka apteka);
     List<LekStanApteka> findByApteka(Apteka apteka);
     Optional<LekStanApteka> findById(Long id);
+    List<LekStanApteka> findByLek(Lek lek);
 }

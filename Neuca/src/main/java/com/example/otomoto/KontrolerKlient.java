@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +21,18 @@ import java.util.stream.Collectors;
 public class KontrolerKlient {
     private SerwisPracownik sP;
     private SerwisKlient sK;
+    private SerwisApteka serwisApteka;
+    private final SerwisLekStanApteka serwisLekStanApteka;
+    private final SerwisRezerwacjaLeku serwisRezerwacjaLeku;
+    private final SerwisMyUser serwisMyUser;
 
-    public KontrolerKlient(SerwisPracownik sP, SerwisKlient sK) {
+    public KontrolerKlient(SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
         this.sP = sP;
         this.sK = sK;
+        this.serwisLekStanApteka=serwisLekStanApteka;
+        this.serwisApteka=serwisApteka;
+        this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
+        this.serwisMyUser =serwisMyUser;
     }
 
     @RequestMapping("/startK/listaK")
@@ -133,6 +143,51 @@ public class KontrolerKlient {
         model.addAttribute("log", isLogged);
         model.addAttribute("size",size);
         return "buy";
+    }
+
+
+
+    @RequestMapping("/rezerwujLek")
+    public String rezerwujLek(Model model,
+                           @RequestParam Long id,
+                           @RequestParam(defaultValue = "ALL") Wojewodztwo wojewodztwo){
+        Lek lek=sP.findbyID(id);
+        List<LekStanApteka> apteki=serwisLekStanApteka.zwrocTamGdzieLek(lek);
+        if(wojewodztwo!=Wojewodztwo.ALL){
+            Iterator<LekStanApteka> iterator = apteki.iterator();
+            while (iterator.hasNext()) {
+                LekStanApteka lekStan = iterator.next();
+                Wojewodztwo w = lekStan.getApteka().getWojewodztwo();
+                if (w != wojewodztwo) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        List<Wojewodztwo> wojewodztwa= new ArrayList<>(Arrays.asList(Wojewodztwo.values()));
+        model.addAttribute("wojewodztwa",wojewodztwa);
+        model.addAttribute("wojewodztwo",wojewodztwo);
+        model.addAttribute("lek",lek);
+        model.addAttribute("lekiStan",apteki);
+        model.addAttribute("id",id);
+
+        return "rezerwujLek";
+    }
+
+
+    @RequestMapping("/rezerwacjaZlozono")
+    public String rezerwacjaZlozono(Authentication authentication, Model model,
+                                      @RequestParam Long idApteki,@RequestParam Long idLeku, @RequestParam int ilosc,
+                                      @RequestParam String imie, @RequestParam String nazwisko){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Lek lek=sP.findbyID(idLeku);
+        Apteka apteka=serwisApteka.znajdzApteka(idApteki);
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser,apteka,lek,ilosc,imie,nazwisko);
+        model.addAttribute("apteka",apteka);
+        model.addAttribute("lek",lek);
+        model.addAttribute("ilosc",ilosc);
+        return "rezerwacjaZlozono";
     }
 
 }

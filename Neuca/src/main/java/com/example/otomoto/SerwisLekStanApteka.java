@@ -57,4 +57,9 @@ public class SerwisLekStanApteka {
     public void usunStan(LekStanApteka lekStanApteka){
         repoLekStanApteka.delete(lekStanApteka);
     }
+
+
+    public List<LekStanApteka> zwrocTamGdzieLek(Lek lek){
+        return repoLekStanApteka.findByLek(lek);
+    }
 }

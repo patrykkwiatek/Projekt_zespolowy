@@ -518,6 +518,25 @@ public class DataBaseloader implements CommandLineRunner {
         serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek8);
         serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek9);
         serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek10);
+        List<String> imiona = Arrays.asList("Anna", "Bartek", "Celina", "Dawid", "Ewa", "Filip", "Gabriela", "Hubert", "Iwona", "Jakub",
+                "Katarzyna", "Łukasz", "Maja", "Norbert", "Oliwia", "Patryk", "Roksana", "Sebastian", "Tomasz",
+                "Urszula", "Wojciech", "Zofia", "Marcin", "Natalia", "Zenon");
+        List<String> ulice = Arrays.asList("ul. Lipowa", "ul. Klonowa", "ul. Długa", "ul. Krótka", "ul. Słoneczna", "ul. Leśna", "ul. Polna", "ul. Ogrodowa", "ul. Wiosenna", "ul. Jesienna", "ul. Akacjowa", "ul. Brzozowa", "ul. Cicha", "ul. Zielona", "ul. Spacerowa", "ul. Szkolna", "ul. Kościelna", "ul. Miodowa", "ul. Złota", "ul. Różana");
+
+        List<String> nazwiska = Arrays.asList("Nowak", "Byk", "Jeleń", "Kot", "Kowal", "Kubiak", "Kwiat", "Kozioł", "Mazur", "Krawczyk", "Kaczmarek", "Zając", "Król", "Wieczorek", "Wróbel", "Sikora","Kawa");
+        List<String> miasta = Arrays.asList("Warszawa", "Kraków", "Łódź", "Wrocław", "Poznań", "Gdańsk", "Szczecin", "Bydgoszcz", "Lublin", "Katowice", "Toruń", "Włocławek", "Gdynia", "Płock", "Gliwice");
+
+        List<Lek> leki=serwisPracownik.getALL();
+        for(int i=0; i<40; i++ ){
+            Apteka aptekaFor=new Apteka(true,nazwiska.get(random.nextInt(nazwiska.size()))+"med",ulice.get(random.nextInt(ulice.size())),String.valueOf(random.nextInt(200)),null,"80-900", miasta.get(random.nextInt(miasta.size())),"567345789",Wojewodztwo.losuj() );
+            repoApteka.save(aptekaFor);
+            for(int j=0;j<15;j++){
+                int sztuk=random.nextInt(100);
+                Lek lek=leki.get(random.nextInt(leki.size()));
+                serwisLekStanApteka.dodajDoApteki(aptekaFor,sztuk,lek);
+
+            }
+        }
         System.out.println("leki na stanie");
     }
 

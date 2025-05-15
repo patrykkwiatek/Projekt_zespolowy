@@ -10,6 +10,5 @@ import org.springframework.data.repository.query.Param;
 public interface RepoLek extends JpaRepository<Lek, Long>,  JpaSpecificationExecutor<Lek> {
     Page<Lek> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
-
 }
 

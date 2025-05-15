@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Zarezerwowano lek: </br>
+<span th:text="${lek.name}"></span> </br>
+<span th:text="${lek.gramatura}"></span> </br>
+<span th:text="${lek.desc}"></span> </br>
+<span th:text="${lek.minWiek}"></span> </br>
+<span th:text="${lek.maxWiek}"></span> </br>
+<span th:text="${lek.rodzajLeku}"></span> </br>
+<span th:text="${lek.markaLeku}"></span> </br>
+<span th:text="${lek.sklad}"></span> </br>
+Ilosc sztuk: <span th:text="${ilosc}"></span>
+
+Apteka:
+<span th:text="${apteka.name}"> </span>
+<span th:text="${apteka.ulica} + ' ' + ${apteka.numerBud} + ' '+${apteka.numerLokalu}"> </span></br>
+<span th:text="${apteka.kodPocztowy} + ${apteka.miasto}"></span> </br>
+<span th:text="${apteka.wojewodztwo}"> </span></br>
+<span th:text="${apteka.telefon}"> </span></br>
+
+<a href="/Neuca/buy">Powrot do lekow</a>
+</body>
+</html>

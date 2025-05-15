@@ -1,5 +1,7 @@
 package com.example.otomoto;
 
+import java.util.Random;
+
 public enum Wojewodztwo {
     DOLNOSLASKIE,
     KUJAWSKO_POMORSKIE,
@@ -17,5 +19,12 @@ public enum Wojewodztwo {
     WARMINSKO_MAZURSKIE,
     WIELKOPOLSKIE,
     ZACHODNIOPOMORSKIE,
-    ALL,
+    ALL;
+
+    private static final Random RANDOM = new Random();
+    public static Wojewodztwo losuj() {
+        Wojewodztwo[] wartosci = values();
+        int index = RANDOM.nextInt(wartosci.length - 1);
+        return wartosci[index];
+    }
 }
