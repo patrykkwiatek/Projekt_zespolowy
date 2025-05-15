@@ -59,6 +59,9 @@ public class Apteka {
     @OneToMany(fetch= FetchType.EAGER,mappedBy = "apteka")
     private List<LekStanApteka> lekStanApteka;
 
+    @OneToMany(fetch= FetchType.LAZY,mappedBy = "apteka")
+    private List<RezerwacjaLeku> rezerwacje;
+
 
 
 

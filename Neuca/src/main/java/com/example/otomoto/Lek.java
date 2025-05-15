@@ -48,6 +48,12 @@ public class Lek {
     private List<LekStanApteka> lekStanApteka;
 
 
+    @OneToMany(fetch= FetchType.LAZY,mappedBy = "lek")
+    private List<RezerwacjaLeku> rezerwacje;
+
+
+
+
     public Lek(String name, int priceGR, String gramatura, String desc, int minWiek, int maxWiek, boolean oferta, RodzajLeku rodzajLeku,MarkaLeku markaLeku, int iloscKup, String sciezka, String sklad,String dawkowanie) {
         this.name = name;
         this.priceGR = priceGR;

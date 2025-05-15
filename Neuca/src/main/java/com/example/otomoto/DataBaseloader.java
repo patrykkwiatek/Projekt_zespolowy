@@ -28,9 +28,11 @@ public class DataBaseloader implements CommandLineRunner {
     SerwisApteka serwisApteka;
     SerwisPracownik serwisPracownik;
     SerwisKoszyk serwisKoszyk;
+    SerwisRezerwacjaLeku serwisRezerwacjaLeku;
+    SerwisLekStanApteka serwisLekStanApteka;
 
 
-    public DataBaseloader(SerwisKoszyk serwisKoszyk, SerwisPracownik serwisPracownik, SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
+    public DataBaseloader(SerwisLekStanApteka serwisLekStanApteka, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisKoszyk serwisKoszyk, SerwisPracownik serwisPracownik, SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
         this.repolek = repolek;
         this.repoMyUser = repoMyUser;
         this.repoUzytkownik = repoUzytkownik;
@@ -43,6 +45,8 @@ public class DataBaseloader implements CommandLineRunner {
         this.serwisApteka=serwisApteka;
         this.serwisPracownik=serwisPracownik;
         this.serwisKoszyk=serwisKoszyk;
+        this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
+        this.serwisLekStanApteka=serwisLekStanApteka;
 
     }
 
@@ -140,7 +144,8 @@ public class DataBaseloader implements CommandLineRunner {
         wizyty();
         aptekiNiePotwierdzone();
         zamowienia();
-
+        rezerwacje();
+        lekiNaStanie();
 
 
 
@@ -446,6 +451,74 @@ public class DataBaseloader implements CommandLineRunner {
 
         System.out.println("zamowienia");
 
+    }
+
+
+
+
+    void rezerwacje(){
+        Random random =new Random();
+        MyUser aptekarz=serwisMyUser.zwrocUser("aptekarz");
+        Apteka apteka=aptekarz.getApteka();
+        Lek lek1=serwisPracownik.findbyID(3L);
+        Lek lek2=serwisPracownik.findbyID(8L);
+        Lek lek3=serwisPracownik.findbyID(16L);
+        Lek lek4=serwisPracownik.findbyID(15L);
+        Lek lek5=serwisPracownik.findbyID(25L);
+        Lek lek6=serwisPracownik.findbyID(11L);
+        Lek lek7=serwisPracownik.findbyID(15L);
+        Lek lek8=serwisPracownik.findbyID(1L);
+        Lek lek9=serwisPracownik.findbyID(2L);
+        Lek lek10=serwisPracownik.findbyID(3L);
+        MyUser myUser1=serwisMyUser.zwrocUser("myuser1");
+        MyUser myUser2=serwisMyUser.zwrocUser("myuser2");
+        MyUser myUser3=serwisMyUser.zwrocUser("myuser3");
+        MyUser myUser4=serwisMyUser.zwrocUser("myuser4");
+        MyUser myUser5=serwisMyUser.zwrocUser("myuser5");
+        MyUser myUser6=serwisMyUser.zwrocUser("myuser6");
+        MyUser myUser7=serwisMyUser.zwrocUser("myuser7");
+        MyUser myUser8=serwisMyUser.zwrocUser("myuser8");
+        MyUser myUser9=serwisMyUser.zwrocUser("myuser9");
+        MyUser myUser10=serwisMyUser.zwrocUser("myuser10");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser1,apteka,lek1, random.nextInt(10),"Barbara","Wilk" );
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser2, apteka, lek2, random.nextInt(10), "Tomasz", "Nowak");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser3, apteka, lek3, random.nextInt(10), "Anna", "Kowalska");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser4, apteka, lek4, random.nextInt(10), "Marek", "Wójcik");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser5, apteka, lek5, random.nextInt(10), "Karolina", "Mazur");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser6, apteka, lek6, random.nextInt(10), "Paweł", "Kaczmarek");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser7, apteka, lek7, random.nextInt(10), "Ewa", "Zielińska");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser8, apteka, lek8, random.nextInt(10), "Jan", "Byk");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser9, apteka, lek9, random.nextInt(10), "Wojciech", "Szczęsny");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser10, apteka, lek10, random.nextInt(10), "Robert", "Lewandowski");
+        System.out.println("rezerwacje leków");
+    }
+
+
+    void lekiNaStanie(){
+        Random random =new Random();
+        MyUser aptekarz=serwisMyUser.zwrocUser("aptekarz");
+        Apteka apteka=aptekarz.getApteka();
+        Lek lek1=serwisPracownik.findbyID(3L);
+        Lek lek2=serwisPracownik.findbyID(8L);
+        Lek lek3=serwisPracownik.findbyID(16L);
+        Lek lek4=serwisPracownik.findbyID(15L);
+        Lek lek5=serwisPracownik.findbyID(25L);
+        Lek lek6=serwisPracownik.findbyID(11L);
+        Lek lek7=serwisPracownik.findbyID(15L);
+        Lek lek8=serwisPracownik.findbyID(1L);
+        Lek lek9=serwisPracownik.findbyID(2L);
+        Lek lek10=serwisPracownik.findbyID(3L);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek1);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek2);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek3);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek4);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek5);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek6);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek7);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek8);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek9);
+        serwisLekStanApteka.dodajDoApteki(apteka,random.nextInt(1000),lek10);
+        System.out.println("leki na stanie");
     }
 
 

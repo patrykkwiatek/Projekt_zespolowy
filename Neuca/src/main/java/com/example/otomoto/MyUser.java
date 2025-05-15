@@ -34,6 +34,9 @@ public class MyUser {
     @OneToMany(fetch= FetchType.LAZY,mappedBy = "myUser")
     private List<Wizyta> wizyty;
 
+    @OneToMany(fetch= FetchType.LAZY,mappedBy = "myUser")
+    private List<RezerwacjaLeku> rezerwacje;
+
 
     @OneToOne(mappedBy = "myUser")
     private Lekarz lekarz;

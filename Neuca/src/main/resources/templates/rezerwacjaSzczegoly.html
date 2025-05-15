@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szczegóły rezerwacji</title>
+  <link rel="stylesheet" href="/css/rezerwacjaSzczegoly.css">
+</head>
+<body>
+<div class="details-container">
+  <h1>Szczegóły rezerwacji</h1>
+
+  <div class="reservation-box">
+    <div class="info-group">
+      <label>Imię i nazwisko:</label>
+      <p th:text="${rezerwacja.imie} + ' '+ ${rezerwacja.nazwisko}"></p>
+    </div>
+    <div class="info-group">
+      <label>Nazwa leku:</label>
+      <p th:text="${rezerwacja.lek.name}"></p>
+    </div>
+    <div class="info-group">
+      <label>Ilość:</label>
+      <p th:text="${rezerwacja.ilosc}"></p>
+    </div>
+    <div class="info-group">
+      <label>Data rezerwacji:</label>
+      <p th:text="${rezerwacja.dataRezerwacji}"></p>
+    </div>
+    <div class="info-group">
+      <label>Data odbioru:</label>
+      <p th:text="${rezerwacja.dataOdbioru}"></p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <a href="/Neuca/strefaAptekarza/zarzadzajApteka" class="back-button">Wróć</a>
+    <button class="confirm-button">Wydano zamówienie</button>
+  </div>
+</div>
+</body>
+</html>

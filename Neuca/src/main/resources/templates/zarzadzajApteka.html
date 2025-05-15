@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zarządzaj apteką</title>
+    <link rel="stylesheet" href="/css/zarzadzajApteka.css">
+</head>
+<body>
+<div class="container">
+    <!-- Top menu -->
+    <div class="top-bar">
+        <div class="top-group">
+            <a href="mojProfil.html" class="top-button">Edytuj dane</a>
+            <a href="/Neuca/strefaAptekarza" class="top-button">Panel główny</a>
+            <a href="godzinyApteka.html" class="top-button">Godziny otwarcia</a>
+            <a href="/Neuca/strefaAptekarza/lekiNaStanie" class="top-button">Leki na stanie</a>
+            <a href="zaladujZamownia.html" class="top-button" id="loadOrder">Załaduj zamówienie</a>
+            <a href="zamowienia.html" class="top-button">Złóż zamówienie</a>
+        </div>
+    </div>
+
+
+    <!-- Sekcja z obiema tabelami -->
+    <div class="tables-section">
+        <!-- rTW: wrapper na tabelę rezerwacji leków -->
+        <div class="table-wrapper" id="rTW">
+            <h2>Rezerwacje leków</h2>
+            <div class="table-scroll">
+                <table id="reservationTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nazwa leku</th>
+                        <th scope="col">Ilość</th>
+                        <th scope="col">Data rezerwacji</th>
+                        <th scope="col">Data odbioru</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="rezerwacja : ${rezerwacje}"
+                        th:onclick="'window.location.href=\'/Neuca/strefaAptekarza/rezerwacjaSzczegoly?id=' + ${rezerwacja.id} + '\''">
+                        <td th:text="${rezerwacja.id}"></td>
+                        <td th:text="${rezerwacja.lek.name}"></td>
+                        <td th:text="${rezerwacja.ilosc}"></td>
+                        <td th:text="${rezerwacja.dataRezerwacji}"></td>
+                        <td th:text="${rezerwacja.dataOdbioru}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- sTW: wrapper na tabelę leków dostępnych -->
+        <div class="table-wrapper" id="sTW">
+            <h2>Dostępne w aptece</h2>
+            <div class="table-scroll">
+                <table id="stockTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nazwa leku</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ilość</th>
+                        <th scope="col">Cena</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="lek : ${naStanie}"
+                         th:onclick="'window.location.href=\'/Neuca/strefaAptekarza/zarzadzajApekaLekSzczegoly?id=' + ${lek.lek.id} + '\''">
+                        <td th:text="${lek.lek.id}" ></td>
+                        <td th:text="${lek.lek.name}" ></td>
+                        <td>Na stanie</td>
+                        <td th:text="${lek.sztuk} +' szt'" ></td>
+                        <td th:text="${lek.lek.cenaString}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="QzQl4Kjx2X1VTPIeSs2kQ";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
+</div>
+
+<script src="zarzadzajApteka.js"></script>
+</body>
+</html>

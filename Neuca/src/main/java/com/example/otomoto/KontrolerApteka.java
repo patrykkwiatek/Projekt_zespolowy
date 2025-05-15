@@ -22,12 +22,14 @@ public class KontrolerApteka {
     SerwisApteka serwisApteka;
     SerwisPracownik serwisPracownik;
     SerwisLekStanApteka serwisLekStanApteka;
+    SerwisRezerwacjaLeku serwisRezerwacjaLeku;
 
-    public KontrolerApteka(SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik serwisPracownik, SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
+    public KontrolerApteka(SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik serwisPracownik, SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
         this.serwisLekStanApteka=serwisLekStanApteka;
         this.serwisMyUser = serwisMyUser;
         this.serwisApteka=serwisApteka;
         this.serwisPracownik=serwisPracownik;
+        this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
     }
 
     @RequestMapping("/strefaAptekarza")
@@ -39,7 +41,6 @@ public class KontrolerApteka {
             return "redirect:/Neuca/strefaAptekarza/utworzApteke";
         }
         if(apteka.isPotwierdzenie()){
-            System.out.println("apteka jest potwierdzona");
             return "strefaAptekarza";
 
         }else{
@@ -298,6 +299,40 @@ public class KontrolerApteka {
         serwisLekStanApteka.usunStan(lekStanApteka);
         return "usunLekAptekaPotwierzdz";
     }
+
+
+    @RequestMapping("/strefaAptekarza/zarzadzajApteka")
+    public String zarzadzajApteka(Model model, Authentication authentication){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        LocalDate dzisiaj=LocalDate.now();
+        dzisiaj=dzisiaj.plusDays(1);
+        List<RezerwacjaLeku> rezerwacjaLeku=serwisRezerwacjaLeku.zwrocRezerwacje(dzisiaj.plusDays(5),apteka);
+        model.addAttribute("rezerwacje", rezerwacjaLeku);
+
+        List<LekStanApteka> naStanie=serwisLekStanApteka.zwrocStan(apteka);
+        model.addAttribute("naStanie",naStanie);
+        return "zarzadzajApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/rezerwacjaSzczegoly")
+    public String rezerwacjaSzczegoly(Model model, @RequestParam Long id){
+        RezerwacjaLeku rezerwacjaLeku=serwisRezerwacjaLeku.zwrocPoId(id);
+        model.addAttribute("rezerwacja",rezerwacjaLeku);
+        return "rezerwacjaSzczegoly";
+    }
+
+
+
+    @RequestMapping("/strefaAptekarza/zarzadzajApekaLekSzczegoly")
+    public String zarzadzajApekaLekSzczegoly(Model model, @RequestParam Long id){
+        Lek lek=serwisPracownik.findbyID(id);
+        model.addAttribute("lek",lek);
+        return "zarzadzajApekaLekSzczegoly";
+    }
+
+
 
 
 
