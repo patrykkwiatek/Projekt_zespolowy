@@ -31,11 +31,24 @@
       <label>Data odbioru:</label>
       <p th:text="${rezerwacja.dataOdbioru}"></p>
     </div>
+    <div class="info-group">
+      <label>Status:</label>
+      <p th:text="${rezerwacja.statusRezerwacji}"></p>
+    </div>
   </div>
 
   <div class="buttons">
     <a href="/Neuca/strefaAptekarza/zarzadzajApteka" class="back-button">Wróć</a>
-    <button class="confirm-button">Wydano zamówienie</button>
+    <form th:if="${czyWydano}" th:action="@{/Neuca/strefaAptekarza/zmienStanRezerwacji}" method="get">
+      <button class="confirm-button">Wydano zamówienie</button>
+      <input type="hidden" name="ile" value="1">
+      <input type="hidden" name="id" th:value="${rezerwacja.id}">
+    </form>
+    <form th:if="${czyAnuluj}" th:action="@{/Neuca/strefaAptekarza/zmienStanRezerwacji}" method="get">
+      <button class="confirm-button">Anuluj zamówienie</button>
+      <input type="hidden" name="ile" value="2">
+      <input type="hidden" name="id" th:value="${rezerwacja.id}">
+    </form>
   </div>
 </div>
 </body>

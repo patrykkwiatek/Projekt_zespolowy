@@ -2,9 +2,67 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potwierdzenie zamówienia</title>
+    <link rel="stylesheet" href="/css/zamowienieUkonczone.css">
 </head>
 <body>
-<h15>Dziekujemy za zlozenie zamowienia</h15>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+            </form>
+        </div>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+            </div>
+        </div>
+        <img src="logo/avatar.png" id="avatar">
+    </div>
+
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarza'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='oNas.html'" id="usButton">O nas</button></div>
+    </div>
+</div>
+
+<!-- Główna zawartość -->
+<main class="confirmation-container">
+    <div class="confirmation-card">
+        <div class="confirmation-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#c90606">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
+        <h1 class="confirmation-title">Dziękujemy za złożenie zamówienia!</h1>
+        <p class="confirmation-message">Twoje zamówienie zostało przyjęte do realizacji.</p>
+        <div class="confirmation-actions">
+            <a href="/Neuca/buy" class="continue-btn">Kontynuuj zakupy</a>
+            <a href="moje-zamowienia.html" class="orders-btn">Moje zamówienia</a>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <p>© 2025 HealthCenter</p>
+    </div>
+</footer>
 </body>
 </html>

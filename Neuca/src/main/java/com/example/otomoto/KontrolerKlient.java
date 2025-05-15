@@ -190,4 +190,30 @@ public class KontrolerKlient {
         return "rezerwacjaZlozono";
     }
 
+
+    @RequestMapping("/edycjaPacjent")
+    public String edycjaPacjent(Authentication authentication, Model model){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        model.addAttribute("imie",myUser.getImie());
+        model.addAttribute("nazwisko",myUser.getNazwisko());
+        model.addAttribute("telefon",myUser.getPhone());
+        return "edycjaPacjent";
+    }
+
+
+    @RequestMapping("/edytowanoPacjent")
+    public String edytowanoPacjent(@RequestParam String imie,
+                                   @RequestParam String nazwisko,
+                                   @RequestParam int telefon,
+                                   Authentication authentication){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        myUser.setImie(imie);
+        myUser.setNazwisko(nazwisko);
+        myUser.setPhone(telefon);
+        serwisMyUser.zmienPacjent(myUser);
+        return "redirect:/Neuca/mojProfilPacjent";
+    }
+
 }

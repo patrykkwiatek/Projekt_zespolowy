@@ -23,6 +23,7 @@ public class RezerwacjaLeku {
     private int ilosc;
     private LocalDate dataRezerwacji;
     private LocalDate dataOdbioru;
+    private StatusRezerwacji statusRezerwacji;
 
 
     @ManyToOne(fetch= FetchType.LAZY)

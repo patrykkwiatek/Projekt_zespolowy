@@ -319,6 +319,23 @@ public class KontrolerApteka {
     public String rezerwacjaSzczegoly(Model model, @RequestParam Long id){
         RezerwacjaLeku rezerwacjaLeku=serwisRezerwacjaLeku.zwrocPoId(id);
         model.addAttribute("rezerwacja",rezerwacjaLeku);
+        StatusRezerwacji statusRezerwacji=rezerwacjaLeku.getStatusRezerwacji();
+        boolean czyAnuluj;
+        if (statusRezerwacji==StatusRezerwacji.W_TRAKCIE){
+            czyAnuluj=true;
+        }else{
+            czyAnuluj=false;
+        }
+        model.addAttribute("czyAnuluj",czyAnuluj);
+
+        boolean czyWydane;
+        if(statusRezerwacji==StatusRezerwacji.WYDANO){
+            czyWydane=false;
+        }else{
+            czyWydane=true;
+        }
+        model.addAttribute("czyWydano",czyWydane);
+
         return "rezerwacjaSzczegoly";
     }
 
@@ -330,6 +347,20 @@ public class KontrolerApteka {
         model.addAttribute("lek",lek);
         return "zarzadzajApekaLekSzczegoly";
     }
+
+    @RequestMapping("/strefaAptekarza/zmienStanRezerwacji")
+    public String zmienStanRezerwacji(@RequestParam int ile,
+                                      @RequestParam Long id){
+        RezerwacjaLeku rezerwacjaLeku=serwisRezerwacjaLeku.zwrocPoId(id);
+        if(ile==1){
+            serwisRezerwacjaLeku.zmienStatus(StatusRezerwacji.WYDANO,rezerwacjaLeku);
+        }else{
+            serwisRezerwacjaLeku.zmienStatus(StatusRezerwacji.ANULOWANO,rezerwacjaLeku);
+        }
+        return "redirect:/Neuca/strefaAptekarza/rezerwacjaSzczegoly?id="+id;
+
+    }
+
 
 
 

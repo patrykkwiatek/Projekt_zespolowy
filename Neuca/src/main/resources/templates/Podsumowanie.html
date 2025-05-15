@@ -2,64 +2,156 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Podsumowanie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podsumowanie zamówienia</title>
+  <link rel="stylesheet" href="/css/podsumowanie.css">
 </head>
 <body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" name="wzorzec" id="search" placeholder="Wyszukaj ... ">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div id="panelLogowania">
+      <div class="ukryteLogowanie">
+        <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
 
-<h2>Podsumowanie zamówienia</h2>
-
-<p>Imię: <span th:text="${imie}"></span></p>
-<p>Nazwisko: <span th:text="${nazwisko}"></span></p>
-<p>Email: <span th:text="${email}"></span></p>
-<p>Telefon: <span th:text="${telefon}"></span></p>
-<p>Adres 1: <span th:text="${adres1}"></span></p>
-<p>Adres 2: <span th:text="${adres2}"></span></p>
-
-<h3>Dostawa:</h3>
-<p th:text="${dostawa.getSlowo()}"></p>
-
-<h3>Faktura:</h3>
-<div th:if="${czyFaktura}">
-  <p>Nazwa firmy: <span th:text="${nazwaFirmy}"></span></p>
-  <p>Adres 1: <span th:text="${adres1F}"></span></p>
-  <p>Adres 2: <span th:text="${adres2F}"></span></p>
-  <p>NIP: <span th:text="${NIP}"></span></p>
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='oNas.html'" id="usButton">O nas</button></div>
+  </div>
 </div>
 
-<h3>Produkty w koszyku:</h3>
-<table>
-  <tr>
-    <th>Nazwa leku</th>
-    <th>Ilość</th>
-    <th>Cena za 1 sztukę</th>
-    <th>Cena całkowita</th>
-  </tr>
-  <tr th:each="produkt : ${koszyk}">
-    <td th:text="${produkt.lek.name}"></td>
-    <td th:text="${produkt.ilosc}"></td>
-    <td th:text="${produkt.cenaJednostkowa}"></td> <!-- Cena jednostkowa w złotych -->
-    <td th:text="${produkt.cenaCalosciowa}"></td> <!-- Cena całkowita w złotych -->
-  </tr>
-</table>
 
-<h3>Łączna cena za produkty:</h3>
-<p th:text="'Cena całkowita: ' + ${sumaKoszyka} + ' PLN'"></p>
+<!-- Główna zawartość -->
+<main class="summary-container">
+  <div class="summary-content">
+    <h1 class="summary-title">Podsumowanie zamówienia</h1>
 
-<form th:action="@{/Neuca/zamowienieUkonczone}" method="post">
-  <input type="hidden" name="imie" th:value="${imie}">
-  <input type="hidden" name="nazwisko" th:value="${nazwisko}">
-  <input type="hidden" name="email" th:value="${email}">
-  <input type="hidden" name="telefon" th:value="${telefon}">
-  <input type="hidden" name="adres1" th:value="${adres1}">
-  <input type="hidden" name="adres2" th:value="${adres2}">
-  <input type="hidden" name="dostawa" th:value="${dostawa}">
-  <input type="hidden" name="czyFaktura" th:value="${czyFaktura}">
-  <input type="hidden" name="nazwaFirmy" th:value="${nazwaFirmy}">
-  <input type="hidden" name="adres1F" th:value="${adres1F}">
-  <input type="hidden" name="adres2F" th:value="${adres2F}">
-  <input type="hidden" name="NIP" th:value="${NIP}">
-  <button>ZLOZ ZAMOWIENIE</button>
-</form>
+    <div class="summary-section">
+      <h2>Dane osobowe</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-label">Imię:</span>
+          <span class="summary-value" th:text="${imie}"></span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Nazwisko:</span>
+          <span class="summary-value" th:text="${nazwisko}"></span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Email:</span>
+          <span class="summary-value" th:text="${email}"></span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Telefon:</span>
+          <span class="summary-value" th:text="${telefon}"></span>
+        </div>
+        <div class="summary-item full-width">
+          <span class="summary-label">Adres:</span>
+          <span class="summary-value" th:text="${adres1} + ', ' + ${adres2}"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <h2>Dostawa</h2>
+      <p class="delivery-method" th:text="${dostawa.getSlowo()}"></p>
+    </div>
+
+    <div class="summary-section" th:if="${czyFaktura}">
+      <h2>Dane do faktury</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-label">Nazwa firmy:</span>
+          <span class="summary-value" th:text="${nazwaFirmy}"></span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">NIP:</span>
+          <span class="summary-value" th:text="${NIP}"></span>
+        </div>
+        <div class="summary-item full-width">
+          <span class="summary-label">Adres:</span>
+          <span class="summary-value" th:text="${adres1F} + ', ' + ${adres2F}"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <h2>Produkty w zamówieniu</h2>
+      <table class="summary-table">
+        <thead>
+        <tr>
+          <th>Nazwa leku</th>
+          <th>Ilość</th>
+          <th>Cena za sztukę</th>
+          <th>Cena całkowita</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="produkt : ${koszyk}">
+          <td th:text="${produkt.lek.name}"></td>
+          <td th:text="${produkt.ilosc}"></td>
+          <td th:text="${produkt.cenaJednostkowa} + ' PLN'"></td>
+          <td th:text="${produkt.cenaCalosciowa} + ' PLN'"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-total">
+      <h3>Łączna cena zamówienia:</h3>
+      <p class="total-price" th:text="${cenaCalkowita} + ' PLN'"></p>
+    </div>
+
+    <form th:action="@{/Neuca/zamowienieUkonczone}" method="post" class="order-form">
+      <!-- Ukryte pola formularza -->
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+      <!-- Dane osobowe -->
+      <input type="hidden" name="imie" th:value="${imie}">
+      <input type="hidden" name="nazwisko" th:value="${nazwisko}">
+      <input type="hidden" name="email" th:value="${email}">
+      <input type="hidden" name="telefon" th:value="${telefon}">
+      <input type="hidden" name="adres1" th:value="${adres1}">
+      <input type="hidden" name="adres2" th:value="${adres2}">
+      <input type="hidden" name="dostawa" th:value="${dostawa}">
+      <input type="hidden" name="czyFaktura" th:value="${czyFaktura}">
+      <div th:if="${czyFaktura}">
+        <input type="hidden" name="nazwaFirmy" th:value="${nazwaFirmy}">
+        <input type="hidden" name="adres1F" th:value="${adres1F}">
+        <input type="hidden" name="adres2F" th:value="${adres2F}">
+        <input type="hidden" name="NIP" th:value="${NIP}">
+      </div>
+      <button type="submit" class="submit-order-btn">ZŁÓŻ ZAMÓWIENIE</button>
+      <a href="/Neuca/koszyk" class="back-link">Wróć do koszyka</a>
+    </form>
+  </div>
+</main>
+<footer class="main-footer">
+  <div class="footer-content">
+    <p>© 2025 Health Center</p>
+  </div>
+</footer>
 
 </body>
 </html>

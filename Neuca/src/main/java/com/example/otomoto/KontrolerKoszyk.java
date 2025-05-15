@@ -178,6 +178,11 @@ public class KontrolerKoszyk {
             sumaKoszyka += cenaCalosciowaGrosze; // Dodanie ceny całkowitej do sumy koszyka
         }
 
+
+        int zlote = sumaKoszyka / 100;
+        int grosze = sumaKoszyka % 100;
+        String cenaCalkowita= String.format("%d,%02d zł", zlote, grosze);
+
         model.addAttribute("imie", imie);
         model.addAttribute("nazwisko", nazwisko);
         model.addAttribute("email", email);
@@ -193,7 +198,7 @@ public class KontrolerKoszyk {
 
 
         model.addAttribute("koszyk", koszyk.getProduktKoszyk());
-        model.addAttribute("sumaKoszyka", sumaKoszyka); //
+        model.addAttribute("cenaCalkowita", cenaCalkowita); //
         return "podsumowanie";
     }
 

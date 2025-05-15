@@ -24,6 +24,7 @@ public class SerwisRezerwacjaLeku {
         rezerwacjaLeku.setIlosc(ilosc);
         rezerwacjaLeku.setImie(imie);
         rezerwacjaLeku.setNazwisko(nazwisko);
+        rezerwacjaLeku.setStatusRezerwacji(StatusRezerwacji.W_TRAKCIE);
         LocalDate dzisiaj = LocalDate.now();
         dzisiaj=dzisiaj.minusDays(1);
         rezerwacjaLeku.setDataRezerwacji(dzisiaj);
@@ -37,10 +38,18 @@ public class SerwisRezerwacjaLeku {
         return rezerwacje;
     }
 
-    RezerwacjaLeku zwrocPoId(Long id){
+    public RezerwacjaLeku zwrocPoId(Long id){
         return repoRezerwacjaLeku.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono rezerwacji o id: " + id));
     }
+
+
+    public void zmienStatus(StatusRezerwacji statusRezerwacji, RezerwacjaLeku rezerwacjaLeku){
+        rezerwacjaLeku.setStatusRezerwacji(statusRezerwacji);
+        repoRezerwacjaLeku.save(rezerwacjaLeku);
+    }
+
+
 
 
 

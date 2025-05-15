@@ -3,97 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <title>Formularz zamówienia</title>
-  <script>
-    // Funkcja, która pokazuje/ukrywa pola faktury na podstawie stanu checkboxa
-    function toggleFakturaFields() {
-        var fakturaCheckbox = document.getElementById("fakturaCheckbox");
-        var fakturaFields = document.getElementById("fakturaFields");
-
-        // Jeśli checkbox jest zaznaczony, pokazujemy pola faktury, w przeciwnym razie je ukrywamy
-        if (fakturaCheckbox.checked) {
-            fakturaFields.style.display = "block";
-        } else {
-            fakturaFields.style.display = "none";
-        }
-    }
-  </script>
+  <link rel="stylesheet" href="/css/formularzZamowieniaLeku.css">
 </head>
 <body>
-
-<form th:action="@{/Neuca/podsumowanie}" method="post">
-  <span>Imię</span>
-  <input type="text" name="imie"></br>
-
-  <span>Nazwisko</span>
-  <input type="text" name="nazwisko"></br>
-
-  <span>EMAIL</span>
-  <input type="text" name="email"></br>
-
-  <span>Telefon</span>
-  <input type="number" name="telefon"></br>
-
-  <span>Adres 1</span>
-  <input type="text" name="adres1"></br>
-
-  <span>Adres 2</span>
-  <input type="text" name="adres2"></br>
-
-  <span>Dostawa</span>
-
-  <!-- Opcje dostawy z radiobutton -->
-  <div>
-    <label>
-      <input type="radio" name="dostawa" value="KURIER">
-      Przesyłka kurierska (19.99 PLN)
-    </label>
-    <br>
-    <label>
-      <input type="radio" name="dostawa" value="AUTOMAT">
-      Przesyłka do automatu paczkowego (9.99 PLN)
-    </label>
-    <br>
-    <label>
-      <input type="radio" name="dostawa" value="POCZTA">
-      Przesyłka pocztowa (14.99 PLN)
-    </label>
-    <br>
-    <label>
-      <input type="radio" name="dostawa" value="SKLEP">
-      Dostawa do sklepu stacjonarnego (9.99 PLN)
-    </label>
-    <br>
-    <label>
-      <input type="radio" name="dostawa" value="ODBIOR">
-      Odbiór osobisty (0 PLN)
-    </label>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" name="wzorzec" id="search" placeholder="Wyszukaj ... ">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div id="panelLogowania">
+      <div class="ukryteLogowanie">
+        <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
   </div>
 
-  <br>
-
-  <!-- Checkbox do wyboru, czy faktura ma być wystawiona -->
-  <label>
-    <input type="checkbox" id="fakturaCheckbox" name="czyFaktura" onclick="toggleFakturaFields()">
-    Chcę fakturę
-  </label>
-
-  <!-- Pola faktury, widoczne tylko jeśli checkbox jest zaznaczony -->
-  <div id="fakturaFields" style="display:none;">
-    <span>Nazwa firmy</span>
-    <input type="text" name="nazwaFirmy"></br>
-
-    <span>Adres 1 (do faktury)</span>
-    <input type="text" name="adres1F"></br>
-
-    <span>Adres 2 (do faktury)</span>
-    <input type="text" name="adres2F"></br>
-
-    <span>NIP</span>
-    <input type="text" name="NIP"></br>
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='oNas.html'" id="usButton">O nas</button></div>
   </div>
+</div>
 
-  <button type="submit">Zatwierdź</button>
-</form>
+<div class="form-container">
+  <h1>Uzupełnij dane zamówienia</h1>
+  <form th:action="@{/Neuca/podsumowanie}" method="get">
+
+    <label>Imię <input type="text" name="imie" required placeholder="Jan"></label>
+    <label>Nazwisko <input type="text" name="nazwisko" required placeholder="Kowalski"></label>
+    <label>Email <input type="email" name="email" required placeholder="adres@mail.pl"></label>
+    <label>Telefon <input type="tel" name="telefon" required placeholder="123456789"></label>
+    <label>Adres 1 <input type="text" name="adres1" required placeholder="Akacjowa 10/12"></label>
+    <label>Adres 2 <input type="text" name="adres2" required placeholder="87-100 Toruń"></label>
+
+
+    <fieldset>
+      <legend>Dostawa</legend>
+
+      <label><input type="radio" name="dostawa" value="KURIER" checked> Przesyłka kurierska (19.99 PLN)</label>
+      <label><input type="radio" name="dostawa" value="AUTOMAT"> Przesyłka do paczkomatu (9.99 PLN)</label>
+      <label><input type="radio" name="dostawa" value="POCZTA"> Przesyłka pocztowa (14.99 PLN)</label>
+      <label><input type="radio" name="dostawa" value="ODBIOR"> Odbiór osobisty (0 PLN)</label>
+
+
+    </fieldset>
+
+
+    <div class="section">
+      <label><input type="checkbox" id="fakturaCheckbox" name="czyFaktura"> Chcę otrzymać fakturę</label>
+    </div>
+
+    <div id="daneFaktury" style="display: none;">
+      <label>Nazwa firmy <input type="text" name="nazwaFirmy" id="firmaNazwa" placeholder="Nazwa firmy"></label>
+      <label>Adres 1 <input type="text" name="adres1F" id="firmaAdres" placeholder="Akacjowa 10/12"></label>
+      <label>Adres 2<input type="text" name="adres2F" id="firmaAdres" placeholder="87-100 Toruń"></label>
+      <label>NIP <input type="text" name="NIP" id="firmaNIP" placeholder="1234567890"></label>
+    </div>
+
+
+    <button type="submit">Zatwierdź</button>
+
+  </form>
+</div>
+<footer class="main-footer">
+  <div class="footer-content">
+    <p>© 2025 Health Center</p>
+  </div>
+</footer>
+
+<script>
+  const fakturaCheckbox = document.getElementById('fakturaCheckbox');
+  const daneFaktury = document.getElementById('daneFaktury');
+
+  const firmaNazwa = document.getElementById('firmaNazwa');
+  const firmaNIP = document.getElementById('firmaNIP');
+  const firmaAdres = document.getElementById('firmaAdres');
+
+  fakturaCheckbox.addEventListener('change', () => {
+    const widoczne = fakturaCheckbox.checked;
+
+    daneFaktury.style.display = widoczne ? 'block' : 'none';
+
+    firmaNazwa.required = widoczne;
+    firmaNIP.required = widoczne;
+    firmaAdres.required = widoczne;
+  });
+</script>
 
 </body>
 </html>
+
+

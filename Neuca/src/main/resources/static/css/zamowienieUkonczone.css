@@ -1,0 +1,310 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  }
+
+  #mainContainer {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      z-index: 1000;
+      margin: 0 auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  #topMenu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+      box-sizing: border-box;
+  }
+  #logo {
+      max-width: 100px;
+      width: auto;
+  }
+  #wyszukiwarka {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      margin-left: auto;
+  }
+  #wyszukiwarka input {
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-right: 10px;
+      border-color: #c90606;
+  }
+  #wyszukiwarka button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #c90606;
+      color: white;
+      border-radius: 4px;
+      width: 100px;
+      transition: all 0.4s ease;
+  }
+  #wyszukiwarka button:hover {
+      background-color: white;
+      color: #c90606;
+      cursor: pointer;
+  }
+  #wyszukiwarka form {
+      display: flex;
+      width: 100%;
+      gap: 10px;
+  }
+  #panelLogowania {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      position: relative;
+  }
+  #panelLogowania button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #c90606;
+      color: white;
+      border-radius: 4px;
+      width: 110px;
+      transition: all 0.4s ease;
+  }
+  #panelLogowania button:hover {
+      background-color: white;
+      color: #c90606;
+      cursor: pointer;
+  }
+  .ukryteLogowanie {
+      position: relative;
+  }
+  .ukryteLogowanie-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      border: 1px solid #c90606;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 10px 4px;
+      z-index: 1000;
+      width: 250px;
+  }
+  .ukryteLogowanie-content button {
+      display: block;
+      width: 210px !important;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 14px;
+      background-color: #c90606;
+      border: 1px solid #c90606;
+      border-radius: 6px;
+      text-align: center;
+      transition: all 0.4s ease;
+  }
+  .ukryteLogowanie-content button:hover {
+      background-color: white;
+      color: #c90606;
+      cursor: pointer;
+  }
+  .ukryteLogowanie:hover .ukryteLogowanie-content {
+      display: block;
+  }
+  #avatar {
+      max-width: 60px;
+      width: 100%;
+      border-radius: 50%;
+  }
+  #line {
+      width: 100%;
+      height: 3px;
+      background-color: #c90606;
+  }
+  #top2Menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      width: 100%;
+      background-color: #c90606;
+      padding: 10px 0;
+      box-sizing: border-box;
+  }
+  #top2Menu button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #c90606;
+      color: white;
+      border: 1px solid #c90606;
+      border-radius: 4px;
+      transition: all 0.4s ease;
+  }
+  #top2Menu button:hover {
+      background-color: white;
+      color: #c90606;
+      cursor: pointer;
+  }
+  @media (max-width: 768px) {
+      #topMenu {
+          flex-wrap: wrap;
+      }
+
+      #wyszukiwarka input {
+          max-width: 100%;
+      }
+
+      #panelLogowania {
+          flex-wrap: wrap;
+          gap: 20px;
+      }
+
+      #top2Menu {
+          flex-direction: column;
+          gap: 20px;
+      }
+  }
+  .menu-item {
+      position: relative;
+      display: inline-block;
+  }
+
+
+/*Część główna*/
+
+.confirmation-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.confirmation-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.confirmation-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+}
+
+.confirmation-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.confirmation-title {
+    color: #c90606;
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.confirmation-message {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.continue-btn, .orders-btn {
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.continue-btn {
+    background-color: white;
+    color: #c90606;
+    border: 2px solid #c90606;
+}
+
+.continue-btn:hover {
+    background-color: #c90606;
+    color: white;
+}
+
+.orders-btn {
+    background-color: #c90606;
+    color: white;
+    border: 2px solid #c90606;
+}
+
+.orders-btn:hover {
+    background-color: white;
+    color: #c90606;
+    border-color: #a80505;
+}
+
+.main-footer {
+    background-color: #c90606;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+@media (max-width: 768px) {
+    .confirmation-card {
+        padding: 30px 20px;
+    }
+
+    .confirmation-title {
+        font-size: 24px;
+    }
+
+    .confirmation-message {
+        font-size: 16px;
+    }
+
+    .confirmation-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .continue-btn, .orders-btn {
+        width: 100%;
+    }
+}

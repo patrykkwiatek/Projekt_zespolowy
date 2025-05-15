@@ -70,6 +70,10 @@ public class SerwisMyUser {
                 .orElseThrow(() -> new UsernameNotFoundException("Użytkownik o nazwie " + username + " nie istnieje"));
     }
 
+    public void zmienPacjent(MyUser myUser){
+        repoMyUser.save(myUser);
+    }
+
 
 
 
