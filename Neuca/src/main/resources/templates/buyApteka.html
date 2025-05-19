@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta</title>
+    <link rel="stylesheet" href="/css/buyApteka.css">
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <div id="wyszukiwarka">
+            <form th:Action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+                <input type="text" name="wzorzec" th:value="${wzorzec}" id="search" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+                <input type="hidden" name="minPrize" th:value="${minPrize}">
+                <input type="hidden"  name="maxPrize" th:value="${maxPrize}">
+                <input type="hidden" name="size" th:value="${size}">
+                <input type="hidden" name="sort" th:value="${sort}">
+                <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+                <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            </form>
+        </div>
+        <div class="top-group">
+            <a href="/Neuca/strefaAptekarza" class="top-button">Panel główny</a>
+            <a href="/Neuca/strefaAptekarza/koszykApteka" class="top-button" id="loadOrder">Koszyk</a>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+<div id="mainContainer2">
+    <!-- Filtry po lewej stronie -->
+    <div id="filters">
+        <h3>Filtry</h3>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+
+            <!-- Zakres ceny -->
+            <div class="filter-item">
+                <label for="priceRange">Zakres ceny (zł):</label>
+                <input type="number" name="minPrize" th:value="${minPrizeW}" id="priceMin" placeholder="Od" min="0">
+                <input type="number" name="maxPrize" th:value="${maxPrize}" id="priceMax" placeholder="Do" min="0">
+            </div>
+
+            <!-- Wybór kategorii -->
+            <div class="filter-item">
+                <label for="category">Wybór kategorii:</label>
+                <select name="rodzajLeku" id="category">
+                    <option th:each="lek : ${rodzaje}"
+                            th:value="${lek}"
+                            th:text="${lek.slowo}"
+                            th:selected="${rodzajLeku == lek}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Wybór marki -->
+            <div class="filter-item">
+                <label for="brand">Wybór marki:</label>
+                <select name="markaLeku" id="brand">
+                    <option th:each="marka : ${marki}"
+                            th:value="${marka}"
+                            th:text="${marka}"
+                            th:selected="${markaLeku == marka}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Sortowanie po cenie -->
+            <div class="filter-item">
+                <label for="sortPrice">Sortowanie po cenie:</label>
+                <select id="sortPrice" name="sort">
+                    <option value="Cros" th:text="#{sort.cena.rosnaca}" th:selected="${sort == 'Cros'}"></option>
+                    <option value="Cmal" th:text="#{sort.cena.malejaca}" th:selected="${sort == 'Cmal'}"></option>
+                    <option value="Aros" th:text="#{sort.alf.rosnaca}" th:selected="${sort == 'Aros'}"></option>
+                    <option value="Amal" th:text="#{sort.alf.malejaca}" th:selected="${sort == 'Amal'}"></option>
+                    <option value="Ids" th:text="#{sort.standard}" th:selected="${sort == 'Ids'}"></option>
+                </select>
+            </div>
+            <input type="hidden" th:value="${size}" name="size">
+            <button id="applyFilters">Zastosuj filtry</button>
+        </form>
+    </div>
+
+    <!-- Produkty po prawej stronie -->
+    <div id="products">
+        <div id="pills_list">
+
+            <div class="card" th:each="wynik : ${wyniki}">
+
+                <div class="wrapper" >
+                    <a th:href="@{/Neuca/strefaAptekarza/buyLekSzczegoly(id=${wynik.id},page=${pageCof},size=${size},sort=${sort},wzorzec=${wzorzec},minPrize=${minPrize},maxPrize=${maxPrize},markaLeku=${markaLeku},rodzajLeku=${rodzajLeku})}" class="card-link">
+                        <div class="pill image">
+                            <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(wynik.sciezka, wynik.sciezka.lastIndexOf('/') + 1)})}"
+                                 width="300" height="200" alt="${wynik.name}"/>
+                        </div>
+                    </a>
+                    <div class="content">
+                        <a th:href="@{/Neuca/strefaAptekarza/buyLekSzczegoly(id=${wynik.id})}" class="card-link"><p class="title" th:text="${wynik.name}"></p></a>
+                        <p class="title price" th:text="${wynik.gramatura}"></p>
+                        <p class="title price" th:text="${wynik.cenaString}"></p>
+                        <p></p>
+                    </div>
+                    <div class="card__counter">
+                    <button type="button" class="card__btn">-</button>
+                    <input  name="ilosc" type="number" class="card__counter-score" value="1" min="1">
+                    <button type="button" class="card__btn card__btn-plus">+</button>
+
+                </div>
+                    <input type="hidden" name="lekId" th:value="${wynik.id}">
+                    <button type="button" class="card-btn">Dodaj do koszyka</button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- Sekcja na dole strony -->
+<div id="pagination">
+    <div id="page-info">
+        <!-- Możesz dynamicznie zmieniać te wartości za pomocą JS -->
+    </div>
+    <div id="page-controls">
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" th:if="${!czyPierwsza}" method="get">
+            <button >Wroc na początek</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" th:if="${!czyPierwsza}">
+            <button id="prevPage">Poprzednia</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="${poprzednia}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+
+        <span th:text="#{buy.strona}"></span>
+        <span th:text="${page}"></span>
+        <span th:text="#{buy.z}"></span>
+        <span th:text="${total}"></span>
+
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" th:if="${!czyOstatnia}">
+            <button >Następna</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="${nastepna}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" th:if="${!czyOstatnia}" methon="get">
+            <button  >Idz na koniec</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="${total1}">
+            <input type="hidden" name="size" th:value="${size}">
+        </form>
+    </div>
+    <div class="items-per-page">
+        <span id="itemsPerPage">Ilość produktów na stronie:</span>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+            <button class="items-per-page-option"  th:classappend="${size == 5} ? 'active-size' : ''"  th:disabled="${size == 5}">5</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="size" th:value="5">
+        </form>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 10} ? 'active-size' : ''"  th:disabled="${size == 10}">10</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="size" th:value="10">
+        </form>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 20} ? 'active-size' : ''"  th:disabled="${size == 20}">20</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="size" th:value="20">
+        </form>
+        <form th:action="@{/Neuca/strefaAptekarza/buyApteka}" method="get">
+            <button class="items-per-page-option" th:classappend="${size == 50} ? 'active-size' : ''"  th:disabled="${size == 50}">50</button>
+            <input type="hidden" name="wzorzec" th:value="${wzorzec}">
+            <input type="hidden" name="minPrize" th:value="${minPrize}">
+            <input type="hidden" name="maxPrize" th:value="${maxPrize}">
+            <input type="hidden" name="rodzajLeku" th:value="${rodzajLeku}">
+            <input type="hidden" name="markaLeku" th:value="${markaLeku}">
+            <input type="hidden" name="sort" th:value="${sort}">
+            <input type="hidden" name="page" th:value="0">
+            <input type="hidden" name="size" th:value="50">
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.card').forEach(card => {
+      const input = card.querySelector('.card__counter-score');
+      const btnMinus = card.querySelector('.card__btn:not(.card__btn-plus)');
+      const btnPlus = card.querySelector('.card__btn-plus');
+
+      btnMinus.addEventListener('click', () => {
+        let value = parseInt(input.value) || 1;
+        if (value > parseInt(input.min)) {
+          input.value = value - 1;
+        }
+      });
+
+      btnPlus.addEventListener('click', () => {
+        let value = parseInt(input.value) || 1;
+        input.value = value + 1;
+      });
+    });
+</script>
+
+
+
+
+
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxPrize = Number(/*[[${maxPrize}]]*/ 1000);
+        const page = Number(/*[[${pageN}]]*/ 0);
+        const size = Number(/*[[${size}]]*/ 10);
+        const sort = /*[[${sort}]]*/ 'Ids';
+        const wzorzec = /*[[${wzorzec}]]*/ '';
+        const minPrize = Number(/*[[${minPrize}]]*/ 0);
+        const markaLeku = /*[[${markaLeku}]]*/ 'WSZYSTKIE';
+        const rodzajLeku = /*[[${rodzajLeku.name()}]]*/ 'WSZYSTKIE';
+
+
+        document.querySelectorAll('.card').forEach(card => {
+            const btn = card.querySelector('.card-btn');
+            const inputIlosc = card.querySelector('input[name="ilosc"]');
+            const lekIdInput = card.querySelector('input[name="lekId"]');
+
+            btn.addEventListener('click', () => {
+                const ilosc = inputIlosc.value;
+                const lekId = lekIdInput.value;
+
+                const url = new URL('/Neuca/strefaAptekarza/dodanoDoKoszykaApteka', window.location.origin);
+                url.searchParams.append('lekId', lekId);
+                url.searchParams.append('ilosc', ilosc);
+                url.searchParams.append('page', page);
+                url.searchParams.append('size', size);
+                url.searchParams.append('sort', sort);
+                url.searchParams.append('minPrize', minPrize);
+                url.searchParams.append('maxPrize', maxPrize);
+                url.searchParams.append('wzorzec', wzorzec);
+
+                url.searchParams.append('markaLeku', markaLeku);
+                url.searchParams.append('rodzajLeku', rodzajLeku);
+
+
+
+                window.location.href = url.toString();
+            });
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

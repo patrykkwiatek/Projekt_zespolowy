@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koszyk</title>
+    <link rel="stylesheet" href="/css/koszykApteka.css">
+</head>
+<body>
+<div class="header-bar">
+    <h1>Twój koszyk</h1>
+    <a href="/Neuca/strefaAptekarza" class="back-button">Panel główny</a>
+</div>
+
+<div class="cart-container">
+    <table th:if="${!czyPusty}" class="cart-table">
+        <thead>
+        <tr>
+            <th>Nazwa leku</th>
+            <th>Ilość</th>
+            <th>Cena za sztukę</th>
+            <th>Cena łacznie</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="produkt : ${produkty}">
+            <td th:text="${produkt.lek.name}"></td>
+            <td th:text="${produkt.ilosc}"></td>
+            <td th:text="${produkt.lek.cenaString}"></td>
+            <td th:text="${produkt.cenaString}"></td>
+            <td>
+                <form th:action="@{/Neuca/strefaAptekarza/usunZKoszyka}" method="post">
+                    <input type="hidden" name="id" th:value="${produkt.id}">
+                    <button class="btn red" type="submit">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${czyPusty}" class="empty">
+        <p>Twój koszyk jest pusty</p>
+    </div>
+
+    <div class="cart-summary">
+        <h3>Łączna cena: <span th:text="${cenaRazem}"></span></h3>
+        <div class="actions">
+            <button class="btn wide" onclick="window.location.href='/Neuca/strefaAptekarza/buyApteka'">Kontynuuj zakupy</button>
+            <form th:if="${!czyPusty}" th:action="@{/Neuca/realizacja}" method="post">
+                <button class="btn outline wide" type="submit">Przejdź do realizacji</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

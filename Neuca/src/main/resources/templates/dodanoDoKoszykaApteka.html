@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="/css/dodanoDoKoszykaAptekarz.css">
+
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+    <div id="koszyk-container">
+        <h2>Dodano do koszyka!</h2>
+        <p>Poniższy produkt został dodany do Twojego koszyka:</p>
+
+        <div class="produkty">
+            <div class="produkt">
+                <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}"
+                     width="300" height="200" />
+                <h3 th:text="${lek.name}"></h3></br>
+                <p th:text="'Gramatura: ' +${lek.gramatura}"></p>
+                <p th:text="'Ilość: '+ ${ile} +' sztuki'"></p>
+                <p th:text="'Cena: ' + ${cenaRazem}"></p>
+            </div>
+
+        </div>
+        <div class="koszyk-buttons">
+            <button onclick="window.location.href='/Neuca/strefaAptekarza/koszykApteka'">Przejdź do kasy</button>
+            <button th:onclick="'location.href=\'' + @{/Neuca/strefaAptekarza/buyApteka(
+        page=${page},
+        size=${size},
+        sort=${sort},
+        wzorzec=${wzorzec},
+        minPrize=${minPrize},
+        maxPrize=${maxPrize},
+        markaLeku=${markaLeku},
+        rodzajLeku=${rodzajLeku}
+    )} + '\''">Kontynuuj zakupy</button>
+        </div>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

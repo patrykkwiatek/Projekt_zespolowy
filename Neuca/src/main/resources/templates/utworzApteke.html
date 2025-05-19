@@ -27,3 +27,70 @@
 </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfiguracja apteki</title>
+    <link rel="stylesheet" href="/css/konfigurujApteke.css">
+</head>
+<body>
+<div class="setup-container">
+    <h1>Witaj aptekarzu!</h1>
+    <p>Przed rozpoczęciem pracy, uzupełnij dane swojej apteki:</p>
+
+    <form class="setup-form" action="#" th:action="@{/Neuca/strefaAptekarza/utworzonoApteke}" th:object="${apteka}" method="post" >
+        <div class="row">
+            <input type="text" name="pharmacyName" placeholder="Nazwa apteki" required>
+            <input type="tel" name="phone" placeholder="Numer telefonu" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="street" placeholder="Ulica" required>
+            <input type="text" name="building" placeholder="Numer budynku" required>
+            <input type="text" name="local" placeholder="Numer lokalu">
+        </div>
+
+        <div class="row">
+            <input type="text" name="zip" placeholder="Kod pocztowy" required>
+            <input type="text" name="city" placeholder="Miasto" required>
+            <select name="voiv" required>
+                <option value="">Wybierz województwo</option>
+                <option value="dolnoslaskie">Dolnośląskie</option>
+                <option value="kujawsko-pomorskie">Kujawsko-Pomorskie</option>
+                <option value="lubelskie">Lubelskie</option>
+                <option value="lubuskie">Lubuskie</option>
+                <option value="lodzkie">Łódzkie</option>
+                <option value="malopolskie">Małopolskie</option>
+                <option value="mazowieckie">Mazowieckie</option>
+                <option value="opolskie">Opolskie</option>
+                <option value="podkarpackie">Podkarpackie</option>
+                <option value="podlaskie">Podlaskie</option>
+                <option value="pomorskie">Pomorskie</option>
+                <option value="slaskie">Śląskie</option>
+                <option value="swietokrzyskie">Świętokrzyskie</option>
+                <option value="warminsko-mazurskie">Warmińsko-Mazurskie</option>
+                <option value="wielkopolskie">Wielkopolskie</option>
+                <option value="zachodniopomorskie">Zachodniopomorskie</option>
+            </select>
+        </div>
+
+        <button type="submit" class="save-button">Zapisz i przejdź do panelu</button>
+    </form>
+</div>
+</body>
+</html>

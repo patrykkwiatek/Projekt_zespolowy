@@ -2,6 +2,7 @@ package com.example.otomoto;
 
 
 import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,16 @@ public class KontrolerApteka {
     SerwisPracownik serwisPracownik;
     SerwisLekStanApteka serwisLekStanApteka;
     SerwisRezerwacjaLeku serwisRezerwacjaLeku;
+    SerwisZamowienieApteka serwisZamowienieApteka;
+    SerwisProduktKoszykApteka serwisProduktKoszykApteka;
 
-    public KontrolerApteka(SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik serwisPracownik, SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
+    public KontrolerApteka(SerwisProduktKoszykApteka serwisProduktKoszykApteka, SerwisZamowienieApteka serwisZamowienieApteka, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik serwisPracownik, SerwisMyUser serwisMyUser, SerwisApteka serwisApteka) {
         this.serwisLekStanApteka=serwisLekStanApteka;
         this.serwisMyUser = serwisMyUser;
         this.serwisApteka=serwisApteka;
         this.serwisPracownik=serwisPracownik;
+        this.serwisProduktKoszykApteka=serwisProduktKoszykApteka;
+        this.serwisZamowienieApteka=serwisZamowienieApteka;
         this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
     }
 
@@ -359,6 +364,175 @@ public class KontrolerApteka {
         }
         return "redirect:/Neuca/strefaAptekarza/rezerwacjaSzczegoly?id="+id;
 
+    }
+
+
+    @RequestMapping("/strefaAptekarza/buyApteka")
+    public String buyApteka(Model model,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "10") int size,
+                            @RequestParam(defaultValue = "Ids") String sort,
+                            @RequestParam(defaultValue = "") String wzorzec,
+                            @RequestParam(defaultValue = "0") int minPrize,
+                            @RequestParam(defaultValue = "1000") int maxPrize,
+                            @RequestParam(required = false) MarkaLeku markaLeku,
+                            @RequestParam(required = false) RodzajLeku rodzajLeku){
+
+
+        if (markaLeku == null) {
+            markaLeku = MarkaLeku.WSZYSTKIE;
+        }
+        if (rodzajLeku == null) {
+            rodzajLeku = RodzajLeku.WSZYSTKIE;
+        }
+        Page<Lek> wyniki = serwisPracownik.getAllDtoLeki(page, size, sort, wzorzec, minPrize, maxPrize, markaLeku, rodzajLeku,true);
+        List<RodzajLeku> rodzaje = Arrays.asList(RodzajLeku.values());
+        List<MarkaLeku> marki = Arrays.asList(MarkaLeku.values());
+        if(minPrize!=0){
+            model.addAttribute("minPrizeW",minPrize);
+        }
+        model.addAttribute("minPrize",minPrize);
+        int total=wyniki.getTotalPages();
+        boolean czy0;
+        if(total==0){
+            czy0=true;
+        }else{
+            czy0=false;
+        }
+        boolean czyPierwsza;
+        if(page==0){
+            czyPierwsza=true;
+        }else{
+            czyPierwsza=false;
+        }
+
+        boolean czyOstatnia;
+        if(page+1==total){
+            czyOstatnia=true;
+        }else{
+            czyOstatnia=false;
+        }
+        int nastepna=page+1;
+        int poprzednia=page-1;
+
+        model.addAttribute("total",total);
+        model.addAttribute("total1",total-1);
+        model.addAttribute("page",page+1);
+        model.addAttribute("pageCof",page);
+
+        model.addAttribute("pageN",page);
+        model.addAttribute("poprzednia",poprzednia);
+        model.addAttribute("nastepna",nastepna);
+        model.addAttribute("czyPierwsza",czyPierwsza);
+        model.addAttribute("czyOstatnia",czyOstatnia);
+        model.addAttribute("czy0",czy0);
+        model.addAttribute("wzorzec",wzorzec);
+        model.addAttribute("maxPrize", maxPrize);
+        model.addAttribute("sort", sort);
+        model.addAttribute("rodzajLeku", rodzajLeku);
+        model.addAttribute("markaLeku", markaLeku);
+        model.addAttribute("rodzaje", rodzaje);
+        model.addAttribute("marki", marki);
+        model.addAttribute("wyniki", wyniki);
+        model.addAttribute("size",size);
+        return "buyApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/buyLekSzczegoly")
+    public String buyLekSzczegoly(Model model, @RequestParam Long id,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "Ids") String sort,
+                                  @RequestParam(defaultValue = "") String wzorzec,
+                                  @RequestParam(defaultValue = "0") int minPrize,
+                                  @RequestParam(defaultValue = "1000") int maxPrize,
+                                  @RequestParam(required = false) MarkaLeku markaLeku,
+                                  @RequestParam(required = false) RodzajLeku rodzajLeku){
+        Lek lek=serwisPracownik.findbyID(id);
+        model.addAttribute("lek",lek);
+
+
+        model.addAttribute("page",page);
+        model.addAttribute("size",size);
+        model.addAttribute("sort",sort);
+        model.addAttribute("wzorzec",wzorzec);
+        model.addAttribute("minPrize",minPrize);
+        model.addAttribute("maxPrize",maxPrize);
+        model.addAttribute("markaLeku",markaLeku);
+        model.addAttribute("rodzajLeku",rodzajLeku);
+
+
+        return "buyLekSzczegoly";
+    }
+
+    @RequestMapping("/strefaAptekarza/dodanoDoKoszykaApteka")
+    public String dodanoDoKoszykaApteka(@RequestParam Long lekId,
+                                  @RequestParam int ilosc,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "Ids") String sort,
+                                  @RequestParam(defaultValue = "") String wzorzec,
+                                  @RequestParam(defaultValue = "0") int minPrize,
+                                  @RequestParam(defaultValue = "1000") int maxPrize,
+                                  @RequestParam(required = false) MarkaLeku markaLeku,
+                                  @RequestParam(required = false) RodzajLeku rodzajLeku,
+                                  Model model, Authentication authentication
+                                  ){
+        System.out.println(markaLeku);
+        String username= authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        ZamowienieApteka zamowienieApteka=serwisZamowienieApteka.zwrocZamowienieAktualne(apteka);
+        System.out.println(zamowienieApteka.getId());
+        Lek lek=serwisPracownik.findbyID(lekId);
+        model.addAttribute("lek",lek);
+        model.addAttribute("ile",ilosc);
+
+        int razem=ilosc*lek.getPriceGR();
+        int zlote = razem / 100;
+        int grosze = razem % 100;
+        String cenaRazem=String.format("%d,%02d zł",zlote,grosze);
+        model.addAttribute("cenaRazem",cenaRazem);
+        serwisProduktKoszykApteka.dodaj(zamowienieApteka,lek,ilosc);
+        model.addAttribute("page",page);
+        model.addAttribute("size",size);
+        model.addAttribute("sort",sort);
+        model.addAttribute("wzorzec",wzorzec);
+        model.addAttribute("minPrize",minPrize);
+        model.addAttribute("maxPrize",maxPrize);
+        model.addAttribute("markaLeku",markaLeku);
+        model.addAttribute("rodzajLeku",rodzajLeku);
+        return "dodanoDoKoszykaApteka";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/koszykApteka")
+    public String koszykApteka(Authentication authentication, Model model){
+        String username= authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        ZamowienieApteka zamowienieApteka=serwisZamowienieApteka.zwrocZamowienieAktualne(apteka);
+        List<ProduktKoszykApteka> produkty= zamowienieApteka.getProduktKoszykApteka();
+        int suma=serwisZamowienieApteka.sumaKoszyk(zamowienieApteka);
+        int zlote = suma / 100;
+        int grosze = suma % 100;
+        String cenaRazem=String.format("%d,%02d zł",zlote,grosze);
+        model.addAttribute("cenaRazem",cenaRazem);
+        model.addAttribute("produkty",produkty);
+        model.addAttribute("czyPusty",produkty.isEmpty());
+        return "koszykApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/usunZKoszyka")
+    public String usunZKoszyka (@RequestParam Long id, Authentication authentication){
+        String username= authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        Lek lek=serwisPracownik.findbyID(id);
+        ZamowienieApteka zamowienieApteka=serwisZamowienieApteka.zwrocZamowienieAktualne(apteka);
+        ProduktKoszykApteka p=serwisProduktKoszykApteka.zwrocProdukt(id);
+        serwisProduktKoszykApteka.usun(p);
+        return "redirect:/Neuca/strefaAptekarza/koszykApteka";
     }
 
 
