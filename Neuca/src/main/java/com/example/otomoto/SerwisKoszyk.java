@@ -21,16 +21,21 @@ public class SerwisKoszyk {
 
 
     public Zamowienie getAktywnyKoszyk(MyUser user) {
-        return repoZamowienie.findByMyuserAndCzyZakonczone(user, false)
-                .orElseGet(() -> {
-                    Zamowienie zamowienie = new Zamowienie();
-                    zamowienie.setMyuser(user);
-                    zamowienie.setStatus(Status.BRAK);
-                    zamowienie.setCzyZakonczone(false);
-                    zamowienie.setProduktKoszyk(new ArrayList<>());
-                    return repoZamowienie.save(zamowienie);
-                });
+        List<Zamowienie> zamowienia = repoZamowienie.findByMyuserAndCzyZakonczone(user, false);
+
+        if (!zamowienia.isEmpty()) {
+            // Zwróć pierwszy koszyk (lub inna logika, np. najnowszy)
+            return zamowienia.get(0);
+        }
+
+        Zamowienie zamowienie = new Zamowienie();
+        zamowienie.setMyuser(user);
+        zamowienie.setStatus(Status.BRAK);
+        zamowienie.setCzyZakonczone(false);
+        zamowienie.setProduktKoszyk(new ArrayList<>());
+        return repoZamowienie.save(zamowienie);
     }
+
 
     public List<Zamowienie> getZamowienia(MyUser user){
         List<Zamowienie> zamowienia=repoZamowienie.findByMyuserAndStatusNot(user, Status.BRAK);

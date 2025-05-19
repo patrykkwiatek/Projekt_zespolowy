@@ -385,7 +385,7 @@ public class DataBaseloader implements CommandLineRunner {
         zamowienie.setTelefon(501123456);
         zamowienie.setAdres1("ul. Słoneczna 5");
         zamowienie.setAdres2("00-123 Warszawa");
-        zamowienie.setStatus(Status.losowy());
+        zamowienie.setStatus(Status.OCZEKUJE);
         zamowienie.setCzyZakonczone(true);
         zamowienie.setDostawa(Dostawa.KURIER);
         zamowienie.setDataZamowienia(LocalDateTime.now());
@@ -435,7 +435,7 @@ public class DataBaseloader implements CommandLineRunner {
             String miasto=miasta.get(random.nextInt(miasta.size()));
             z1.setAdres2("00-" + String.format("%03d", 100 + i)+" " + miasto);
             z1.setStatus(Status.losowy());
-            z1.setCzyZakonczone(false);
+            z1.setCzyZakonczone(true);
             z1.setDostawa(Dostawa.ODBIOR);
             z1.setDataZamowienia(data);
             z1.setDisplayDateZamowienia(data.format(formatter));

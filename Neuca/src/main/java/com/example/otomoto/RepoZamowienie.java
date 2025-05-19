@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RepoZamowienie extends JpaRepository<Zamowienie, Long> {
-    Optional<Zamowienie> findByMyuserAndCzyZakonczone(MyUser user, boolean czyZakonczone);
+    List<Zamowienie> findByMyuserAndCzyZakonczone(MyUser user, boolean czyZakonczone);
     Page<Zamowienie> findByStatus(Status status, Pageable pageable);
     Optional <Zamowienie> findById(Long id);
     List<Zamowienie> findByMyuserAndStatusNot(MyUser user, Status status);

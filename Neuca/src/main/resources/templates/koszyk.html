@@ -2,49 +2,106 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Koszyk</title>
+  <link rel="stylesheet" href="/css/koszyk.css">
 </head>
 <body>
-
-<table>
-  <tr>
-    <th>Nazwa leku</th>
-    <th>Ilość</th>
-    <th>Cena za 1 sztukę</th>
-    <th>Cena całkowita</th>
-    <th>Akcja</th>
-  </tr>
-  <tr th:each="produkt : ${koszyk}">
-    <td th:text="${produkt.lek.name}"></td>
-    <td th:text="${produkt.ilosc}"></td>
-    <td th:text="${produkt.cenaJednostkowa}"></td> <!-- Cena jednostkowa w złotych -->
-    <td th:text="${produkt.cenaCalosciowa}"></td> <!-- Cena całkowita w złotych -->
-    <td>
-      <form th:action="@{/Neuca/usunZKoszyka}" method="post">
-        <input type="hidden" name="produktKoszykId" th:value="${produkt.id}">
-        <button type="submit">Usuń</button>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="main.html"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}" method="get">
+        <input type="text" id="search" placeholder="Wyszukaj..." name="wzorzec" th:value="${wzorzec}">
+        <button id="searchButton">Szukaj</button>
       </form>
-    </td>
-  </tr>
-</table>
+    </div>
+    <div id="panelLogowania">
+      <div class="ukryteLogowanie">
+        <button id="loginButton"  onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="registerButton"  onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="registerButton"  onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
 
-<div th:if="${czyPusty}">
-  <span>Twój koszyk jest pusty</span>
-</div>
 
-<div th:if="${!czyPusty}">
-  <form th:action="@{/Neuca/realizacja}">
-    <button>Przejdź dalej</button>
-  </form>
-  <form th:action="@{/Neuca/buy}">
-    <button>Kontynuj Zakupy</button>
-  </form>
-
-
-  <div>
-    <h3>Łączna cena: <span th:text="${sumaKoszyka / 100.0}"></span> PLN</h3>
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='oNas.html'" id="usButton">O nas</button></div>
   </div>
 </div>
 
+<!-- Sekcja koszyka -->
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>Twój koszyk</h1>
+  </div>
+
+  <table class="cart-table">
+    <thead>
+    <tr>
+      <th>Nazwa leku</th>
+      <th>Ilość</th>
+      <th>Cena za sztukę</th>
+      <th>Cena całkowita</th>
+      <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="produkt : ${koszyk}">
+      <td data-label="Nazwa leku" th:text="${produkt.lek.name}"></td>
+      <td data-label="Ilość" th:text="${produkt.ilosc}"></td>
+      <td data-label="Cena za sztukę" th:text="${produkt.cenaJednostkowa} + ' PLN'"></td>
+      <td data-label="Cena całkowita" th:text="${produkt.cenaCalosciowa} + ' PLN'"></td>
+      <td data-label="Akcja">
+        <form th:action="@{/Neuca/usunZKoszyka}" method="post">
+          <input type="hidden" name="produktKoszykId" th:value="${produkt.id}">
+          <button type="submit" class="remove-btn">Usuń</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div th:if="${czyPusty}" class="empty-cart">
+    <span>Twój koszyk jest pusty</span>
+    <div style="margin-top: 20px;">
+      <button onclick="location.href='/Neuca/buy'" class="continue-btn">Przejdź do sklepu</button>
+    </div>
+  </div>
+
+  <div th:if="${!czyPusty}">
+    <div class="cart-actions">
+      <button onclick="location.href='/Neuca/buy'" class="continue-btn">Kontynuuj zakupy</button>
+
+      <div class="action-buttons">
+        <form th:action="@{/Neuca/realizacja}">
+          <button type="submit">Przejdź do realizacji</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="total-price">
+      <h3>Łączna cena: <span th:text="${#numbers.formatDecimal(sumaKoszyka / 100.0, 1, 2)}"></span> PLN</h3>
+    </div>
+  </div>
+</div>
+<footer class="main-footer">
+  <div class="footer-content">
+    <p>© 2025 Health Center</p>
+  </div>
+</footer>
 </body>
 </html>

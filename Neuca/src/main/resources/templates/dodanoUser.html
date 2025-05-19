@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcenter</title>
+    <link rel="stylesheet" href="/css/mainStyle.css">
+
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+            </form>
+
+        </div>
+        <div id="panelLogowania" >
+            <div class="ukryteLogowanie">
+                <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="registerButton">Zarejestruj</button>
+                <div class="ukryteLogowanie-content">
+                    <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+                    <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+                    <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+                </div>
+            </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'">Apteki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton" onclick="location.href='uslugi.html'">Usługi</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'">Leki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton" onclick="location.href='kontakt.html'">Kontakt</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton" onclick="location.href='oNas.html'">O nas</button>
+            <div class="submenu">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div id="line"></div>
+<div id="tiles_section">
+    <h1>Dziękujemy za utworzenie konta!</h1>
+    <h3>Aby w pełni korzystać z możliwości potwierdz email.</h3>
+
+
+
+</div>
+
+</body>
+</html>

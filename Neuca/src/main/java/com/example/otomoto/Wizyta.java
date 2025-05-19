@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -31,6 +32,22 @@ public class Wizyta {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "myUser")
     private MyUser myUser;
+
+    public String getGodzinaWizyty() {
+        if (data != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            return data.format(formatter);
+        }
+        return "";
+    }
+
+    public String getDataWizyty() {
+        if (data != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return data.format(formatter);
+        }
+        return "";
+    }
 
 
 

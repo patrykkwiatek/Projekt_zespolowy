@@ -19,20 +19,22 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/Neuca")
 public class KontrolerKlient {
-    private SerwisPracownik sP;
-    private SerwisKlient sK;
-    private SerwisApteka serwisApteka;
+    private final SerwisPracownik sP;
+    private final SerwisKlient sK;
+    private final SerwisApteka serwisApteka;
     private final SerwisLekStanApteka serwisLekStanApteka;
     private final SerwisRezerwacjaLeku serwisRezerwacjaLeku;
     private final SerwisMyUser serwisMyUser;
+    private final SerwisWizyta serwisWizyta;
 
-    public KontrolerKlient(SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
+    public KontrolerKlient(SerwisWizyta serwisWizyta, SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
         this.sP = sP;
         this.sK = sK;
         this.serwisLekStanApteka=serwisLekStanApteka;
         this.serwisApteka=serwisApteka;
         this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
         this.serwisMyUser =serwisMyUser;
+        this.serwisWizyta=serwisWizyta;
     }
 
     @RequestMapping("/startK/listaK")
@@ -216,4 +218,30 @@ public class KontrolerKlient {
         return "redirect:/Neuca/mojProfilPacjent";
     }
 
+    @RequestMapping("/mojeWizyty")
+    public String mojeWizyty(Authentication authentication, Model model){
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        List<Wizyta> wizyty=serwisWizyta.zwrocMojeWizyty(myUser);
+        model.addAttribute("wizyty",wizyty);
+        return "mojeWizyty";
+    }
+
+    @RequestMapping("/szczegolyWizyta")
+    public String szczegolyWizyta(@RequestParam Long id, Model model){
+        Wizyta wizyta=serwisWizyta.zwrocWizytaID(id);
+        model.addAttribute("wizyta",wizyta);
+
+
+        return "szczegolyWizyta";
+    }
+
+
+
+    @RequestMapping("/czyAnulujWizyte")
+    public String czyAnulujWizyte(@RequestParam Long id, Model model){
+        Wizyta wizyta=serwisWizyta.zwrocWizytaID(id);
+        model.addAttribute("wizyta",wizyta);
+        return "czyAnulujWizyte";
+    }
 }

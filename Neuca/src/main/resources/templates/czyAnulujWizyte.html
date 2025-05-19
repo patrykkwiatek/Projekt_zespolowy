@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potwierdzenie zamówienia</title>
+  <link rel="stylesheet" href="/css/anulujWizyte.css">
+</head>
+<body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj lek...">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div id="panelLogowania">
+      <div class="ukryteLogowanie">
+        <button onclick="location.href='/Neuca/koszyk'" id="loginButton">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button onclick="location.href='/Neuca/mojProfilPacjent'" id="mojeKontoButton">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button onclick="location.href='/Neuca/logout'" id="wylogujButton">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
+
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
+  </div>
+</div>
+
+<!-- Główna zawartość -->
+<main class="confirmation-container">
+  <div class="confirmation-card">
+    <div class="confirmation-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#c90606">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    </div>
+    <h1 class="confirmation-title">Czy na pewno chcesz odwołać wizytę?</h1>
+    <p class="confirmation-message" th:text="'Wizyta u Dr. '+ ${wizyta.lekarz.imie}+' '+${wizyta.lekarz.nazwisko}+ ' dnia '+ ${wizyta.getDataWizyty}+' o '+ ${wizyta.getGodzinaWizyty}"> </p>
+    <div class="confirmation-actions">
+      <form>
+      <button type="submit" class="confirm-btn">Tak, odwołaj</button>
+      <button type="button" class="cancel-btn" onclick="location.href='/Neuca/mojeWizyty'">Nie, pozostaw</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="footer-content">
+    <p>© 2025 Health Center</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelector('.cancel-btn').addEventListener('click', function() {
+    window.history.back();
+  });
+
+  document.querySelector('.confirm-btn').addEventListener('click', function() {
+    alert('Wizyta została odwołana');
+    window.location.href = 'Mojewizyty.html';
+  });
+</script>
+</body>
+</html>

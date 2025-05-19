@@ -88,7 +88,7 @@ public class KontrolerLog {
             model.addAttribute("leki", leki);
             List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
             model.addAttribute("lekarze",lekarze);
-            return "dodanoUserPacjent";
+            return "dodanoUser";
         } else{
             bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
             return "rejestracjaPacjent";
@@ -118,7 +118,7 @@ public class KontrolerLog {
             model.addAttribute("leki", leki);
             List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
             model.addAttribute("lekarze",lekarze);
-            return "dodanoUserLekarz";
+            return "dodanoUser";
         } else{
             bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
             List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
@@ -151,7 +151,7 @@ public class KontrolerLog {
             model.addAttribute("leki", leki);
             List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
             model.addAttribute("lekarze",lekarze);
-            return "dodanoUserAptekarz";
+            return "dodanoUser";
         } else{
             bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
             return "rejestracjaAptekarz";

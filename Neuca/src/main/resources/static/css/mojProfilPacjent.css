@@ -289,10 +289,10 @@ button {
     background-color: white;
     color: #c90606;
     padding: 10px;
-    border: none;
+
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
+
     transition: background-color 0.3s ease;
 }
 

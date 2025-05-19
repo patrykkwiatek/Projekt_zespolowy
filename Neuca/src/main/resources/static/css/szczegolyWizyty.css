@@ -1,0 +1,349 @@
+/* Główne style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
+}
+
+/* Style menu */
+#mainContainer {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#line {
+    width: 100%;
+    height: 3px;
+    background-color: #c90606;
+}
+
+#topMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+#logo {
+    max-width: 100px;
+    width: auto;
+}
+
+#wyszukiwarka {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: auto;
+}
+
+#wyszukiwarka input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 1px solid #c90606;
+}
+
+#wyszukiwarka button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 110px;
+    transition: all 0.4s ease;
+}
+
+#wyszukiwarka button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+#wyszukiwarka form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+#panelLogowania {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+#panelLogowania button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 110px;
+    transition: all 0.4s ease;
+}
+
+#panelLogowania button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie {
+    position: relative;
+    display: inline-block;
+}
+
+.ukryteLogowanie-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 4px;
+    z-index: 1000;
+    width: 250px;
+}
+
+.ukryteLogowanie-content button {
+    display: block;
+    width: 210px !important;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 14px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.ukryteLogowanie-content button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie:hover .ukryteLogowanie-content {
+    display: block;
+}
+
+#avatar {
+    max-width: 60px;
+    width: 100%;
+    border-radius: 50%;
+}
+
+#top2Menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    background-color: #c90606;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+#top2Menu button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+}
+
+#top2Menu button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+
+
+
+/* Style dla szczegółów wizyty */
+.visit-details-container {
+  display: flex;
+  justify-content: center;
+  padding: 30px 20px;
+  background-color: whitesmoke;
+  flex: 1;
+}
+
+.visit-details-card {
+  width: 100%;
+  max-width: 800px;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.visit-header h1 {
+  text-align: center;
+  color: #c90606;
+  margin-bottom: 30px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 36px;
+}
+
+.doctor-info-section {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.doctor-details {
+  flex: 1;
+}
+
+.doctor-photo-square {
+  width: 280px;
+  height: 280px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+}
+
+.doctor-photo-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visit-section-full {
+  margin-bottom: 30px;
+}
+
+.visit-section-full h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.info-label {
+  width: 150px;
+  font-weight: bold;
+  color: #555;
+}
+
+.info-value {
+  flex: 1;
+  color: #333;
+}
+
+.full-width-content {
+  margin-top: 20px;
+}
+
+.content-label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.content-value {
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 6px;
+  color: #333;
+}
+
+.status-anulowana {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.visit-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.cancel-btn {
+  padding: 12px 50px;
+  background-color: #c90606;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Stopka */
+.main-footer {
+    background-color: #c90606;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .visit-details-card {
+    padding: 20px;
+  }
+
+  .doctor-info-section {
+    flex-direction: column;
+  }
+
+  .doctor-photo-square {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+  }
+
+  .info-row {
+    flex-direction: column;
+  }
+
+  .info-label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

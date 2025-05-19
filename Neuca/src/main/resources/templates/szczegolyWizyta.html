@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły Wizyty</title>
+    <link rel="stylesheet" href="/css/szczegolyWizyty.css">
+</head>
+<body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj lek...">
+                <button id="searchButton">Szukaj</button>
+            </form>
+        </div>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button onclick="location.href='/Neuca/koszyk'" id="loginButton">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button onclick="location.href='/Neuca/mojProfilPacjent'" id="mojeKontoButton">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button onclick="location.href='/Neuca/logout'" id="wylogujButton">Wyloguj</button>
+            </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
+    </div>
+</div>
+
+<!-- Główna sekcja szczegółów wizyty -->
+<div class="visit-details-container">
+    <div class="visit-details-card">
+        <div class="visit-header">
+            <h1 th:text="'Wizyta #'+${wizyta.id}"></h1>
+        </div>
+
+        <div class="doctor-info-section">
+            <div class="doctor-details">
+                <h2>Informacje o lekarzu</h2>
+                <div class="info-row">
+                    <span class="info-label">Lekarz:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.imie}+ ' '+${wizyta.lekarz.nazwisko}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Gabinet:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.nazwaGabinetu}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Adres:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.adres1Gabinetu}+' '+${wizyta.lekarz.adres2Gabinetu}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Telefon:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.telefonGabinet}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Specjalizacja:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.spec}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Cena:</span>
+                    <span class="info-value" th:text="${wizyta.lekarz.cena}"></span>
+                </div>
+            </div>
+
+            <div class="doctor-photo-square">
+                <img  th:src="${wizyta.lekarz.foto} != null ? @{/Neuca/images/{filename}(filename=${wizyta.lekarz.foto})} : @{/Neuca/images/brakZdjecia.jpg}"
+                      width="300" height="200" />
+            </div>
+        </div>
+
+        <div class="visit-section-full">
+            <h2>Szczegóły wizyty</h2>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value status-anulowana" th:text="${wizyta.statusWizyty}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Data:</span>
+                <span class="info-value" th:text="${wizyta.getDataWizyty}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Godzina:</span>
+                <span class="info-value" th:text="${wizyta.getGodzinaWizyty}"></span>
+            </div>
+        </div>
+
+        <div class="visit-section-full">
+            <h2>Opis</h2>
+            <div class="full-width-content">
+                <div  class="content-value" th:text="${wizyta.opis}"></div>
+            </div>
+        </div>
+
+        <div class="visit-section-full">
+            <h2>Zalecenia</h2>
+            <div class="full-width-content">
+                <div  class="content-value" th:text="${wizyta.zalecenia}"></div>
+            </div>
+        </div>
+
+        <div class="visit-actions">
+            <form th:action="@{/Neuca/czyAnulujWizyte}" method="get">
+                <input type="hidden"  name="id" th:value="${wizyta.id}">
+                <button class="cancel-btn" >Anuluj Wizytę</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <p>© 2025 Health Center</p>
+    </div>
+</footer>
+</body>
+</html>

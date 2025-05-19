@@ -3,6 +3,8 @@ package com.example.otomoto;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SerwisWizyta {
     RepoWizyta repoWizyta;
@@ -26,6 +28,11 @@ public class SerwisWizyta {
 
     void usunWizyte(Wizyta wizyta){
         repoWizyta.delete(wizyta);
+    }
+
+    List<Wizyta> zwrocMojeWizyty(MyUser myUser){
+        List<Wizyta> lista=repoWizyta.findByMyUser(myUser);
+        return  lista;
     }
 
 }
