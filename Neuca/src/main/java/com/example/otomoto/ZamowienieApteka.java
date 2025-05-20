@@ -23,6 +23,7 @@ public class ZamowienieApteka {
     private String displayDateZamowienia;
     private StatusZamoweniaApteka statusZamoweniaApteka;
     private boolean czyZakonczone = false;
+    private boolean czyZaladowane=false;
 
 
 
@@ -34,5 +35,16 @@ public class ZamowienieApteka {
     @JoinColumn(name = "apteka")
     private Apteka apteka;
 
+    public String cenaALL(){
+        List<ProduktKoszykApteka> produkty=produktKoszykApteka;
+        int suma=0;
+        for(ProduktKoszykApteka p :produkty){
+            suma+= (p.getIlosc() *p.getLek().getPriceGR());
+        }
+        int zlote=suma/100;
+        int grosze=suma%100;
+        String ile=String.format("%d,%02d zł",zlote,grosze);
+        return ile;
+    }
 
 }

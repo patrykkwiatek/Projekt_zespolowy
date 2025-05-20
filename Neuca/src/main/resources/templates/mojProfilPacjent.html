@@ -128,7 +128,13 @@
             <td th:text="${zamowienie.displayDateZamowienia}"></td>
             <td th:text="${zamowienie.calkowitaCena}"></td>
             <td th:text="${zamowienie.status}"></td>
-            <td><button class="view-button">Wyświetl</button></td>
+            <td>
+                <form th:action="@{/Neuca/zamowieniePacjent}" method="get">
+                    <input type="hidden" name="id" th:value="${zamowienie.id}">
+                    <button class="view-button">Wyświetl</button>
+                </form>
+            </td>
+
         </tr>
         </tbody>
     </table>

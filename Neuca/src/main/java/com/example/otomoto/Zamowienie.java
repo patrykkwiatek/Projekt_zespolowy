@@ -8,6 +8,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,5 +49,26 @@ public class Zamowienie {
     @JoinColumn(name = "faktura")
     private Faktura faktura;
 
+
+    public String getDataZamowieniaFormatted() {
+        if (dataZamowienia == null) return "";
+        return dataZamowienia.toLocalDate().toString(); // Zwraca w formacie YYYY-MM-DD
+    }
+
+    public String getGodzinaZamowieniaFormatted() {
+        if (dataZamowienia == null) return "";
+        return dataZamowienia.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")); // Zwraca np. "14:35"
+    }
+
+    public String cenaRazem(){
+        int suma=0;
+        for(ProduktKoszyk p :produktKoszyk){
+            suma+=(p.getIlosc()*p.getLek().getPriceGR());
+        }
+        int zlote=suma/100;
+        int grosze=suma %100;
+        String cenaString=String.format("%d,%02d zł",zlote,grosze);
+        return cenaString;
+    }
 
 }

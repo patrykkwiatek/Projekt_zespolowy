@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.net.ssl.SSLEngineResult;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -359,6 +360,8 @@ public class DataBaseloader implements CommandLineRunner {
         ProduktKoszyk p1=new ProduktKoszyk();
         serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(3)),1);
         serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(4)),8);
+        serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(7)),1);
+        serwisKoszyk.dodajDoKoszyka(myUser,serwisPracownik.findbyID(Long.valueOf(17)),11);
         Zamowienie zamowienie=serwisKoszyk.getAktywnyKoszyk(myUser);
 
         zamowienie.setImie("Patryk");
@@ -367,7 +370,7 @@ public class DataBaseloader implements CommandLineRunner {
         zamowienie.setTelefon(600983654);
         zamowienie.setAdres1("Aleja Jana Pawla II 24");
         zamowienie.setAdres2("87-800 Włocławek");
-        zamowienie.setStatus(Status.OCZEKUJE);
+        zamowienie.setStatus(Status.WYSlANE);
         zamowienie.setCzyZakonczone(true);
         zamowienie.setDostawa(Dostawa.POCZTA);
         zamowienie.setDataZamowienia(LocalDateTime.now());
@@ -389,11 +392,13 @@ public class DataBaseloader implements CommandLineRunner {
 
         //zamowienie 2
 
-        myUser = serwisMyUser.zwrocUser("myuser4");
+        myUser = serwisMyUser.zwrocUser("patrykP");
         p1 = new ProduktKoszyk();
         serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(10L), 2);
         serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(5L), 5);
         serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(12L), 1);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(16L), 1);
+        serwisKoszyk.dodajDoKoszyka(myUser, serwisPracownik.findbyID(18L), 1);
         zamowienie = serwisKoszyk.getAktywnyKoszyk(myUser);
         zamowienie.setImie("Anna");
         zamowienie.setNazwisko("Zielińska");

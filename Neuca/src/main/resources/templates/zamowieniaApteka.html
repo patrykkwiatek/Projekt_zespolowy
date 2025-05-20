@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Zamówienia oczekujące</title>
+  <link rel="stylesheet" href="/css/zaladujZamowienia.css">
+</head>
+<body>
+<div class="orders-container">
+  <div class="header">
+    <h1>Zamówienia oczekujące</h1>
+    <a href="/Neuca/strefaAptekarza/zarzadzajApteka" class="back-button">Powrót do panelu</a>
+  </div>
+
+  <div class="scroll-wrapper">
+    <table class="orders-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Data zamówienia</th>
+        <th>Cena</th>
+        <th>Status</th>
+        <th>Szczegóły</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="z : ${zamowienia}">
+        <td th:text="${z.id}"></td>
+        <td th:text="${z.displayDateZamowienia}"></td>
+        <td th:text="${z.cenaALL}"></td>
+        <td th:text="${z.statusZamoweniaApteka}"></td>
+        <td>
+          <form th:action="@{/Neuca/strefaAptekarza/szczegolyZamowieniaApteka}" method="get">
+            <input type="hidden" name="id" th:value="${z.id}">
+            <button class="action-btn" >zobacz</button>
+          </form>
+
+        </td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</body>
+</html>

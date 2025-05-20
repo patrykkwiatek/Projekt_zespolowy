@@ -47,7 +47,7 @@
         <h3>Łączna cena: <span th:text="${cenaRazem}"></span></h3>
         <div class="actions">
             <button class="btn wide" onclick="window.location.href='/Neuca/strefaAptekarza/buyApteka'">Kontynuuj zakupy</button>
-            <form th:if="${!czyPusty}" th:action="@{/Neuca/realizacja}" method="post">
+            <form th:if="${!czyPusty}" th:action="@{/Neuca/strefaAptekarza/potwierdzAptekaZamowienie}" method="post">
                 <button class="btn outline wide" type="submit">Przejdź do realizacji</button>
             </form>
         </div>

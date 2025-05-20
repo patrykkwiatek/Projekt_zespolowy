@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szczegóły zamówienia</title>
+  <link rel="stylesheet" href="/css/zamowienie.css">
+</head>
+<body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+
+  <div id="topMenu">
+    <a href="main.html"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}" method="get">
+        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj lekarza...">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div id="panelLogowania">
+      <div class="ukryteLogowanie">
+        <button id="loginButton" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKontoButton" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wylogujButton" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
+
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
+  </div>
+</div>
+
+<!-- Główna sekcja szczegółów zamówienia -->
+<div class="order-details-container">
+  <div class="order-details-card">
+    <div class="order-header">
+      <h1>Zamówienie #46</h1>
+    </div>
+
+    <div class="order-info-section">
+      <div class="customer-info">
+        <div class="info-row">
+          <span class="info-label">Imię:</span>
+          <span class="info-value" th:text="${z.imie}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Nazwisko:</span>
+          <span class="info-value" th:text="${z.nazwisko}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value" th:text="${z.email}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Telefon:</span>
+          <span class="info-value" th:text="${z.telefon}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Adres 1:</span>
+          <span class="info-value" th:text="${z.adres1}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Adres 2:</span>
+          <span class="info-value" th:text="${z.adres2}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Dostawa:</span>
+          <span class="info-value" th:text="${z.dostawa.getSlowo}"></span>
+        </div>
+      </div>
+
+      <div class="order-meta">
+        <div class="info-row">
+          <span class="info-label">Złożone dnia:</span>
+          <span class="info-value" th:text="${z.getDataZamowieniaFormatted}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Godzina:</span>
+          <span class="info-value" th:text="${z.getGodzinaZamowieniaFormatted}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Status:</span>
+          <span class="info-value status-odebrane" th:text="${z.status}"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-products">
+      <table class="products-table">
+        <thead>
+        <tr>
+          <th>Lp.</th>
+          <th>Nazwa leku</th>
+          <th>Ilość</th>
+          <th>Cena szt.</th>
+          <th>Cena razem</th>
+          <th>Podgląd</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p, iterStat : ${z.produktKoszyk}">
+          <td th:text="${iterStat.index + 1}"></td>
+          <td th:text="${p.lek.name}+' '+${p.lek.gramatura}"></td>
+          <td th:text="${p.ilosc}"></td>
+          <td th:text="${p.lek.cenaString}"></td>
+          <td th:text="${p.ustawCene}"></td>
+          <td><a href="#" class="product-link">Zobacz</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="order-summary">
+      <div class="total-price">
+        <span class="total-label">Cena razem:</span>
+        <span class="total-value" th:text="${z.cenaRazem}"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="footer-content">
+    <p>© 2025 Health Center</p>
+  </div>
+</footer>
+</body>
+</html>

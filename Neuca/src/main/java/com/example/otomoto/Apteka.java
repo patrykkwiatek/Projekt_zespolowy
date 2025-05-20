@@ -91,6 +91,29 @@ public class Apteka {
         this.wojewodztwo = wojewodztwo;
     }
 
+    public String getPelnyAdres() {
+        StringBuilder adres = new StringBuilder();
+
+        if (ulica != null) {
+            adres.append(ulica).append(" ");
+        }
+
+        if (numerBud != null) {
+            adres.append(numerBud);
+        }
+
+        if (numerLokalu != null && !numerLokalu.isBlank()) {
+            adres.append("/").append(numerLokalu);
+        }
+
+        if (kodPocztowy != null && miasto != null) {
+            adres.append(", ").append(kodPocztowy).append(" ").append(miasto);
+        }
+
+        return adres.toString();
+    }
+
+
 }
 
 

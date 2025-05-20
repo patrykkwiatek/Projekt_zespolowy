@@ -3,6 +3,8 @@ package com.example.otomoto;
 import com.fasterxml.jackson.annotation.OptBoolean;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +12,12 @@ import java.util.Optional;
 @Service
 public class SerwisZamowienieApteka {
     private final RepoZamowienieApteka repoZamowienieApteka;
+    private final SerwisLekStanApteka serwisLekStanApteka;
 
 
-    public SerwisZamowienieApteka(RepoZamowienieApteka repoZamowienieApteka) {
+    public SerwisZamowienieApteka(SerwisLekStanApteka serwisLekStanApteka, RepoZamowienieApteka repoZamowienieApteka) {
         this.repoZamowienieApteka = repoZamowienieApteka;
+        this.serwisLekStanApteka=serwisLekStanApteka;
     }
 
 
@@ -53,6 +57,46 @@ public class SerwisZamowienieApteka {
             suma += p.getIlosc() * p.getLek().getPriceGR();
         }
         return suma;
+    }
+
+    public void zamow(ZamowienieApteka zamowienieApteka){
+        zamowienieApteka.setCzyZakonczone(true);
+        zamowienieApteka.setDataZamowienia(LocalDate.now());
+        zamowienieApteka.setStatusZamoweniaApteka(StatusZamoweniaApteka.OCZEKUJE);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        zamowienieApteka.setDisplayDateZamowienia(zamowienieApteka.getDataZamowienia().format(formatter));
+        zamowienieApteka.setCzyZaladowane(false);
+        repoZamowienieApteka.save(zamowienieApteka);
+    }
+
+
+    List<ZamowienieApteka> zwrocZamowieniaApteka(Apteka apteka){
+        List<ZamowienieApteka> z=repoZamowienieApteka.findByAptekaAndStatusZamoweniaAptekaNot(apteka, StatusZamoweniaApteka.BRAK);
+        return z;
+    }
+
+    ZamowienieApteka zwrocZamowieniePoId(Long id){
+        Optional<ZamowienieApteka> zamowienia=repoZamowienieApteka.findById(id);
+        ZamowienieApteka z=zamowienia.get();
+        return z;
+
+    }
+
+    public void zmienStatus(ZamowienieApteka zamowienieApteka, StatusZamoweniaApteka s){
+        zamowienieApteka.setStatusZamoweniaApteka(s);
+        repoZamowienieApteka.save(zamowienieApteka);
+    }
+
+    public void zaladujZamowienie(ZamowienieApteka z){
+        Apteka apteka=z.getApteka();
+        List<ProduktKoszykApteka> lista=z.getProduktKoszykApteka();
+        for(ProduktKoszykApteka p :lista){
+            Lek lek=p.getLek();
+            int ilosc=p.getIlosc();
+            serwisLekStanApteka.dodajDoApteki(apteka,ilosc,lek);
+        }
+        z.setCzyZaladowane(true);
+        repoZamowienieApteka.save(z);
     }
 
 }

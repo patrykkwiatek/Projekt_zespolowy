@@ -1,0 +1,357 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
+}
+
+#mainContainer {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#line {
+    width: 100%;
+    height: 3px;
+    background-color: #c90606;
+}
+
+#topMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+#logo {
+    max-width: 100px;
+    width: auto;
+}
+
+#wyszukiwarka {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: auto;
+}
+
+#wyszukiwarka input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 1px solid #c90606;
+}
+
+#wyszukiwarka button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 100px;
+    transition: all 0.4s ease;
+
+}
+
+#wyszukiwarka button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+#wyszukiwarka form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+#panelLogowania {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+#panelLogowania button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border-radius: 4px;
+    width: 110px;
+    transition: all 0.4s ease;
+
+}
+
+#panelLogowania button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie {
+    position: relative;
+    display: inline-block;
+}
+
+.ukryteLogowanie-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #c90606;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 4px;
+    z-index: 1000;
+    width: 250px;
+}
+
+.ukryteLogowanie-content button {
+    display: block;
+    width: 210px !important;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 14px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.ukryteLogowanie-content button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.ukryteLogowanie:hover .ukryteLogowanie-content {
+    display: block;
+}
+
+#avatar {
+    max-width: 60px;
+    width: 100%;
+    border-radius: 50%;
+}
+
+#top2Menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    background-color: #c90606;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+#top2Menu button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #c90606;
+    color: white;
+    border: 1px solid #c90606;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+}
+
+#top2Menu button:hover {
+    background-color: white;
+    color: #c90606;
+    cursor: pointer;
+}
+
+.main-footer {
+    background-color: #c90606;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+
+
+
+/* Style dla szczegółów zamówienia */
+.order-details-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: whitesmoke;
+  flex: 1;
+}
+
+.order-details-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+}
+
+.order-header h1 {
+  text-align: center;
+  color: #c90606;
+  margin-bottom: 50px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 36px;
+}
+
+.order-info-section {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.customer-info, .order-meta {
+  flex: 1;
+  min-width: 300px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.info-label {
+  width: 120px;
+  font-weight: bold;
+  color: #555;
+}
+
+.info-value {
+  flex: 1;
+  color: #333;
+}
+
+.status-odebrane {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.order-products {
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th {
+  background-color: #f5f5f5;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.products-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.products-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.product-link {
+  color: #c90606;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.product-link:hover {
+  text-decoration: underline;
+}
+
+.order-summary {
+  text-align: right;
+  padding-top: 20px;
+  border-top: 2px solid #ddd;
+}
+
+.total-price {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.total-label {
+  margin-right: 10px;
+  color: #c90606;
+}
+
+.total-value {
+  color: #c90606;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.products-table th {
+  background-color: #c90606 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+  .order-details-card {
+    padding: 20px;
+  }
+
+  .order-header h1 {
+    font-size: 28px;
+  }
+
+  .order-info-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .customer-info, .order-meta {
+    min-width: 100%;
+  }
+
+  .products-table {
+    font-size: 14px;
+  }
+
+  .products-table th,
+  .products-table td {
+    padding: 8px;
+  }
+}

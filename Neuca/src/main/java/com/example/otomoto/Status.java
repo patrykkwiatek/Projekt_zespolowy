@@ -34,6 +34,18 @@ public enum Status {
         return doLosowania.get(new Random().nextInt(doLosowania.size()));
     }
 
+    public static Status losujStatus() {
+        List<Status> dostepneStatusy = Arrays.stream(Status.values())
+                .filter(s -> s != BRAK && s != ALL)
+                .collect(Collectors.toList());
+
+        if (dostepneStatusy.isEmpty()) {
+            throw new IllegalStateException("Brak dostępnych statusów do wylosowania.");
+        }
+
+        return dostepneStatusy.get(new Random().nextInt(dostepneStatusy.size()));
+    }
+
 
 
 }

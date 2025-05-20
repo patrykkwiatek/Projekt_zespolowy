@@ -535,6 +535,66 @@ public class KontrolerApteka {
         return "redirect:/Neuca/strefaAptekarza/koszykApteka";
     }
 
+    @RequestMapping("/strefaAptekarza/potwierdzAptekaZamowienie")
+    public String potwierdzAptekaZamowienie(){
+        return "potwierdzAptekaZamowienie";
+    }
+    @RequestMapping("/strefaAptekarza/zlozonoZamowieniaApteka")
+    public String zlozonoZamowieniaApteka(Authentication authentication){
+        String username= authentication.getName();
+        MyUser m=serwisMyUser.zwrocUser(username);
+        Apteka apteka=m.getApteka();
+        ZamowienieApteka z=serwisZamowienieApteka.zwrocZamowienieAktualne(apteka);
+        serwisZamowienieApteka.zamow(z);
+        return "zlozonoZamowieniaApteka";
+    }
+
+    @RequestMapping("/strefaAptekarza/zamowieniaApteka")
+    public String zamowieniaApteka(Authentication authentication, Model model){
+        String username= authentication.getName();;
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Apteka apteka=myUser.getApteka();
+        List<ZamowienieApteka> zamowienieApteka=serwisZamowienieApteka.zwrocZamowieniaApteka(apteka);
+        model.addAttribute("zamowienia",zamowienieApteka);
+        return "zamowieniaApteka";
+    }
+
+
+    @RequestMapping("/strefaAptekarza/szczegolyZamowieniaApteka")
+    public String szczegolyZamowieniaApteka(Model model, @RequestParam Long id){
+        ZamowienieApteka z=serwisZamowienieApteka.zwrocZamowieniePoId(id);
+        model.addAttribute("z",z);
+        StatusZamoweniaApteka s=z.getStatusZamoweniaApteka();
+        boolean zal=z.isCzyZaladowane();
+        if(s.equals(StatusZamoweniaApteka.ANULOWANE)){
+            model.addAttribute("czyAnul",false);
+        }else{
+            model.addAttribute("czyAnul",true);
+        }
+        if(zal==true){
+            model.addAttribute("czyZal",false);
+        }else{
+            model.addAttribute("czyZal",true);
+        }
+        return "szczegolyZamowieniaApteka";
+    }
+
+
+
+    @RequestMapping("/strefaAptekarza/zaladujZamowienieApteka")
+    public String zaladujZamowienieApteka(@RequestParam Long id){
+        ZamowienieApteka z=serwisZamowienieApteka.zwrocZamowieniePoId(id);
+        serwisZamowienieApteka.zaladujZamowienie(z);
+        return "redirect:/Neuca/strefaAptekarza/szczegolyZamowieniaApteka?id=" + id;
+    }
+
+
+    @RequestMapping("/strefaAptekarza/anulujZamowieniaApteka")
+    public String anulujZamowieniaApteka(@RequestParam Long id){
+        ZamowienieApteka z=serwisZamowienieApteka.zwrocZamowieniePoId(id);
+        serwisZamowienieApteka.zmienStatus(z,StatusZamoweniaApteka.ANULOWANE);
+        return "redirect:/Neuca/strefaAptekarza/szczegolyZamowieniaApteka?id=" + id;
+    }
 
 
 

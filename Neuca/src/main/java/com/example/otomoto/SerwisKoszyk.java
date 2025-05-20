@@ -101,5 +101,11 @@ public class SerwisKoszyk {
         repoZamowienie.save(nowyKoszyk);
     }
 
+    public Zamowienie zwrocZamowieniePoId(Long id){
+        Optional<Zamowienie> zamowienieO=repoZamowienie.findById(id);
+        Zamowienie z=zamowienieO.get();
+        return z;
+    }
+
 
 }

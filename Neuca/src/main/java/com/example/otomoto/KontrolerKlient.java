@@ -26,8 +26,9 @@ public class KontrolerKlient {
     private final SerwisRezerwacjaLeku serwisRezerwacjaLeku;
     private final SerwisMyUser serwisMyUser;
     private final SerwisWizyta serwisWizyta;
+    private  final SerwisKoszyk serwisKoszyk;
 
-    public KontrolerKlient(SerwisWizyta serwisWizyta, SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
+    public KontrolerKlient(SerwisKoszyk serwisKoszyk, SerwisWizyta serwisWizyta, SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
         this.sP = sP;
         this.sK = sK;
         this.serwisLekStanApteka=serwisLekStanApteka;
@@ -35,6 +36,7 @@ public class KontrolerKlient {
         this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
         this.serwisMyUser =serwisMyUser;
         this.serwisWizyta=serwisWizyta;
+        this.serwisKoszyk=serwisKoszyk;
     }
 
     @RequestMapping("/startK/listaK")
@@ -251,5 +253,12 @@ public class KontrolerKlient {
         Wizyta w =serwisWizyta.zwrocWizytaID(wizytaId);
         serwisWizyta.zmienStatus(w,StatusWizyty.ANULOWANA);
         return "redirect:/Neuca/mojeWizyty";
+    }
+
+    @RequestMapping("/zamowieniePacjent")
+    public String zamowieniePacjent(@RequestParam Long id, Model model){
+        Zamowienie z=serwisKoszyk.zwrocZamowieniePoId(id);
+        model.addAttribute("z",z);
+        return "zamowieniePacjent";
     }
 }

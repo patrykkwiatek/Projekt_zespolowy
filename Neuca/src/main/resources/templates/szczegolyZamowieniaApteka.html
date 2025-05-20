@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły zamówienia</title>
+    <link rel="stylesheet" href="/css/szczegolyZamowienia.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Szczegóły zamówienia</h1>
+        <a href="/Neuca/strefaAptekarza/zamowieniaApteka" class="back-btn">Wróć do listy</a>
+    </div>
+
+    <div class="info-flex">
+        <div class="section half">
+            <h2>Dane zamówienia</h2>
+            <p><strong th:text="'ID zamówienia: '+ ${z.id}"></strong></p>
+            <p><strong th:text="'Data złożenia: '+${z.displayDateZamowienia}"></strong></p>
+            <p><strong th:text="'Status: '+${z.statusZamoweniaApteka}"></strong></p>
+            <p><strong th:text="'Łączna cena: '+${z.cenaALL}"></strong></p>
+        </div>
+
+        <div class="section half">
+            <h2>Dane klienta</h2>
+            <p><strong th:text="'Nazwa apteki: '+${z.apteka.name}"></strong></p>
+            <p><strong th:text="'Telefon: '+${z.apteka.telefon}"></strong> </p>
+            <p><strong th:text="'Adres apteki: '+${z.apteka.getPelnyAdres}"></strong></p>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>Produkty</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa leku</th>
+                <th>Gramatura</th>
+                <th>Ilość</th>
+                <th>Cena jednostkowa</th>
+                <th>Wartość</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p: ${z.produktKoszykApteka}">
+                <td th:text="${p.lek.name}"></td>
+                <td th:text="${p.lek.gramatura}"></td>
+                <td th:text="${p.ilosc}"></td>
+                <td th:text="${p.lek.cenaString}"></td>
+                <td th:text="${p.cenaString}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h2 th:text="'Razem: '+${z.cenaALL}"></h2>
+        <h2 th:if="${!czyZal}">Zamowienie załadowane</h2>
+        <a th:href="@{/Neuca/strefaAptekarza/zaladujZamowienieApteka(id=${z.id})}" class="back-btn" th:if="${czyZal}">Załaduj zamówienie</a>
+        <a th:href="@{/Neuca/strefaAptekarza/anulujZamowieniaApteka(id=${z.id})}" th:if="${czyAnul}" class="back-btn">Anuluj zamówienie</a>
+    </div>
+</div>
+
+</body>
+</html>
