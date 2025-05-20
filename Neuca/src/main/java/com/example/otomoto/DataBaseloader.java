@@ -313,6 +313,22 @@ public class DataBaseloader implements CommandLineRunner {
 
 
         }
+        List<Lekarz> lekarze=repoLekarz.findAll();
+        MyUser u=serwisMyUser.zwrocUser("patrykP");
+        for(int i= 0;i<5;i++){
+            Wizyta w =new Wizyta();
+            w.setLekarz(lekarze.get(i+1));
+            w.setMyUser(u);
+            w.setStatusWizyty(statusy.get(random.nextInt(statusy.size())));
+            w.setOpis("Ból w klatce piersiowej, wysokie ciesnienie");
+            long minDay = LocalDateTime.now().minusDays(30).toEpochSecond(java.time.ZoneOffset.UTC);
+            long maxDay = LocalDateTime.now().plusDays(30).toEpochSecond(java.time.ZoneOffset.UTC);
+            long randomEpochSecond = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+            LocalDateTime randomDate = LocalDateTime.ofEpochSecond(randomEpochSecond, 0, java.time.ZoneOffset.UTC);
+            w.setData(randomDate);
+            repoWizyta.save(w);
+
+        }
         System.out.println("wizyty");
     }
 

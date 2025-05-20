@@ -38,19 +38,14 @@ body {
     margin-left: auto;
 }
 
-#wyszukiwarka form {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-}
-
 #wyszukiwarka input {
     padding: 10px;
     width: 100%;
     max-width: 400px;
     font-size: 16px;
     border-radius: 4px;
-    border: 1px solid #c90606;
+    margin-right: 10px;
+    border-color: #c90606;
 }
 
 #wyszukiwarka button {
@@ -68,7 +63,11 @@ body {
     color: #c90606;
     cursor: pointer;
 }
-
+#wyszukiwarka form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
 /* Panel logowania */
 #panelLogowania {
     display: flex;
@@ -253,10 +252,16 @@ p {
 }
 
 /* Sekcja z danymi użytkownika */
+#witaj-box{
+    text-align: center;
+}
 .info-section {
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
     gap: 20px;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
@@ -266,7 +271,7 @@ p {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     flex: 1;
-    max-width: 450px;
+    max-width: 600px;
     max-height: 300px;
     display: flex;
     flex-direction: column;
@@ -289,16 +294,44 @@ button {
     background-color: white;
     color: #c90606;
     padding: 10px;
-
     border-radius: 4px;
     cursor: pointer;
-
+    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #ca2828;
     color: white;
+}
+
+.mini-table-slider {
+    overflow-x: auto;
+    max-height: 140px;
+    margin-bottom: 10px;
+}
+
+.mini-reservation-table {
+    width: 100%;
+    min-width: 300px;
+    border-collapse: collapse;
+}
+
+.mini-reservation-table th,
+.mini-reservation-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.mini-reservation-table th {
+    background-color: #c90606;
+    color: white;
+}
+
+.mini-reservation-table tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
 
 /* Sekcja zamówień */
@@ -322,9 +355,13 @@ th {
     background-color: #c90606;
     color: white;
 }
+td {
+    background-color: white;
+}
 
 .view-button {
     background-color: white;
+    color: #c90606;
     padding: 5px 10px;
     font-size: 14px;
     margin-left: auto;
@@ -332,5 +369,6 @@ th {
 }
 
 .view-button:hover {
-    background-color: #0056b3;
+    background-color: #c90606;
+    color: white;
 }

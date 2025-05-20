@@ -12,22 +12,20 @@
 <div id="mainContainer">
 
   <div id="topMenu">
-    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <a href="main.html"><img src="/img/logo.png" id="logo"></a>
     <div id="wyszukiwarka">
-      <form th:action="@{/Neuca/buy}">
-        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj lek...">
-        <button id="searchButton">Szukaj</button>
-      </form>
+      <input type="text" id="search" placeholder="Wyszukaj lekarza...">
+      <button id="searchButton">Szukaj</button>
     </div>
     <div id="panelLogowania">
       <div class="ukryteLogowanie">
-        <button onclick="location.href='/Neuca/koszyk'" id="loginButton">Koszyk</button>
+        <button onclick="location.href='/Neuca/koszyk'" id="koszykButton">Koszyk</button>
       </div>
       <div class="ukryteLogowanie">
         <button onclick="location.href='/Neuca/mojProfilPacjent'" id="mojeKontoButton">Moje Konto</button>
       </div>
       <div class="ukryteLogowanie">
-        <button onclick="location.href='/Neuca/logout'" id="wylogujButton">Wyloguj</button>
+        <button onclick="location.href='/Neuca/logout'" id="registerButton">Wyloguj</button>
       </div>
     </div>
     <img src="/img/avatar.png" id="avatar">
@@ -52,12 +50,10 @@
       </svg>
     </div>
     <h1 class="confirmation-title">Czy na pewno chcesz odwołać wizytę?</h1>
-    <p class="confirmation-message" th:text="'Wizyta u Dr. '+ ${wizyta.lekarz.imie}+' '+${wizyta.lekarz.nazwisko}+ ' dnia '+ ${wizyta.getDataWizyty}+' o '+ ${wizyta.getGodzinaWizyty}"> </p>
+    <p class="confirmation-message" th:text="'Wizyta u Dr. '+ ${wizyta.lekarz.imie}+' '+${wizyta.lekarz.nazwisko}+ ' dnia '+ ${wizyta.getDataWizyty}+' o '+ ${wizyta.getGodzinaWizyty}"></p>
     <div class="confirmation-actions">
-      <form>
-      <button type="submit" class="confirm-btn">Tak, odwołaj</button>
-      <button type="button" class="cancel-btn" onclick="location.href='/Neuca/mojeWizyty'">Nie, pozostaw</button>
-      </form>
+      <button class="confirm-btn">Tak, odwołaj</button>
+      <button onclick="location.href='/Neuca/mojeWizyty'" class="cancel-btn">Nie, pozostaw</button>
     </div>
   </div>
 </main>
@@ -69,14 +65,46 @@
 </footer>
 
 <script>
-  document.querySelector('.cancel-btn').addEventListener('click', function() {
-    window.history.back();
-  });
+  const wizytaId = [[${wizyta.id}]];
 
-  document.querySelector('.confirm-btn').addEventListener('click', function() {
-    alert('Wizyta została odwołana');
-    window.location.href = 'Mojewizyty.html';
-  });
+   document.querySelector('.cancel-btn').addEventListener('click', function () {
+     window.history.back();
+   });
+
+   document.querySelector('.confirm-btn').addEventListener('click', function () {
+     alert('Wizyta została odwołana');
+     window.location.href = `/Neuca/anulujWizyte?wizytaId=${encodeURIComponent(wizytaId)}`;
+   });
 </script>
+
+
+<script>
+  // Funkcja wspólna – użyta przy kliknięciu i przy Enterze
+  function handleSearch () {
+    const value = document.getElementById('search').value.trim();
+
+    if (value === '') {
+      // puste: sam adres bez parametru
+      window.location.href = '/Neuca/buy';
+    } else {
+      // coś wpisano: adres + zakodowany parametr
+      window.location.href = `/Neuca/buy?wzorzec=${encodeURIComponent(value)}`;
+    }
+  }
+
+  // Kliknięcie przycisku
+  document.getElementById('searchButton')
+          .addEventListener('click', handleSearch);
+
+  // Enter w polu tekstowym (opcjonalnie, ale wygodne)
+  document.getElementById('search')
+          .addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+              e.preventDefault();   // blokuje domyślne wysłanie formularza
+              handleSearch();
+            }
+          });
+</script>
+
 </body>
 </html>

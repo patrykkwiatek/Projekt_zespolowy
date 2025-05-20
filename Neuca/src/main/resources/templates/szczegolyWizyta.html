@@ -55,7 +55,7 @@
                 <h2>Informacje o lekarzu</h2>
                 <div class="info-row">
                     <span class="info-label">Lekarz:</span>
-                    <span class="info-value" th:text="${wizyta.lekarz.imie}+ ' '+${wizyta.lekarz.nazwisko}"></span>
+                    <span class="info-value" th:text="'Dr '+${wizyta.lekarz.imie}+ ' '+${wizyta.lekarz.nazwisko}"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Gabinet:</span>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="info-row">
                     <span class="info-label">Cena:</span>
-                    <span class="info-value" th:text="${wizyta.lekarz.cena}"></span>
+                    <span class="info-value" th:text="${wizyta.lekarz.cena}+ ' złoty'"></span>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
             <h2>Szczegóły wizyty</h2>
             <div class="info-row">
                 <span class="info-label">Status:</span>
-                <span class="info-value status-anulowana" th:text="${wizyta.statusWizyty}"></span>
+                <span class="info-value status-anulowana" th:text="${wizyta.statusWizyty.slowo}"></span>
             </div>
             <div class="info-row">
                 <span class="info-label">Data:</span>

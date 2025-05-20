@@ -207,13 +207,14 @@ public class KontrolerKlient {
     @RequestMapping("/edytowanoPacjent")
     public String edytowanoPacjent(@RequestParam String imie,
                                    @RequestParam String nazwisko,
-                                   @RequestParam int telefon,
+                                   @RequestParam String telefon,
                                    Authentication authentication){
+        int telefonINT=Integer.parseInt(telefon);
         String username=authentication.getName();
         MyUser myUser=serwisMyUser.zwrocUser(username);
         myUser.setImie(imie);
         myUser.setNazwisko(nazwisko);
-        myUser.setPhone(telefon);
+        myUser.setPhone(telefonINT);
         serwisMyUser.zmienPacjent(myUser);
         return "redirect:/Neuca/mojProfilPacjent";
     }
@@ -243,5 +244,12 @@ public class KontrolerKlient {
         Wizyta wizyta=serwisWizyta.zwrocWizytaID(id);
         model.addAttribute("wizyta",wizyta);
         return "czyAnulujWizyte";
+    }
+
+    @RequestMapping("/anulujWizyte")
+    public String anulujWizyte(@RequestParam Long wizytaId){
+        Wizyta w =serwisWizyta.zwrocWizytaID(wizytaId);
+        serwisWizyta.zmienStatus(w,StatusWizyty.ANULOWANA);
+        return "redirect:/Neuca/mojeWizyty";
     }
 }

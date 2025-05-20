@@ -37,6 +37,7 @@
         <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
         <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
         <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Usługi</button></div>
         <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Kontakt</button></div>
         <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
     </div>
@@ -50,7 +51,7 @@
         <div class="appointments">
             <div class="appointment" th:each="wizyta : ${wizyty}">
                 <div class="appointment-info">
-                    <h2 th:text="'Dr. '+${wizyta.lekarz.imie} + ' ' + ${wizyta.lekarz.nazwisko}"></h2>
+                    <h2 th:text="'Dr '+${wizyta.lekarz.imie} + ' ' + ${wizyta.lekarz.nazwisko}"></h2>
                     <p><strong th:text="'Data: '+${wizyta.getDataWizyty}"></strong></p>
                     <p><strong th:text="'Godzina: ' +${wizyta.getGodzinaWizyty}"></strong> </p>
                     <p><strong th:text="'Miejsce: ' + ${wizyta.lekarz.adres1Gabinetu}+' '+${wizyta.lekarz.adres2Gabinetu}"></strong> </p>

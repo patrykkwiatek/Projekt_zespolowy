@@ -34,5 +34,9 @@ public class SerwisWizyta {
         List<Wizyta> lista=repoWizyta.findByMyUser(myUser);
         return  lista;
     }
+    void zmienStatus(Wizyta wizyta, StatusWizyty statusWizyty){
+        wizyta.setStatusWizyty(statusWizyty);
+        repoWizyta.save(wizyta);
+    }
 
 }

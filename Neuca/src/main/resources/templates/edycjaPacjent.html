@@ -1,34 +1,84 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edytuj Dane</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edytuj Dane </title>
     <link rel="stylesheet" href="/css/EdycjaPacjent.css">
 </head>
 <body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
 
-<div class="container">
-    <h1>Edytuj Dane</h1>
-
-    <form  th:action="@{/Neuca/edytowanoPacjent}" class="edit-form" action="#" method="post">
-        <div class="form-group">
-            <label for="imie">Imię:</label>
-            <input type="text" id="imie" name="imie" th:value="${imie}" placeholder="Wpisz imię" required>
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}" method="get">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="nazwisko">Nazwisko:</label>
-            <input type="text" id="nazwisko" name="nazwisko" th:value="${nazwisko}" placeholder="Wpisz nazwisko" required>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="koszykButton" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="mojeKontoButton" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="wylogujButton" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+            </div>
         </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
 
-        <div class="form-group">
-            <label for="telefon">Numer telefonu:</label>
-            <input type="text" id="telefon" name="telefon" th:value="${telefon}" placeholder="123-456-789"  required>
-        </div>
-
-        <button type="submit" class="save-btn">Zapisz zmiany</button>
-    </form>
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='uslugi.html'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='oNas.html'">O Nas</button></div>
+    </div>
 </div>
+
+<!-- Główna sekcja formularza -->
+<div class="edit-patient-container">
+    <div class="edit-patient-card">
+        <h1>Edytuj Dane</h1>
+
+        <form th:action="@{/Neuca/edytowanoPacjent}" class="edit-patient-form" action="#" method="post">
+            <div class="form-group">
+                <label for="imie">Imię:</label>
+                <input type="text" id="imie" name="imie" th:value="${imie}" placeholder="Wpisz imię" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nazwisko">Nazwisko:</label>
+                <input type="text" id="nazwisko" name="nazwisko" th:value="${nazwisko}" placeholder="Wpisz nazwisko" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="telefon">Numer telefonu:</label>
+                <input type="text" id="telefon" name="telefon" maxlength="9" th:value="${telefon}" placeholder="123456789"  required>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="window.history.back()">Anuluj</button>
+                <button type="submit" class="save-btn">Zapisz zmiany</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>
+
+
+
+
+
+
