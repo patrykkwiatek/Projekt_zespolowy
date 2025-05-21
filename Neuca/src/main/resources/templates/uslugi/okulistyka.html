@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Okulistyka</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/okulistyka.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+    
+    <!-- Część główna -->
+    <main class="container okulistyka-main">
+        <h1 class="main-title">Okulistyka</h1>
+        
+        <div class="info-box">
+          <h2 class="section-title">Czym zajmuje się okulistyka?</h2>
+          <p>
+            Okulistyka to dziedzina medycyny zajmująca się diagnozowaniem, 
+            leczeniem i profilaktyką chorób oczu oraz zaburzeń widzenia. 
+            Okulista (oftalmolog) przeprowadza kompleksowe badania wzroku, 
+            dobiera korekcję optyczną i leczy schorzenia narządu wzroku.
+          </p>
+        </div>
+        
+        <div class="centered-image">
+          <img src="/img/okulistyka.PNG" alt="Badanie wzroku" class="hero-image">
+        </div>
+  
+        <section>
+          <h2 class="section-title">Podstawowe informacje</h2>
+          <p>
+            Współczesna okulistyka wykorzystuje zaawansowane technologie 
+            diagnostyczne i terapeutyczne, w tym laserowe metody leczenia. 
+            Obejmuje zarówno podstawową opiekę okulistyczną, jak i specjalistyczne 
+            zabiegi chirurgiczne. Regularne kontrole wzroku są kluczowe dla 
+            zachowania dobrego widzenia przez całe życie.
+          </p>
+        </section>
+  
+        <div class="ophthalmology-facts">
+          <div class="fact-card">
+            <h3>Najczęstsze choroby</h3>
+            <ul>
+              <li><strong>Wady refrakcji</strong> (krótko-/dalekowzroczność, astygmatyzm)</li>
+              <li><strong>Zaćma (katarakta)</strong></li>
+              <li><strong>Jaskra</strong></li>
+              <li><strong>Zwyrodnienie plamki żółtej (AMD)</strong></li>
+              <li><strong>Zespół suchego oka</strong></li>
+            </ul>
+          </div>
+  
+          <div class="fact-card">
+            <h3>Diagnostyka</h3>
+            <ul>
+              <li><strong>Badanie ostrości wzroku</strong></li>
+              <li><strong>Tonometria</strong> (pomiar ciśnienia wewnątrzgałkowego)</li>
+              <li><strong>Badanie dna oka</strong></li>
+              <li><strong>Topografia rogówki</strong></li>
+              <li><strong>OCT (tomografia)</strong></li>
+            </ul>
+          </div>
+          
+          <div class="fact-card">
+            <h3>Profilaktyka</h3>
+            <ul>
+              <li><strong>Regularne badania kontrolne</strong></li>
+              <li><strong>Ochrona przed UV (okulary z filtrem)</strong></li>
+              <li><strong>Odpowiednie oświetlenie podczas pracy</strong></li>
+              <li><strong>Ograniczenie czasu przed ekranami</strong></li>
+              <li><strong>Dieta bogata w luteinę</strong></li>
+            </ul>
+          </div>
+        </div>
+  
+        <section>
+          <h2 class="section-title">Kiedy udać się do okulisty?</h2>
+          <p>Konsultacja okulistyczna jest wskazana gdy występują:</p>
+          <ul class="indications-list">
+            <li>Pogorszenie ostrości widzenia</li>
+            <li>Bóle głowy związane z pracą wzrokową</li>
+            <li>Podwójne widzenie lub mroczki</li>
+            <li>Ból, pieczenie lub zaczerwienienie oczu</li>
+            <li>Urazy oka</li>
+            <li>Problemy z widzeniem po zmroku</li>
+          </ul>
+        </section>
+  
+        <div class="warn-box">
+          <h3>Warto wiedzieć</h3>
+          <p>
+            Pierwsze badanie okulistyczne powinno się odbyć już u niemowląt, 
+            a następnie regularnie powtarzać co 2-3 lata u dzieci i osób młodych, 
+            oraz co roku po 40. roku życia. Wczesne wykrycie jaskry czy AMD 
+            znacznie zwiększa szanse na skuteczne leczenie.
+          </p>
+        </div>
+      </main>
+  
+      <footer class="okulistyka-footer">
+        <div class="container">
+          <p>© 2025 Health Center - Okulistyka</p>
+        </div>
+      </footer>
+    </body>
+  </html>

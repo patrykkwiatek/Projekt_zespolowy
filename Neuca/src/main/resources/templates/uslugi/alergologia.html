@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alergologia</title>
+  <link rel="stylesheet" href="/uslugiCSS/style.css" />
+  <link rel="stylesheet" href="/uslugiCSS/alergologia.css" />
+</head>
+<body>
+<!-- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div class="panelLogowania" th:if="${not log}">
+      <div class="ukryteLogowanie">
+        <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="registerButton">Zarejestruj</button>
+        <div class="ukryteLogowanie-content">
+          <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+          <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+          <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+        </div>
+      </div>
+    </div>
+    <div class="panelLogowania" th:if="${log}">
+      <div class="ukryteLogowanie">
+        <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
+
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+  </div>
+</div>
+
+
+<!-- Część główna -->
+<main class="container alergologia-main">
+  <h1 class="main-title">Alergologia</h1>
+
+  <div class="info-box">
+    <h2 class="section-title">Czym zajmuje się alergolog?</h2>
+    <p>
+      Alergologia to dziedzina medycyny zajmująca się diagnozowaniem i leczeniem
+      chorób alergicznych oraz nieprawidłowych reakcji immunologicznych organizmu.
+      Alergolog specjalizuje się w leczeniu m.in. astmy, kataru siennego,
+      alergii pokarmowych i atopowego zapalenia skóry.
+    </p>
+  </div>
+
+  <div class="centered-image">
+    <img src="/img/alergologia.PNG" alt="Testy alergiczne" class="hero-image">
+  </div>
+
+  <section>
+    <h2 class="section-title">Podstawowe informacje</h2>
+    <p>
+      Współczesna alergologia wykorzystuje nowoczesne metody diagnostyczne
+      (testy skórne, badania krwi) oraz terapie (immunoterapia alergenowa).
+      Leczenie alergii wymaga holistycznego podejścia, łączącego farmakoterapię,
+      profilaktykę i edukację pacjenta w zakresie unikania alergenów.
+    </p>
+  </section>
+
+  <div class="allergy-facts">
+    <div class="fact-card">
+      <h3>Najczęstsze choroby</h3>
+      <ul>
+        <li><strong>Alergie wziewne</strong> (pyłki, roztocza)</li>
+        <li><strong>Alergie pokarmowe</strong></li>
+        <li><strong>Astma oskrzelowa</strong></li>
+        <li><strong>Atopowe zapalenie skóry</strong></li>
+        <li><strong>Alergie na leki</strong></li>
+      </ul>
+    </div>
+
+    <div class="fact-card">
+      <h3>Diagnostyka</h3>
+      <ul>
+        <li><strong>Testy skórne punktowe</strong></li>
+        <li><strong>Badanie poziomu IgE</strong></li>
+        <li><strong>Testy płatkowe</strong></li>
+        <li><strong>Próby prowokacyjne</strong></li>
+        <li><strong>Diagnostyka molekularna</strong></li>
+      </ul>
+    </div>
+
+    <div class="fact-card">
+      <h3>Profilaktyka</h3>
+      <ul>
+        <li><strong>Eliminacja alergenów</strong></li>
+        <li><strong>Oczyszczacze powietrza</strong></li>
+        <li><strong>Dieta eliminacyjna</strong></li>
+        <li><strong>Regularne odczulanie</strong></li>
+        <li><strong>Kontrola środowiska</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="section-title">Kiedy udać się do alergologa?</h2>
+    <p>Konsultacja alergologiczna jest wskazana gdy występują:</p>
+    <ul class="indications-list">
+      <li>Nawracający katar, kichanie (zwłaszcza sezonowe)</li>
+      <li>Swędzenie i łzawienie oczu</li>
+      <li>Duszności i świszczący oddech</li>
+      <li>Wysypki skórne po kontakcie z alergenami</li>
+      <li>Reakcje po spożyciu niektórych pokarmów</li>
+      <li>Nawracające infekcje dróg oddechowych</li>
+    </ul>
+  </section>
+
+  <div class="warn-box">
+    <h3>Warto wiedzieć</h3>
+    <p>
+      Immunoterapia alergenowa (odczulanie) to jedyna metoda leczenia przyczynowego alergii,
+      która może zmienić naturalny przebieg choroby. Najlepsze efekty osiąga się u dzieci,
+      ale terapia jest skuteczna również u dorosłych. Wymaga jednak systematyczności
+      przez 3-5 lat.
+    </p>
+  </div>
+</main>
+
+<footer class="alergologia-footer">
+  <div class="container">
+    <p>© 2025 Health Center - Alergologia</p>
+  </div>
+</footer>
+</body>
+</html>

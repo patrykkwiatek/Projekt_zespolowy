@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interna</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/interna.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+
+    <!-- Część główna -->
+    <main class="container interna-main">
+        <h1 class="main-title">Interna</h1>
+        
+        <div class="info-box">
+          <h2 class="section-title">Czym zajmuje się internista?</h2>
+          <p>
+            Interna (choroby wewnętrzne) to podstawowa specjalizacja medyczna zajmująca się 
+            kompleksową diagnozą i leczeniem osób dorosłych. Internista to lekarz pierwszego kontaktu, 
+            który koordynuje diagnostykę, leczenie oraz kieruje do specjalistów w razie potrzeby.
+          </p>
+        </div>
+        
+        <div class="centered-image">
+          <img src="/img/interna.PNG" alt="Konsultacja internistyczna" class="hero-image">
+        </div>
+  
+        <section>
+          <h2 class="section-title">Podstawowe informacje</h2>
+          <p>
+            Internista posiada szeroką wiedzę z zakresu różnych układów i narządów. 
+            Zajmuje się leczeniem chorób przewlekłych, ostrych infekcji, 
+            profilaktyką zdrowotną oraz interpretacją badań laboratoryjnych i obrazowych. 
+            To często pierwszy lekarz, do którego trafia pacjent z niejasnymi objawami.
+          </p>
+        </section>
+  
+        <div class="internal-facts">
+          <div class="fact-card">
+            <h3>Najczęstsze choroby</h3>
+            <ul>
+              <li><strong>Choroby układu oddechowego</strong> (np. zapalenia płuc)</li>
+              <li><strong>Choroby metaboliczne</strong> (cukrzyca, otyłość)</li>
+              <li><strong>Problemy gastrologiczne</strong></li>
+              <li><strong>Nadciśnienie tętnicze</strong></li>
+              <li><strong>Choroby infekcyjne</strong></li>
+            </ul>
+          </div>
+  
+          <div class="fact-card">
+            <h3>Diagnostyka</h3>
+            <ul>
+              <li><strong>Badania laboratoryjne</strong> (morfologia, CRP)</li>
+              <li><strong>EKG i echo serca</strong></li>
+              <li><strong>USG jamy brzusznej</strong></li>
+              <li><strong>RTG klatki piersiowej</strong></li>
+              <li><strong>Testy obciążeniowe</strong></li>
+            </ul>
+          </div>
+          
+          <div class="fact-card">
+            <h3>Profilaktyka</h3>
+            <ul>
+              <li><strong>Regularne badania kontrolne</strong></li>
+              <li><strong>Szczepienia ochronne</strong></li>
+              <li><strong>Monitorowanie ciśnienia</strong></li>
+              <li><strong>Profilaktyka miażdżycy</strong></li>
+              <li><strong>Zdrowe nawyki żywieniowe</strong></li>
+            </ul>
+          </div>
+        </div>
+  
+        <section>
+          <h2 class="section-title">Kiedy udać się do internisty?</h2>
+          <p>Konsultacja internistyczna jest wskazana gdy występują:</p>
+          <ul class="indications-list">
+            <li>Długotrwałe osłabienie lub gorączka</li>
+            <li>Niewyjaśnione bóle w klatce piersiowej lub brzuchu</li>
+            <li>Przewlekły kaszel lub duszności</li>
+            <li>Nieregularne wyniki badań laboratoryjnych</li>
+            <li>Potrzeba wykonania badań okresowych</li>
+            <li>Konieczność wystawienia skierowania</li>
+          </ul>
+        </section>
+  
+        <div class="warn-box">
+          <h3>Warto wiedzieć</h3>
+          <p>
+            Każda osoba dorosła powinna przynajmniej raz w roku odwiedzić internistę 
+            w celu wykonania podstawowych badań kontrolnych, nawet jeśli nie odczuwa 
+            żadnych dolegliwości. Wczesne wykrycie chorób przewlekłych znacznie 
+            poprawia rokowanie i skuteczność leczenia.
+          </p>
+        </div>
+      </main>
+  
+      <footer class="interna-footer">
+        <div class="container">
+          <p>© 2025 Health Center - Interna</p>
+        </div>
+      </footer>
+    </body>
+  </html>
+
+
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kardiologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/kardiologia.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+
+    <!-- Część główna -->
+
+    <main class="container kardiologia-main">
+      <h1 class="main-title">Kardiologia</h1>
+      <div class="info-box">
+        <h2 class="section-title">Czym zajmuje się kardiologia?</h2>
+        <p>
+          Kardiologia to specjalizacja medyczna zajmująca się diagnozowaniem i leczeniem chorób serca oraz układu krążenia. 
+          Kardiolog to lekarz specjalista zajmujący się tymi zagadnieniami. 
+          Badają oni funkcjonowanie serca, wykrywają nieprawidłowości i proponują odpowiednie leczenie, w tym farmakologiczne, zabiegowe lub operacyjne.
+        </p>
+      </div>
+            
+      <div class="centered-image">
+        <img src="/img/kardiologia.jpg" alt="Serce - symbol kardiologii" class="hero-image">
+      </div>
+
+      <section>
+        <h2 class="section-title">Podstawowe informacje</h2>
+        <p>
+          Kardiologia koncentruje się na diagnostyce i leczeniu wrodzonych i
+          nabytych chorób serca, naczyń krwionośnych oraz zaburzeń rytmu serca.
+          Zważywszy na fakt, że choroby związane z zaburzeniami rytmu serca oraz schorzenia pokrewne, 
+          tuż obok nowotworów, stanowią główne z przyczyn zgonów ludzi na całym świecie,
+          należy podkreślić znaczenie tej specjalizacji jako jednej z wiodących.
+        </p>
+      </section>
+
+        <div class="cardiology-facts">
+          <div class="fact-card">
+            <h3>Najczęstsze choroby</h3>
+            <ul>
+              <li><strong>Choroba wieńcowa</strong></li>
+              <li><strong>Nadciśnienie tętnicze</strong></li>
+              <li><strong>Zawał mięśnia sercowego</strong></li>
+              <li><strong>Niewydolność serca</strong></li>
+              <li><strong>Arytmie</strong></li>
+            </ul>
+          </div>
+
+          <div class="fact-card">
+            <h3>Diagnostyka</h3>
+            <ul>
+              <li><strong>EKG (elektrokardiografia)</strong></li>
+              <li><strong>Echo serca</strong></li>
+              <li><strong>Holter EKG</strong></li>
+              <li><strong>Test wysiłkowy</strong></li>
+              <li><strong>Koronarografia</strong></li>
+            </ul>
+          </div>
+          
+          <div class="fact-card">
+            <h3>Profilaktyka</h3>
+            <ul>
+              <li><strong>Regularna aktywność fizyczna</strong></li>
+              <li><strong>Zbilansowana dieta</strong></li>
+              <li><strong>Unikanie palenia tytoniu</strong></li>
+              <li><strong>Kontrola ciśnienia krwi</strong></li>
+              <li><strong>Regularne badania</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <section>
+        <h2 class="section-title">Kiedy udać się do kardiologa?</h2>
+        <p>Konsultacja kardiologiczna jest wskazana gdy występują:</p>
+        <ul class="indications-list">
+          <li>Bóle w klatce piersiowej</li>
+          <li>Duszności przy niewielkim wysiłku</li>
+          <li>Kołatania serca, nierówne bicie serca</li>
+          <li>Omdlenia lub zasłabnięcia</li>
+          <li>Obrzęki nóg</li>
+          <li>Nadciśnienie tętnicze</li>
+        </ul>
+      </section>
+
+      <div class="warn-box">
+        <h3>Warto wiedzieć</h3>
+          <p>
+            Choroby układu krążenia są główną przyczyną zgonów w Polsce i na
+            świecie. Wczesna diagnostyka i właściwe leczenie mogą znacząco
+            poprawić rokowanie i jakość życia pacjentów.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="kardiologia-footer">
+      <div class="container">
+        <p>
+          © 2025 Health Center - Kardiologia
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

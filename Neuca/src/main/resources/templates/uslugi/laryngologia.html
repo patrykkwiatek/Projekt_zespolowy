@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laryngologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/laryngologia.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+  <!-- Część główna -->
+  <main class="container laryngologia-main">
+    <h1 class="main-title">Laryngologia</h1>
+    
+    <div class="info-box">
+      <h2 class="section-title">Czym zajmuje się laryngologia?</h2>
+      <p>
+        Laryngologia (otorynolaryngologia) to specjalizacja medyczna zajmująca się 
+        diagnozowaniem i leczeniem chorób ucha, nosa, krtani, gardła oraz innych 
+        narządów głowy i szyi. Laryngolog leczy m.in. infekcje, niedosłuch, 
+        chrapanie, zawroty głowy i nowotwory tych obszarów.
+      </p>
+    </div>
+    
+    <div class="centered-image">
+      <img src="/img/laryngologia.PNG" alt="Badanie laryngologiczne" class="hero-image">
+    </div>
+
+    <section>
+      <h2 class="section-title">Podstawowe informacje</h2>
+      <p>
+        Współczesna laryngologia obejmuje szeroki zakres procedur - od podstawowych 
+        badań słuchu po skomplikowane operacje mikrochirurgiczne. Specjaliści 
+        wykorzystują nowoczesne techniki endoskopowe, audiometryczne i obrazowe 
+        w diagnostyce i leczeniu schorzeń.
+        Laryngolog przeprowadza również zabiegi, 
+        np. usunięcie trzeciego migdałka, drenaż uszu, operacje zatok.
+      </p>
+    </section>
+
+    <div class="ent-facts">
+      <div class="fact-card">
+        <h3>Najczęstsze choroby</h3>
+        <ul>
+          <li><strong>Choroby uszu</strong> (zapalenia, niedosłuch, szumy)</li>
+          <li><strong>Problemy z zatokami</strong></li>
+          <li><strong>Zaburzenia połykania i głosu</strong></li>
+          <li><strong>Chrapanie i bezdech senny</strong></li>
+          <li><strong>Nowotwory głowy i szyi</strong></li>
+        </ul>
+      </div>
+
+      <div class="fact-card">
+        <h3>Diagnostyka</h3>
+        <ul>
+          <li><strong>Endoskopia nosa i krtani</strong></li>
+          <li><strong>Audiometria (badanie słuchu)</strong></li>
+          <li><strong>Tomografia zatok</strong></li>
+          <li><strong>Badanie przedsionkowe</strong></li>
+          <li><strong>Wideostroboskopia</strong></li>
+        </ul>
+      </div>
+      
+      <div class="fact-card">
+        <h3>Profilaktyka</h3>
+        <ul>
+          <li><strong>Ochrona słuchu przed hałasem</strong></li>
+          <li><strong>Prawidłowa higiena uszu</strong></li>
+          <li><strong>Leczenie alergii</strong></li>
+          <li><strong>Rezygnacja z palenia</strong></li>
+          <li><strong>Regularne kontrole</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">Kiedy udać się do laryngologa?</h2>
+      <p>Konsultacja laryngologiczna jest wskazana gdy występują:</p>
+      <ul class="indications-list">
+        <li>Uporczywe bóle gardła, uszu lub zatok</li>
+        <li>Przewlekły katar lub niedrożność nosa</li>
+        <li>Pogorszenie słuchu lub szumy uszne</li>
+        <li>Zawroty głowy i zaburzenia równowagi</li>
+        <li>Utrzymująca się chrypka</li>
+        <li>Niepokojące zmiany w obrębie szyi</li>
+      </ul>
+    </section>
+
+    <div class="warn-box">
+      <h3>Warto wiedzieć</h3>
+      <p>
+        Wczesne wykrycie niedosłuchu u dzieci ma kluczowe znaczenie dla ich rozwoju. 
+        Dorośli po 50 roku życia powinni regularnie badać słuch, gdyż pogorszenie 
+        słyszenia może prowadzić do izolacji społecznej i depresji. 
+        Wczesna diagnostyka i leczenie pozwala uniknąć długotrwałych problemów zdrowotnych.
+      </p>
+    </div>
+  </main>
+
+  <footer class="laryngologia-footer">
+    <div class="container">
+      <p>© 2025 Health Center - Laryngologia</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+

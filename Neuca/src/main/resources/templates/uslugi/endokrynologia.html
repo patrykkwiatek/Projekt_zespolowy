@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Endokrynologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/endokrynologia.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+    <!-- Część główna -->
+    <main class="container endokrynologia-main">
+      <h1 class="main-title">Endokrynologia</h1>
+      
+      <div class="info-box">
+        <h2 class="section-title">Czym zajmuje się endokrynologia?</h2>
+        <p>
+          Endokrynologia to dziedzina medycyny zajmująca się diagnozowaniem i leczeniem 
+          zaburzeń funkcji gruczołów wydzielania wewnętrznego (hormonalnych) 
+          oraz zaburzeń metabolicznych. Endokrynolog leczy takie schorzenia jak 
+          cukrzyca, choroby tarczycy, zaburzenia wzrostu czy niepłodność hormonalna.
+        </p>
+      </div>
+      
+      <div class="centered-image">
+        <img src="/img/endokrynologia.PNG" alt="Układ hormonalny" class="hero-image">
+      </div>
+
+      <section>
+        <h2 class="section-title">Podstawowe informacje</h2>
+        <p>
+          Endokrynologia koncentruje się na układzie hormonalnym człowieka, 
+          który odpowiada za regulację wielu procesów w organizmie. 
+          Współczesna endokrynologia wykorzystuje nowoczesne metody diagnostyczne 
+          jak badania hormonalne, USG gruczołów oraz testy stymulacyjne.
+        </p>
+      </section>
+
+      <div class="endocrinology-facts">
+        <div class="fact-card">
+          <h3>Najczęstsze choroby</h3>
+          <ul>
+            <li><strong>Choroby tarczycy</strong> (nadczynność, niedoczynność)</li>
+            <li><strong>Cukrzyca</strong> typu 1 i 2</li>
+            <li><strong>Zaburzenia wzrostu</strong></li>
+            <li><strong>Zaburzenia miesiączkowania</strong></li>
+            <li><strong>Osteoporoza</strong></li>
+          </ul>
+        </div>
+
+        <div class="fact-card">
+          <h3>Diagnostyka</h3>
+          <ul>
+            <li><strong>Badania hormonalne</strong> (krwi, moczu)</li>
+            <li><strong>USG tarczycy</strong></li>
+            <li><strong>Testy stymulacyjne</strong></li>
+            <li><strong>Biopsja tarczycy</strong></li>
+            <li><strong>Oznaczanie markerów</strong></li>
+          </ul>
+        </div>
+        
+        <div class="fact-card">
+          <h3>Profilaktyka</h3>
+          <ul>
+            <li><strong>Regularne badania krwi</strong></li>
+            <li><strong>Kontrola masy ciała</strong></li>
+            <li><strong>Aktywność fizyczna</strong></li>
+            <li><strong>Dieta bogata w jod</strong></li>
+            <li><strong>Badanie poziomu cukru</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <section>
+        <h2 class="section-title">Kiedy udać się do endokrynologa?</h2>
+        <p>Konsultacja endokrynologiczna jest wskazana gdy występują:</p>
+        <ul class="indications-list">
+          <li>Niemotywowane zmiany masy ciała</li>
+          <li>Przewlekłe zmęczenie lub nadpobudliwość</li>
+          <li>Zaburzenia miesiączkowania</li>
+          <li>Problemy z płodnością</li>
+          <li>Nadmierne wypadanie włosów</li>
+          <li>Uczucie ciągłego zimna lub gorąca</li>
+        </ul>
+      </section>
+
+      <div class="warn-box">
+        <h3>Warto wiedzieć</h3>
+        <p>
+          Zaburzenia hormonalne mogą wpływać na funkcjonowanie całego organizmu. 
+          Wczesne wykrycie problemów z tarczycą czy trzustką pozwala na skuteczne 
+          leczenie i uniknięcie poważnych powikłań.
+        </p>
+      </div>
+    </main>
+
+    <footer class="endokrynologia-footer">
+      <div class="container">
+        <p>© 2025 Health Center - Endokrynologia</p>
+      </div>
+    </footer>
+  </body>
+</html>

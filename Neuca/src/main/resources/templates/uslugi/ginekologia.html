@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ginekologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/ginekologia.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+    <!-- Część główna -->
+
+    <main class="container ginekologia-main">
+        <h1 class="main-title">Ginekologia</h1>
+        <div class="info-box">
+          <h2 class="section-title">Czym zajmuje się ginekologia?</h2>
+          <p>
+            Ginekologia to dziedzina medycyny zajmująca się zdrowiem kobiet, 
+            szczególnie w zakresie układu rozrodczego. Ginekolog diagnozuje i leczy 
+            choroby narządów płciowych, prowadzi ciąże oraz zajmuje się profilaktyką 
+            zdrowotną kobiet w każdym wieku.
+          </p>
+        </div>
+        
+        <div class="centered-image">
+          <img src="/img/ginekologia.PNG" alt="Konsultacja ginekologiczna" class="hero-image">
+        </div>
+  
+        <section>
+          <h2 class="section-title">Podstawowe informacje</h2>
+          <p>
+            Współczesna ginekologia łączy w sobie elementy medycyny rozrodu, 
+            endokrynologii ginekologicznej i onkologii. Obejmuje szeroki zakres 
+            badań diagnostycznych takich jak USG ginekologiczne, cytologia, 
+            kolposkopia oraz nowoczesne metody leczenia operacyjnego i farmakologicznego.
+            Ginekolodzy często współpracują z położnikami, prowadząc kobiety przez ciążę i poród.
+          </p>
+        </section>
+  
+        <div class="gynecology-facts">
+          <div class="fact-card">
+            <h3>Najczęstsze choroby</h3>
+            <ul>
+                <li><strong>Zaburzenia miesiączkowania</strong></li>
+                <li><strong>Infekcje intymne</strong></li>
+                <li><strong>Endometrioza</strong></li>
+                <li><strong>Torbiele jajników</strong></li>
+                <li><strong>Niepłodność</strong></li>
+            </ul>
+          </div>
+  
+          <div class="fact-card">
+            <h3>Diagnostyka</h3>
+            <ul>
+              <li><strong>USG ginekologiczne</strong></li>
+              <li><strong>Cytologia</strong></li>
+              <li><strong>Kolposkopia</strong></li>
+              <li><strong>Badania hormonalne</strong></li>
+              <li><strong>Histeroskopia</strong></li>
+            </ul>
+          </div>
+          
+          <div class="fact-card">
+            <h3>Profilaktyka</h3>
+            <ul>
+              <li><strong>Regularne wizyty kontrolne</strong></li>
+              <li><strong>Badanie piersi (samobadanie i USG)</strong></li>
+              <li><strong>Szczepienia HPV</strong></li>
+              <li><strong>Zdrowy tryb życia</strong></li>
+              <li><strong>Odpowiednia higiena</strong></li>
+            </ul>
+          </div>
+        </div>
+  
+        <section>
+          <h2 class="section-title">Kiedy udać się do ginekologa?</h2>
+          <p>Konsultacja ginekologiczna jest wskazana gdy występują:</p>
+          <ul class="indications-list">
+            <li>Nieregularne miesiączki</li>
+            <li>Bóle podbrzusza</li>
+            <li>Nieprawidłowe krwawienia</li>
+            <li>Dolegliwości związane z menopauzą</li>
+            <li>Problemy z płodnością</li>
+            <li>Niepokojące zmiany w piersiach</li>
+          </ul>
+        </section>
+  
+        <div class="warn-box">
+          <h3>Warto wiedzieć</h3>
+          <p>
+            Każda kobieta po rozpoczęciu współżycia lub po ukończeniu 18 roku życia 
+            powinna regularnie odwiedzać ginekologa. Zaleca się wykonywanie cytologii 
+            co najmniej raz na 3 lata, a po 25 roku życia - badania w kierunku HPV.
+          </p>
+        </div>
+      </main>
+  
+      <footer class="ginekologia-footer">
+        <div class="container">
+          <p>© 2025 Health Center - Ginekologia</p>
+        </div>
+      </footer>
+    </body>
+  </html>

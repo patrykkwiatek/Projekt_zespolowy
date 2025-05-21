@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usługi</title>
+  <link rel="stylesheet" href="/uslugiCSS/uslugi.css" />
+</head>
+<body>
+<!--- Pasek menu głównej strony -->
+<div id="line"></div>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div class="panelLogowania" th:if="${not log}">
+      <div class="ukryteLogowanie">
+        <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="registerButton">Zarejestruj</button>
+        <div class="ukryteLogowanie-content">
+          <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+          <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+          <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+        </div>
+      </div>
+    </div>
+    <div class="panelLogowania" th:if="${log}">
+      <div class="ukryteLogowanie">
+        <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
+
+  <div id="top2Menu">
+    <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+    <div class="menu-item"><button onclick="location.href='pharmacy.html'">Apteki</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/oNas'">O Nas</button></div>
+  </div>
+</div>
+</div>
+
+<!--- Część z usługami -->
+<div class="content-wrapper">
+  <div class="content-container">
+    <div class="panel">
+      <h2 class="panel-title">Dostępne usługi</h2>
+      <div class="services">
+        <a th:href="@{/Neuca/uslugi/alergologia}" class="service">
+          <img src="/img/antihistamines.png" alt="Alergolog" />
+          <p>Alergolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/dermatologia}" class="service">
+          <img src="/img/dermatology.png" alt="Dermatolog" />
+          <p>Dermatolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/endokrynologia}" class="service">
+          <img src="/img/thyroid.png" alt="Endokrynolog" />
+          <p>Endokrynolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/ginekologia}" class="service">
+          <img src="/img/gynecologist.png" alt="Ginekolog" />
+          <p>Ginekolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/interna}" class="service">
+          <img src="/img/stethoscope-medical-tool.png" alt="Internista" />
+          <p>Internista</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/kardiologia}" class="service">
+          <img src="/img/heart.png" alt="Kardiolog" />
+          <p>Kardiolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/laryngologia}" class="service">
+          <img src="/img/ear.png" alt="Laryngolog" />
+          <p>Laryngolog</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/okulistyka}" class="service">
+          <img src="/img/witness.png" alt="Okulista" />
+          <p>Okulista</p>
+        </a>
+        <a th:href="@{/Neuca/uslugi/stomatologia}" class="service">
+          <img src="/img/tooth.png" alt="Stomatolog" />
+          <p>Stomatolog</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+>

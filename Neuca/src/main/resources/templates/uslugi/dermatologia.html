@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dermatologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/dermatologia.css" />
+  </head>
+  <body>
+      <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+      <div id="mainContainer">
+        <div id="topMenu">
+          <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+          <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}">
+              <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+              <button id="searchButton">Szukaj</button>
+            </form>
+          </div>
+          <div class="panelLogowania" th:if="${not log}">
+            <div class="ukryteLogowanie">
+              <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+            </div>
+            <div class="ukryteLogowanie">
+              <button id="registerButton">Zarejestruj</button>
+              <div class="ukryteLogowanie-content">
+                <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+                <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+                <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+              </div>
+            </div>
+          </div>
+          <div class="panelLogowania" th:if="${log}">
+            <div class="ukryteLogowanie">
+              <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+            </div>
+            <div class="ukryteLogowanie">
+              <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+              <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+            </div>
+          </div>
+          <img src="/img/avatar.png" id="avatar">
+        </div>
+
+        <div id="top2Menu">
+          <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+          <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+          <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+          <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+          <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+          <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+        </div>
+      </div>
+
+    <!-- Część główna -->
+
+    <main class="container dermatologia-main">
+        <h1 class="main-title">Dermatologia</h1>
+        <div class="info-box">
+          <h2 class="section-title">Czym zajmuje się dermatologia?</h2>
+          <p>
+            Dermatologia to dziedzina medycyny zajmująca się diagnozowaniem i leczeniem chorób skóry, 
+            włosów i paznokci. Dermatolog leczy takie schorzenia jak trądzik, łuszczyca, 
+            egzema czy nowotwory skóry, a także zajmuje się dermatologią estetyczną.
+          </p>
+        </div>
+        
+        <div class="centered-image">
+          <img src="/img/dermatologia.PNG" alt="Badanie dermatoskopem" class="hero-image">
+        </div>
+  
+        <section>
+          <h2 class="section-title">Podstawowe informacje</h2>
+          <p>
+            Dermatologia obejmuje zarówno leczenie chorób skóry, jak i zabiegi poprawiające jej wygląd. 
+            Współczesna dermatologia wykorzystuje nowoczesne metody diagnostyczne 
+            jak dermatoskopia cyfrowa, a także szeroką gamę zabiegów laserowych i kosmetologicznych.
+          </p>
+        </section>
+  
+        <div class="dermatology-facts">
+          <div class="fact-card">
+            <h3>Najczęstsze choroby</h3>
+            <ul>
+              <li><strong>Trądzik pospolity</strong></li>
+              <li><strong>Łuszczyca</strong></li>
+              <li><strong>Atopowe zapalenie skóry (AZS)</strong></li>
+              <li><strong>Grzybice skóry</strong></li>
+              <li><strong>Nowotwory skóry</strong></li>
+            </ul>
+          </div>
+  
+          <div class="fact-card">
+            <h3>Diagnostyka</h3>
+            <ul>
+              <li><strong>Dermatoskopia</strong></li>
+              <li><strong>Testy alergiczne</strong></li>
+              <li><strong>Biopsja skóry</strong></li>
+              <li><strong>Badanie Wooda</strong></li>
+              <li><strong>Badanie mikologiczne</strong></li>
+            </ul>
+          </div>
+          
+          <div class="fact-card">
+            <h3>Profilaktyka</h3>
+            <ul>
+              <li><strong>Ochrona przed UV</strong></li>
+              <li><strong>Prawidłowa pielęgnacja</strong></li>
+              <li><strong>Regularne samobadanie skóry</strong></li>
+              <li><strong>Nawilżanie skóry</strong></li>
+              <li><strong>Dieta bogata w antyoksydanty</strong></li>
+            </ul>
+          </div>
+        </div>
+  
+        <section>
+          <h2 class="section-title">Kiedy udać się do dermatologa?</h2>
+          <p>Konsultacja dermatologiczna jest wskazana gdy występują:</p>
+          <ul class="indications-list">
+            <li>Niegojące się zmiany skórne</li>
+            <li>Swędzenie, pieczenie lub ból skóry</li>
+            <li>Nagłe pojawienie się pieprzyków lub zmian w ich wyglądzie</li>
+            <li>Przewlekłe wysypki lub zaczerwienienia</li>
+            <li>Nadmierne wypadanie włosów</li>
+            <li>Zmiany na paznokciach</li>
+          </ul>
+        </section>
+  
+        <div class="warn-box">
+          <h3>Warto wiedzieć</h3>
+          <p>
+            Badanie dermatoskopowe powinno się wykonywać raz do roku, 
+            a osoby z licznymi znamionami nawet częściej.
+            Wczesne wykrycie chorób skóry, szczególnie nowotworów takich jak czerniak, 
+            daje ponad 90% szans na całkowite wyleczenie. 
+            Nie warto ignorować nawet drobnych zmian skórnych.
+          </p>
+        </div>
+      </main>
+  
+      <footer class="dermatologia-footer">
+        <div class="container">
+          <p>© 2025 Health Center - Dermatologia</p>
+        </div>
+      </footer>
+    </body>
+  </html>

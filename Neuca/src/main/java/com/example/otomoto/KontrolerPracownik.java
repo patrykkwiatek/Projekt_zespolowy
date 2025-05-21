@@ -313,6 +313,7 @@ public class KontrolerPracownik {
         return "Zamowienie";
     }
 
+
     @RequestMapping("/strefaPracownika/zmienStatus")
     public String zmienStatus(Authentication authentication, Model model,
                               @RequestParam Long id

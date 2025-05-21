@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stomatologia</title>
+    <link rel="stylesheet" href="/uslugiCSS/style.css" />
+    <link rel="stylesheet" href="/uslugiCSS/stomatologia.css" />
+  </head>
+  <body>
+    <!-- Pasek menu głównej strony -->
+    <div id="line"></div>
+    <div id="mainContainer">
+      <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+          <form th:action="@{/Neuca/buy}">
+            <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+            <button id="searchButton">Szukaj</button>
+          </form>
+        </div>
+        <div class="panelLogowania" th:if="${not log}">
+          <div class="ukryteLogowanie">
+            <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="registerButton">Zarejestruj</button>
+            <div class="ukryteLogowanie-content">
+              <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+              <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+              <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+            </div>
+          </div>
+        </div>
+        <div class="panelLogowania" th:if="${log}">
+          <div class="ukryteLogowanie">
+            <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+          </div>
+          <div class="ukryteLogowanie">
+            <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+          </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+      </div>
+
+      <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/pharmacy'">Apteki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
+        <div class="menu-item"><button onclick="location.href='/Neuca/oNas'" id="usButton">O nas</button></div>
+      </div>
+    </div>
+
+    
+  <!-- Część główna -->
+  <main class="container stomatologia-main">
+    <h1 class="main-title">Stomatologia</h1>
+    
+    <div class="info-box">
+      <h2 class="section-title">Czym zajmuje się stomatologia?</h2>
+      <p>
+        Stomatologia to dziedzina medycyny zajmująca się diagnozowaniem, 
+        leczeniem i profilaktyką chorób zębów, jamy ustnej oraz okolic przyległych. 
+        Stomatolog (dentysta) oferuje szeroki zakres usług od podstawowego leczenia 
+        zachowawczego po skomplikowane zabiegi chirurgiczne i implantologiczne.
+      </p>
+    </div>
+    
+    <div class="centered-image">
+      <img src="/img/stomatologia.PNG" alt="Gabinet stomatologiczny" class="hero-image">
+    </div>
+
+    <section>
+      <h2 class="section-title">Podstawowe informacje</h2>
+      <p>
+        Współczesna stomatologia dzieli się na kilka specjalizacji: 
+        stomatologię zachowawczą, periodontologię, ortodoncję, protetykę, 
+        chirurgię stomatologiczną i implantologię. Nowoczesne gabinety 
+        wykorzystują technologie cyfrowe, mikroskopy i lasery do precyzyjnego 
+        leczenia z zachowaniem maksymalnego komfortu pacjenta.
+      </p>
+    </section>
+
+    <div class="dentistry-facts">
+      <div class="fact-card">
+        <h3>Najczęstsze choroby</h3>
+        <ul>
+          <li><strong>Próchnica zębów</strong></li>
+          <li><strong>Choroby dziąseł (gingivitis, paradontoza)</strong></li>
+          <li><strong>Afty</strong></li>
+          <li><strong>Zgrzytanie zębami (bruksizm)</strong> </li>
+          <li><strong>Zapalenie przyzębia</strong> </li>
+        </ul>
+      </div>
+
+      <div class="fact-card">
+        <h3>Diagnostyka</h3>
+        <ul>
+          <li><strong>Pantomogram</strong></li>
+          <li><strong>RTG punktowe</strong></li>
+          <li><strong>Tomografia CBCT</strong></li>
+          <li><strong>Badanie periodontologiczne</strong></li>
+          <li><strong>Diagnostyka zgryzu</strong></li>
+        </ul>
+      </div>
+      
+      <div class="fact-card">
+        <h3>Profilaktyka</h3>
+        <ul>
+          <li><strong>Regularne przeglądy</strong></li>
+          <li><strong>Profesjonalne czyszczenie</strong></li>
+          <li><strong>Fluoryzacja</strong></li>
+          <li><strong>Prawidłowa higiena</strong></li>
+          <li><strong>Dieta</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">Kiedy udać się do stomatologa?</h2>
+      <p>Konsultacja stomatologiczna jest wskazana gdy występują:</p>
+      <ul class="indications-list">
+        <li>Ból zęba lub dziąseł</li>
+        <li>Nadwrażliwość na zimne/gorące pokarmy</li>
+        <li>Krwawnienie dziąseł podczas szczotkowania</li>
+        <li>Nieprzyjemny zapach z ust</li>
+        <li>Urazy mechaniczne zębów</li>
+        <li>Problemy ze zgryzem</li>
+      </ul>
+    </section>
+
+    <div class="warn-box">
+      <h3>Warto wiedzieć</h3>
+      <p>
+        Regularne wizyty kontrolne u stomatologa (co 6 miesięcy) pozwalają 
+        wykryć problemy na wczesnym etapie, gdy leczenie jest mniej inwazyjne 
+        i bardziej skuteczne. Profilaktyka stomatologiczna może zapobiec 
+        rozwojowi próchnicy i chorób przyzębia.
+      </p>
+    </div>
+  </main>
+
+  <footer class="stomatologia-footer">
+    <div class="container">
+      <p>© 2025 Health Center - Stomatologia</p>
+    </div>
+  </footer>
+</body>
+</html>
