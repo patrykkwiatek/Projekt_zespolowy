@@ -40,4 +40,13 @@ public class RezerwacjaLeku {
     private MyUser myUser;
 
 
+    public String cenaString(){
+        int cenaINT=ilosc *lek.getPriceGR();
+        int zlote=cenaINT / 100;
+        int grosze =cenaINT % 100;
+        String cenaString =String.format("%d,%02d zł",zlote,grosze);
+        return cenaString;
+    }
+
+
 }

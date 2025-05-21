@@ -501,6 +501,11 @@ public class DataBaseloader implements CommandLineRunner {
         MyUser myUser8=serwisMyUser.zwrocUser("myuser8");
         MyUser myUser9=serwisMyUser.zwrocUser("myuser9");
         MyUser myUser10=serwisMyUser.zwrocUser("myuser10");
+        MyUser patryk=serwisMyUser.zwrocUser("patrykP");
+
+        serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek3, 4,"Ignacy","Aftański" );
+        serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek4, 1,"Janusz","Konarzewski" );
+        serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek1, 2,"Robert","Strzelecki" );
         serwisRezerwacjaLeku.dodajRezerwacje(myUser1,apteka,lek1, random.nextInt(10),"Barbara","Wilk" );
         serwisRezerwacjaLeku.dodajRezerwacje(myUser2, apteka, lek2, random.nextInt(10), "Tomasz", "Nowak");
         serwisRezerwacjaLeku.dodajRezerwacje(myUser3, apteka, lek3, random.nextInt(10), "Anna", "Kowalska");

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Podgląd rezerwacji</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f5f5f5;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .container {
+          width: 90%;
+          max-width: 1000px;
+          background-color: #ffffff;
+          border-radius: 12px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          padding: 30px;
+          display: flex;
+          gap: 30px;
+          flex-wrap: wrap;
+        }
+
+        .image-section img {
+          width: 200px;
+          border-radius: 8px;
+        }
+
+        .info-section {
+          flex: 1;
+        }
+
+        .info-section h2 {
+          margin-top: 0;
+          color: #c90606;
+        }
+
+        .info-section p {
+          margin: 5px 0;
+        }
+
+        .highlight {
+          font-weight: bold;
+        }
+
+        .row {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+
+        .section {
+          width: 48%;
+        }
+
+        .btn {
+          margin-top: 20px;
+          padding: 10px 20px;
+          background-color: #c90606;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+          background-color: #a00505;
+        }
+
+        .back-link {
+          display: inline-block;
+          margin-bottom: 20px;
+          text-decoration: none;
+          color: #c90606;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="image-section">
+        <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(r.lek.sciezka, r.lek.sciezka.lastIndexOf('/') + 1)})}" alt="Zdjęcie leku" />
+    </div>
+
+    <div class="info-section">
+        <h2 th:text="'Rezerwacja o ID RZV'+${r.id}"></h2>
+        <div class="row">
+            <div class="section">
+                <p><span class="highlight" th:text="'Nazwa: '"></span><span th:text="${r.lek.name}"></span></p>
+                <p><span class="highlight" th:text="'Gramatura: '"></span><span th:text="${r.lek.gramatura}"></span></p>
+                <p><span class="highlight" th:text="'Opis: '"></span><span th:text=" ${r.lek.desc}"></span></p>
+                <p><span class="highlight" th:text="'Skład: '"></span><span th:text="${r.lek.sklad}"></span></p>
+                <p><span class="highlight" th:text="'Marka: '"></span><span th:text="${r.lek.markaLeku}"></span></p>
+            </div>
+            <div class="section">
+                <p><span class="highlight">Cena jednostkowa: </span> <span th:text="${r.lek.cenaString}"></span></p>
+                <p><span class="highlight">Ilość:</span> <span th:text="${r.ilosc} +' szt'"></span></p>
+                <p><span class="highlight">Razem:</span> <span th:text="${r.cenaString}"></span></p>
+                <p><span class="highlight">Status:</span> <span th:text="${r.statusRezerwacji}"></span> </p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+            <div class="section">
+                <p><span class="highlight">Imię:</span> <span th:text="${r.imie}"></span> </p>
+                <p><span class="highlight">Nazwisko:</span> <span th:text="${r.nazwisko}"></span> </p>
+            </div>
+            <div class="section">
+                <p><span class="highlight">Apteka:</span> <span th:text="${r.apteka.name}"></span></p>
+                <p><span class="highlight">Adres:</span> <span th:text="${r.apteka.getPelnyAdres}"></span> </p>
+                <p><span class="highlight">Telefon:</span> <span th:text="${r.apteka.telefon}"></span> </p>
+            </div>
+        </div>
+
+        <form th:if="${czyAn}" th:action="@{/Neuca/anulujRezerwacje}" method="get">
+            <input type="hidden" name="id" th:value="${r.id}" />
+            <button type="submit" class="btn">Anuluj rezerwację</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

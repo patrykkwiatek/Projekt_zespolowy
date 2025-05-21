@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły Rezerwacji</title>
+    <link rel="stylesheet" href="/css/szczegolyRezerwacjiPacjent.css">
+</head>
+<body>
+<div id="line"></div>
+<div id = "mainContainer">
+
+    <div id="topMenu">
+        <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+        <div id="wyszukiwarka">
+            <form th:action="@{/Neuca/buy}">
+                <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+                <button id="searchButton">Szukaj</button>
+            </form>
+        </div>
+        <div id="panelLogowania">
+            <div class="ukryteLogowanie">
+                <button id="koszykButton" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="mojeKontoButton" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+            </div>
+            <div class="ukryteLogowanie">
+                <button id="wylogujButton" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+            </div>
+        </div>
+        <img src="/img/avatar.png" id="avatar">
+    </div>
+    <div id="top2Menu">
+        <div class="menu-item"><button onclick="location.href='/Neuca/lekarze'">Lekarze</button></div>
+
+        <div class="menu-item">
+            <button id="aptecsButton" onclick="location.href='pharmacy.html'">Apteki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="servicesButton" onclick="location.href='uslugi.html'">Usługi</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="medicinesButton" onclick="location.href='/Neuca/buy'">Leki</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="contactButton" onclick="location.href='kontakt.html'">Kontakt</button>
+
+        </div>
+
+        <div class="menu-item">
+            <button id="usButton" onclick="location.href='oNas.html'">O nas</button>
+            <div class="submenu">
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Szczegóły rezerwacji leków</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID Rezerwacji</th>
+                    <th>Data zamówienia</th>
+                    <th>Nazwa leku</th>
+                    <th>Łączna cena</th>
+                    <th>Status</th>
+                    <th>Akcja</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="r : ${lista}">
+                    <td th:text="'RZV'+${r.id}"></td>
+                    <td th:text="${r.dataRezerwacji}"></td>
+                    <td th:text="${r.lek.name}"></td>
+                    <td th:text="${r.cenaString}">30,00 zł</td>
+                    <td th:text="${r.statusRezerwacji}">Gotowe do odbioru</td>
+                    <td>
+                        <form th:action="@{/Neuca/rezerwacjaID}">
+                            <input type="hidden" name="id" th:value="${r.id}">
+                            <button class="table-btn" >Podgląd</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

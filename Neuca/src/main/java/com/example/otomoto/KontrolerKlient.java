@@ -194,6 +194,36 @@ public class KontrolerKlient {
         return "rezerwacjaZlozono";
     }
 
+    @RequestMapping("/rezerwacjePacjent")
+    public String rezerwacjePacjent(Authentication authentication, Model model){
+        String username= authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        List<RezerwacjaLeku> lista=myUser.getRezerwacje();
+        model.addAttribute("lista",lista);
+        return "rezerwacjePacjent";
+    }
+
+    @RequestMapping("/rezerwacjaID")
+    public String rezerwacjaID(@RequestParam Long id, Model model){
+        RezerwacjaLeku r=serwisRezerwacjaLeku.zwrocPoId(id);
+        model.addAttribute("r",r);
+        StatusRezerwacji s=r.getStatusRezerwacji();
+        if(s==StatusRezerwacji.ANULOWANO){
+            model.addAttribute("czyAn",false);
+        }else{
+            model.addAttribute("czyAn",true);
+        }
+
+        return "rezerwacjaID";
+    }
+
+    @RequestMapping("/anulujRezerwacje")
+    public String anulujRezerwacje(@RequestParam Long id){
+        RezerwacjaLeku r=serwisRezerwacjaLeku.zwrocPoId(id);
+        serwisRezerwacjaLeku.zmienStatus(StatusRezerwacji.ANULOWANO,r);
+        return "redirect:/Neuca/rezerwacjaID?id="+id;
+    }
+
 
     @RequestMapping("/edycjaPacjent")
     public String edycjaPacjent(Authentication authentication, Model model){
