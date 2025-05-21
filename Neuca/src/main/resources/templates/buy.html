@@ -149,8 +149,18 @@
 
             <div class="card" th:each="wynik : ${wyniki}">
                 <div class="wrapper">
-                    <a href="pill.html" class="card-link">
-                        <div class="pill image"><img
+                    <a th:href="@{/Neuca/lek(
+                        id=${wynik.id},
+                        page=${page},
+                        size=${size},
+                        sort=${sort},
+                        wzorzec=${wzorzec},
+                        minPrize=${minPrize},
+                        maxPrize=${maxPrize},
+                        markaLeku=${markaLeku},
+                        rodzajLeku=${rodzajLeku}
+                        )}" class="card-link">
+                        <div class="pill image">
                             <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(wynik.sciezka, wynik.sciezka.lastIndexOf('/') + 1)})}"
                                  width="300" height="200" alt="${wynik.name}"/>
 
@@ -158,7 +168,19 @@
 
                     </a>
                     <div class="content">
-                        <a href="pill.html" class="card-link"><p class="title" th:text="${wynik.name}"></p></a>
+                        <a th:href="@{/Neuca/lek(
+                        id=${wynik.id},
+                        page=${page},
+                        size=${size},
+                        sort=${sort},
+                        wzorzec=${wzorzec},
+                        minPrize=${minPrize},
+                        maxPrize=${maxPrize},
+                        markaLeku=${markaLeku},
+                        rodzajLeku=${rodzajLeku}
+                        )}" class="card-link">
+                            <p class="title" th:text="${wynik.name}"></p>
+                        </a>
                         <p class="title price" th:text="${wynik.gramatura}"></p>
                         <p class="title price" th:text="${wynik.cenaString}"></p>
                         <p></p>

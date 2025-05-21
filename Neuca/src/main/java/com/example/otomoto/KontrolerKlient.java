@@ -73,9 +73,42 @@ public class KontrolerKlient {
 
 
 
-    @RequestMapping("/pill")
-    public String pill(){
-        return "pill";
+    @RequestMapping("/lek")
+    public String lek(Authentication authentication, Model model,
+                      @RequestParam Long id,
+                      @RequestParam(defaultValue = "0") int page,
+                      @RequestParam(defaultValue = "10") int size,
+                      @RequestParam(defaultValue = "Ids") String sort,
+                      @RequestParam(defaultValue = "") String wzorzec,
+                      @RequestParam(defaultValue = "0") int minPrize,
+                      @RequestParam(defaultValue = "1000") int maxPrize,
+                      @RequestParam(required = false) MarkaLeku markaLeku,
+                      @RequestParam(required = false) RodzajLeku rodzajLeku){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
+        model.addAttribute("log", isLogged);
+        Lek lek=sP.findbyID(id);
+        model.addAttribute("lek",lek);
+
+        model.addAttribute("page",page-1);
+        model.addAttribute("size",size);
+        model.addAttribute("sort",sort);
+        model.addAttribute("wzorzec",wzorzec);
+        model.addAttribute("minPrize",minPrize);
+        model.addAttribute("maxPrize",maxPrize);
+        model.addAttribute("markaLeku",markaLeku);
+        model.addAttribute("rodzajLeku",rodzajLeku);
+        return "lek";
+    }
+
+    @RequestMapping("/lek2")
+    public String lek2(Authentication authentication, Model model,
+                      @RequestParam Long id){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
+        model.addAttribute("log", isLogged);
+        Lek lek=sP.findbyID(id);
+        model.addAttribute("lek",lek);
+
+        return "lek2";
     }
 
     @RequestMapping("/buy")

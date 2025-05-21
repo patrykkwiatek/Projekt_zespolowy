@@ -117,7 +117,7 @@
           <td th:text="${p.ilosc}"></td>
           <td th:text="${p.lek.cenaString}"></td>
           <td th:text="${p.ustawCene}"></td>
-          <td><a href="#" class="product-link">Zobacz</a></td>
+          <td><a th:href="@{/Neuca/lek2(id=${p.lek.id})}" class="product-link">Zobacz</a></td>
         </tr>
         </tbody>
       </table>
