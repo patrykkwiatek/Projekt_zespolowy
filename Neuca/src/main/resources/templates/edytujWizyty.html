@@ -1,32 +1,56 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edytuj wizyty</title>
+    <link rel="stylesheet" href="/css/edytujWizyty.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<h2>Dostępne godziny wizyt</h2>
-
-<form th:action="@{/Neuca/strefaLekarza/zapiszWizyty}" method="post">
-    <div class="checkbox-grid">
-        <div class="checkbox-item" th:each="godzina : ${lista}">
-            <label>
-                <input type="checkbox" name="godziny" th:value="${godzina}" />
-                <span th:text="${godzina} + ':00'"></span>
-            </label>
+<div class="container">
+    <header class="header">
+        <div class="header-title">
+            <i class="fas fa-calendar-check"></i>
+            <h1>Edytuj dostępne wizyty</h1>
         </div>
-    </div>
+        <a href="/Neuca/strefaLekarza" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Powrót
+        </a>
+    </header>
 
-    <input type="hidden" name="dzien" th:value="${param.dzien}" />
-    <button type="submit">Zapisz</button>
-</form>
+    <main class="content">
+        <div class="form-container">
+            <form class="edit-form" th:action="@{/Neuca/strefaLekarza/zapiszWizyty}" method="post">
+                <h2><i class="far fa-clock"></i> Wybierz dostępne godziny wizyt</h2>
 
-<form th:action="@{/Neuca/strefaLekarza}">
-    <input type="submit" value="Anuluj">
-</form>
+                <div class="checkbox-grid">
+                    <div class="checkbox-item" th:each="godzina : ${lista}">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="godziny" th:value="${godzina}" >
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label" th:text="${godzina} + ':00'"></span>
+                        </label>
+                    </div>
+                </div>
 
-
-
-
+                <div class="form-actions">
+                    <input type="hidden" name="dzien" th:value="${param.dzien}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Zapisz zmiany
+                    </button>
+                    <a href="/Neuca/strefaLekarza" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Anuluj
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
 </body>
 </html>

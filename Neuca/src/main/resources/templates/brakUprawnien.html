@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Brak Uprawnien</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brak uprawnień</title>
+    <link rel="stylesheet" href="/css/brakUprawnien.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    Nie masz uprawnien do tej strefy strony
+<div class="permission-container">
+    <div class="permission-card">
+        <div class="permission-icon">
+            <i class="fas fa-ban"></i>
+        </div>
+        <h1>Brak dostępu</h1>
+        <p>Nie posiadasz wymaganych uprawnień do przeglądania tej strefy.</p>
+
+        <div class="permission-details">
+            <p>Aby uzyskać dostęp, skontaktuj się z administratorem systemu lub zaloguj się na odpowiednie konto.</p>
+        </div>
+
+        <div class="permission-actions">
+            <a href="/Neuca/login" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Przejdź do logowania
+            </a>
+            <a href="/Neuca" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Strona główna
+            </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

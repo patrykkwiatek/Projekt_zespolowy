@@ -2,50 +2,139 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Edycja Gabinetu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edytuj Gabinet</title>
+  <link rel="stylesheet" href="/css/edytujGabinet.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<a href="/Neuca/strefaLekarza">Strefa Lekarza</a>
+<div class="container">
+  <header class="header">
+    <div class="header-title">
+      <i class="fas fa-clinic-medical"></i>
+      <h1>Edytuj gabinet</h1>
+    </div>
+    <a href="/Neuca/strefaLekarza" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Powrót
+    </a>
+  </header>
 
-<form th:action="@{/Neuca/strefaLekarza/edytowanoGabinet}" th:object="${lekarz}" method="post" enctype="multipart/form-data">
-  Imię: <input type="text" th:field="*{imie}"> <br/>
-  Nazwisko: <input type="text" th:field="*{nazwisko}"> <br/>
-  Nazwa Gabinetu: <input type="text" th:field="*{nazwaGabinetu}"> <br/>
-  Data urodzenia: <input type="date" th:field="*{dataUrodzenia}"> <br/>
-  Adres 1: <input type="text" th:field="*{adres1Gabinetu}"> <br/>
-  Adres 2: <input type="text" th:field="*{adres2Gabinetu}"> <br/>
-  Miasto: <input type="text" th:field="*{miasto}"> <br/>
-  Telefon do gabinetu: <input type="number" th:field="*{telefonGabinet}"> <br/>
-  Cena wizyty: <input type="number" th:field="*{cena}"> <br/>
-  Średni czas wizyty [min]: <input type="number" th:field="*{sredniCzasWizyty}"> <br/>
+  <main class="content">
+    <form class="clinic-form" th:action="@{/Neuca/strefaLekarza/edytowanoGabinet}" th:object="${lekarz}" method="post" enctype="multipart/form-data">
+      <div class="form-section">
+        <h2><i class="fas fa-user-md"></i> Dane lekarza</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" th:field="*{imie}" required>
+          </div>
+          <div class="form-group">
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" th:field="*{nazwisko}" required>
+          </div>
+          <div class="form-group">
+            <label for="dataUrodzenia">Data urodzenia:</label>
+            <input type="date" id="dataUrodzenia" th:name="dataUrodzenia"
+                   th:value="${formattedDataUrodzenia}"  required>
+          </div>
+        </div>
+      </div>
 
-  Specjalizacja:
-  <select th:field="*{spec}">
-    <option th:each="spec : ${spece}" th:value="${spec}" th:text="${spec}">Specjalizacja</option>
-  </select>
-  <br/>
+      <div class="form-section">
+        <h2><i class="fas fa-hospital"></i> Dane gabinetu</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nazwaGabinetu">Nazwa gabinetu:</label>
+            <input type="text" id="nazwaGabinetu" th:field="*{nazwaGabinetu}" required>
+          </div>
+          <div class="form-group">
+            <label for="adres1Gabinetu">Adres (linia 1):</label>
+            <input type="text" id="adres1Gabinetu" th:field="*{adres1Gabinetu}" required>
+          </div>
+          <div class="form-group">
+            <label for="adres2Gabinetu">Adres (linia 2):</label>
+            <input type="text" id="adres2Gabinetu" th:field="*{adres2Gabinetu}">
+          </div>
+          <div class="form-group">
+            <label for="miasto">Miasto:</label>
+            <input type="text" id="miasto" th:field="*{miasto}" required>
+          </div>
+          <div class="form-group">
+            <label for="telefonGabinet">Telefon:</label>
+            <input type="tel" id="telefonGabinet" th:field="*{telefonGabinet}" pattern="[0-9]{9}" required>
+            <small>Format: 123456789</small>
+          </div>
+        </div>
+      </div>
 
-  Zdjęcie: <input type="file" name="sciezkaPliku" onchange="previewImage(event)" /> <br/>
+      <div class="form-section">
+        <h2><i class="fas fa-money-bill-wave"></i> Szczegóły wizyty</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cena">Cena wizyty (PLN):</label>
+            <input type="number" id="cena" th:field="*{cena}" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="sredniCzasWizyty">Średni czas wizyty (min):</label>
+            <input type="number" id="sredniCzasWizyty" th:field="*{sredniCzasWizyty}" min="5" max="120" required>
+          </div>
+          <div class="form-group">
+            <label for="spec">Specjalizacja:</label>
+            <select id="spec" th:field="*{spec}" required>
+              <option th:each="spec : ${spece}"
+                      th:value="${spec}"
+                      th:text="${spec}"
+                      th:selected="${spec == lekarz.spec}">
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-  <img id="preview"
-       th:src="${lekarz.foto} != null ? @{'/Neuca/images/' + ${lekarz.foto}} : ''"
-       width="150"
-       style="display: [[${lekarz.foto} != null ? 'block' : 'none']]; margin-top: 10px;" />
+      <div class="form-section">
+        <h2><i class="fas fa-camera"></i> Zdjęcie profilowe</h2>
+        <div class="photo-upload">
+          <div class="form-group">
+            <label for="photo-upload">Wybierz nowe zdjęcie:</label>
+            <input type="file" id="photo-upload" name="sciezkaPliku" accept="image/*" onchange="previewImage(event)">
+            <small>Maksymalny rozmiar: 2MB, format: JPG/PNG</small>
+          </div>
+          <div class="new-photo-preview">
+            <img id="photo-preview"
+                 th:src="${lekarz.foto} != null ? @{'/Neuca/images/' + ${lekarz.foto}} : ''"
+                 alt="Podgląd zdjęcia"
+                 style="max-width: 200px; margin-top: 10px; display: [[${lekarz.foto} != null ? 'block' : 'none']];">
 
-  <script>
-    function previewImage(event) {
-        const preview = document.getElementById('preview');
-        const file = event.target.files[0];
-        if (file) {
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
-        }
-    }
-  </script>
+          </div>
+        </div>
+      </div>
 
-  <br/>
-  <button type="submit">Edytuj gabinet</button>
-</form>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Zapisz zmiany
+        </button>
+        <a href="/Neuca/strefaLekarza" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Anuluj
+        </a>
+      </div>
+    </form>
+  </main>
+</div>
 
+<script>
+  function previewImage(event) {
+      const preview = document.getElementById('photo-preview');
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              preview.src = e.target.result;
+              preview.style.display = 'block';
+          }
+          reader.readAsDataURL(file);
+      }
+  }
+</script>
 </body>
 </html>

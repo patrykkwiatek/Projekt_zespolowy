@@ -2,95 +2,77 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista wizyt</title>
+    <link rel="stylesheet" href="/css/przegladajwizyty.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<div class="container">
+    <header class="header">
+        <div class="header-title">
+            <i class="fas fa-calendar-alt"></i>
+            <h1>Lista wizyt</h1>
+        </div>
+        <a href="/Neuca/strefaLekarza" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Powrót
+        </a>
+    </header>
 
-<table>
-    <button onclick="location.href='/Neuca/strefaLekarza'">Strefa Lekarza</button>  </br></br>  </br></br>
-    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
-        Status Wizyty:
-        <select name="status">
-            <option th:each="status : ${statusy}"
-                    th:value="${status}"
-                    th:text="${status.slowo}"
-                    th:selected="${status.name() == statusN}"></option>
-            <option th:value="all" th:text="Wszystkie"
-                    th:selected="${'all' == statusN}"></option>
-        </select>  </br>
-        Sortowanie:
-        <select name="sort">
-            <option th:value="id" th:selected="${'id' == sort}">Domyslnie</option>
-            <option th:value="dros"  th:selected="${'dros' == sort}">Od najstarszych</option>
-            <option th:value="dmal"  th:selected="${'dmal' == sort}">Od najnowszych</option>
-        </select>
-        </br>
-        <button> Zastosuj</button>
-        <input type="hidden" name="page" th:value="0">
-    </form>
+    <main class="content">
+        <div class="filters-section">
+            <form class="filter-form" th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
+                <div class="filter-group">
+                    <label for="status"><i class="fas fa-filter"></i> Status wizyty:</label>
+                    <select id="status" name="status">
+                        <option th:each="status : ${statusy}"
+                                th:value="${status}"
+                                th:text="${status.slowo}"
+                                th:selected="${status.name() == statusN}"></option>
+                        <option th:value="all" th:text="Wszystkie"
+                                th:selected="${'all' == statusN}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Zastosuj filtry
+                </button>
+            </form>
+        </div>
 
-
-    <thead>
-    <tr>
-        <th>Data</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>Status</th>
-        <th>Podgląd</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="wizyta : ${wizyty}">
-        <td th:text="${#temporals.format(wizyta.data, 'yyyy-MM-dd HH:mm')}"></td>
-        <td th:text="${wizyta.myUser.imie}"></td>
-        <td th:text="${wizyta.myUser.nazwisko}"></td>
-        <td th:text="${wizyta.statusWizyty.slowo}"></td>
-        <td ><a th:href="@{/Neuca/strefaLekarza/wizyta(id=${wizyta.id})}">Podgląd</td>
-    </tr>
-    </tbody>
-</table>
-
-<div th:if="${czyStron}">
-
-    </br>
-    </br>
-
-    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
-        <button th:if="${czyPoprzednia}" >Wroc na poczatek</button>
-        <input type="hidden"name="page" th:value="0">
-        <input type="hidden" name="sort" th:value="${sort}">
-        <input type="hidden" name="status" th:value="${status}">
-    </form>
-
-
-    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
-        <button th:if="${czyPoprzednia}" >Poprzednia</button>
-        <input type="hidden"name="page" th:value="${poprzednia}">
-        <input type="hidden" name="sort" th:value="${sort}">
-        <input type="hidden" name="status" th:value="${status}">
-    </form>
-
-    </br>
-    <span th:text=" ' strona '+${page}+ ' z ' + ${total} "> </span>
-    </br>
-
-    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
-        <button th:if="${czyNastepna}">Nastepna</button>
-        <input type="hidden"name="page" th:value="${nastepna}">
-        <input type="hidden" name="sort" th:value="${sort}">
-        <input type="hidden" name="status" th:value="${status}">
-    </form>
-    <form th:action="@{/Neuca/strefaLekarza/przegladajwizyty}">
-        <button th:if="${czyNastepna}">Idz na koniec</button>
-        <input type="hidden"name="page" th:value="${naKoniec}">
-        <input type="hidden" name="sort" th:value="${sort}">
-        <input type="hidden" name="status" th:value="${status}">
-    </form>
-
-
+        <div class="table-container">
+            <table class="visits-table">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Pacjent</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="wizyta : ${wizyty}">
+                    <td th:text="${#temporals.format(wizyta.data, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${wizyta.myUser.imie} + ' ' + ${wizyta.myUser.nazwisko}"></td>
+                    <td>
+                                <span class="status-badge" th:classappend="${wizyta.statusWizyty.name().toLowerCase()}"
+                                      th:text="${wizyta.statusWizyty.slowo}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/Neuca/strefaLekarza/wizyta(id=${wizyta.id})}" class="action-btn view-btn">
+                            <i class="fas fa-eye"></i> Podgląd
+                        </a>
+                    </td>
+                </tr>
+                <tr th:if="${wizyty.empty}">
+                    <td colspan="4" class="no-results">
+                        <i class="fas fa-info-circle"></i> Brak wizyt spełniających kryteria
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </div>
-
-
-
 </body>
 </html>

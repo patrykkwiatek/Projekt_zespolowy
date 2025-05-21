@@ -1,20 +1,104 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>strefaLekarza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Lekarza</title>
+    <link rel="stylesheet" href="/css/strefaLekarza.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <div class="welcome-section">
+            <h1>Witaj, <span th:text="${lekarz.imie} ?: 'Lekarzu'"></span>!</h1>
+            <p>Twój panel zarządzania praktyką lekarską</p>
+        </div>
+        <div class="user-actions">
+            <div class="user-info">
+                <i class="fas fa-user-md"></i>
+                <span th:text="${lekarz.imie} + ' ' + ${lekarz.nazwisko}"></span>
+            </div>
+            <a href="/Neuca/logout" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Wyloguj
+            </a>
+        </div>
+    </header>
 
-<div class="okienko">
-    <a href="/Neuca/strefaLekarza/GodzinyPracy"> Ustal godziny przyjec </a>  </br>
-    <a href="/Neuca/strefaLekarza/edytujGabinet">Edytuj Gabinet</a>   </br>
-    <a href="/Neuca/strefaLekarza/przegladajwizyty?status=all">Przegladaj i potwiedzaj Wizyty</a>  </br>
+    <main class="dashboard-content">
+        <div class="quick-actions">
+            <h2><i class="fas fa-bolt"></i> Szybkie akcje</h2>
+            <div class="action-cards">
+                <a href="/Neuca/strefaLekarza/GodzinyPracy" class="action-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Godziny przyjęć</h3>
+                    <p>Zarządzaj swoim grafikiem pracy</p>
+                </a>
 
-    <a href="/Neuca/logout">Wyloguj się</a>  </br>
+                <a href="/Neuca/strefaLekarza/edytujGabinet" class="action-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <h3>Edytuj gabinet</h3>
+                    <p>Aktualizuj dane swojej praktyki</p>
+                </a>
+
+                <a href="/Neuca/strefaLekarza/przegladajwizyty?status=all" class="action-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Wizyty</h3>
+                    <p>Przeglądaj i potwierdzaj wizyty</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="calendar-widget">
+            <h2><i class="fas fa-calendar-alt"></i> Kalendarz</h2>
+            <!DOCTYPE html>
+            <html lang="pl">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Kalendarz</title>
+                <link rel="stylesheet" href="/css/kalendarz2.css">
+            </head>
+            <body>
+
+            <div class="calendar">
+                <div class="calendar-header">
+                    <span class="month-picker" id="month-picker">Styczeń</span>
+                    <div class="year-picker">
+                        <span class="year-change" id="prev-year"><pre><</pre></span>
+                        <span id="year">2025</span>
+                        <span class="year-change" id="next-change"><pre>></pre></span>
+                    </div>
+                </div>
+
+                <div class="calendar-body">
+                    <div class="calendar-week-day">
+                        <div>Poniedziałek</div>
+                        <div>Wtorek</div>
+                        <div>Środa</div>
+                        <div>Czwartek</div>
+                        <div>Piątek</div>
+                        <div>Sobota</div>
+                        <div>Niedziela</div>
+                    </div>
+                    <div class="calendar-days"></div>
+                </div>
+
+                <div class="month-list"></div>
+            </div>
+
+            <script src="/js/kal2.js"></script>
+            </body>
+            </html>
+        </div>
+    </main>
 </div>
-
-
-
 </body>
 </html>

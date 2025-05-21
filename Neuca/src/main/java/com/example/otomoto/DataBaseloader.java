@@ -140,6 +140,8 @@ public class DataBaseloader implements CommandLineRunner {
         repoLekarz.save(gabinet);
         repoMyUser.save(lekarz);
         serwisLekarz.dodajLekarza(gabinet,lekarz);
+        gabinet.setPotwierdzenie(true);
+        repoLekarz.save(gabinet);
         lekarze();
         pacjenci();
         wizyty();

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabinet zaktualizowany</title>
+    <link rel="stylesheet" href="/css/edytowanoGabinet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-Gabinet zostal Edytowany </br>
-<a href="/Neuca/strefaLekarza">Strefa Lekarza</a>
+<div class="container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Gabinet został zaktualizowany</h1>
+        <p>Zmiany w danych gabinetu zostały pomyślnie zapisane.</p>
+        <a href="/Neuca/strefaLekarza" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Powrót do strefy lekarza
+        </a>
+    </div>
+</div>
 </body>
 </html>

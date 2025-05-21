@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,20 +40,11 @@ public class KontrolerLekarz {
 
 
     @RequestMapping("/strefaLekarza")
-    public String strefaLekarza(Authentication authentication){
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/Neuca/login";
-        }
-        String username = authentication.getName();
+    public String strefaLekarza(Authentication authentication, Model model){
+                String username = authentication.getName();
         MyUser myUser = serwisMyUser.zwrocUser(username);
         Lekarz lekarz = myUser.getLekarz();
-        if(lekarz != null && lekarz.isPotwierdzenie()==false){
-            return "redirect:/Neuca/strefaLekarza/potwierdzLekarza";
-        }
-
-        if (lekarz == null) {
-            return "redirect:/Neuca/strefaLekarza/UtworzGabinet";
-        }
+        model.addAttribute("lekarz",lekarz);
         return "strefaLekarza";
     }
 
@@ -68,8 +60,8 @@ public class KontrolerLekarz {
     public String utworzonoGabinet(Lekarz lekarz, Authentication authentication){
         String username = authentication.getName();
         MyUser myUser = serwisMyUser.zwrocUser(username);
-        Lekarz lekarz1=serwisLekarz.dodajLekarza(lekarz,myUser);
-        return "utworzonoGabinet";
+        Lekarz lekarz1=serwisLekarz.dodajLekarzaNie(lekarz,myUser);
+        return "potwierdzLekarza";
     }
 
     @RequestMapping("/strefaLekarza/potwierdzLekarza")
@@ -153,6 +145,7 @@ public class KontrolerLekarz {
         List<Integer> lista=serwisGrafik.zwrocGodziny(grafikLekarz);
         model.addAttribute("lista", lista);
         return "edytujWizyty";
+
     }
 
     @RequestMapping("/strefaLekarza/zapiszWizyty")
@@ -166,7 +159,7 @@ public class KontrolerLekarz {
         GrafikLekarz grafikLekarz=serwisGrafik.znajdzGrafik(lekarz,serwisGrafik.zwrocDzien(dzien));
         grafikLekarz.setGodziny(godziny);
         serwisGrafik.zapiszGrafik(grafikLekarz);
-        model.addAttribute("godziny", grafikLekarz.getGodziny());
+        model.addAttribute("godziny", godziny);
         return "zapiszWizyty";
     }
 
@@ -219,7 +212,8 @@ public class KontrolerLekarz {
         MyUser myUser=serwisMyUser.zwrocUser(username);
         Lekarz lekarz=myUser.getLekarz();
         List<LekarzSpec> spece=Arrays.asList(LekarzSpec.values());
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        model.addAttribute("formattedDataUrodzenia", lekarz.getDataUrodzenia().format(formatter));
         model.addAttribute("spece",spece);
         model.addAttribute("lekarz",lekarz);
         return "edytujGabinet";
@@ -268,43 +262,23 @@ public class KontrolerLekarz {
         String username= authentication.getName();;
         MyUser myUser =serwisMyUser.zwrocUser(username);
         Lekarz lekarz =myUser.getLekarz();
-        Page<Wizyta> wizyty;
+        List<Wizyta> wizyty;
         if("all".equals(status)){
-            wizyty= serwisLekarz.zwrocWizyty(page,sort,lekarz);
+            wizyty= serwisLekarz.zwrocWizyty(lekarz);
         }else{
             StatusWizyty statusWizyty=StatusWizyty.valueOf(status);
-            wizyty=serwisLekarz.zwrocWizytyStatus(page,sort,lekarz,statusWizyty);
+            wizyty=serwisLekarz.zwrocWizytyStatus(lekarz,statusWizyty);
         }
-        int total=wizyty.getTotalPages();
-        boolean czyPoprzednia;
-        if(page==0){
-            czyPoprzednia=false;
-        }else{
-            czyPoprzednia=true;
-        }
-        model.addAttribute("czyPoprzednia",czyPoprzednia);
 
-        boolean czyNastepna;
-        if(page>=(total-1)){
-            czyNastepna=false;
-        }else{
-            czyNastepna=true;
-        }
-        model.addAttribute("czyNastepna",czyNastepna);
-        System.out.println(total);
-        boolean czyStron;
-        if(total==0){
-            czyStron=false;
-        }else{
-            czyStron=true;
-        }
-        model.addAttribute("czyStron",czyStron);
+
+
+
 
 
         List<StatusWizyty> statusy=Arrays.asList(StatusWizyty.values());
-        model.addAttribute("naKoniec",total-1);
+
         model.addAttribute("page",page+1);
-        model.addAttribute("total",total);
+
         model.addAttribute("status", status);
         model.addAttribute("sort",sort);
         model.addAttribute("poprzednia",page-1);
@@ -405,6 +379,11 @@ public class KontrolerLekarz {
         wizyta.setZalecenia(zalecenia);
         serwisWizyta.zapiszWizyte(wizyta);
         return "redirect:/Neuca/strefaLekarza/wizyta?id=" + id;
+    }
+
+    @RequestMapping("/kalendarz")
+    public String kalendarz(){
+        return "kalendarz";
     }
 
 

@@ -8,16 +8,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
     @Autowired
     private AptekaInterceptor aptekaInterceptor;
 
+    @Autowired
+    private LekarzInterceptor lekarzInterceptor;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Dzięki temu możesz np. wejść na: http://localhost:8080/foty/nazwa.jpg
         registry.addResourceHandler("/foty/**")
                 .addResourceLocations("file:///C:/Users/User/Desktop/foty/");
     }
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -28,6 +30,13 @@ public class WebConfig implements WebMvcConfigurer {
                         "/Neuca/strefaAptekarza/potwierdzApteka",
                         "/Neuca/strefaAptekarza/utworzonoApteke"
                 );
-    }
 
+        registry.addInterceptor(lekarzInterceptor)
+                .addPathPatterns("/Neuca/strefaLekarza/**")
+                .excludePathPatterns(
+                        "/Neuca/strefaLekarza/UtworzGabinet",
+                        "/Neuca/strefaLekarza/potwierdzLekarza",
+                        "/Neuca/strefaLekarza/utworzonoGabinet"
+                );
+    }
 }

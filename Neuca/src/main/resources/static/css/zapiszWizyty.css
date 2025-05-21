@@ -1,0 +1,134 @@
+:root {
+    --primary-color: #2a7f8c;
+    --primary-dark: #1a5f6b;
+    --success-color: #28a745;
+    --text-color: #333;
+    --text-light: #6c757d;
+    --border-color: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.success-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.success-icon {
+    color: var(--success-color);
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.success-card h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.selected-hours {
+    margin: 30px 0;
+    text-align: left;
+}
+
+.selected-hours h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.selected-hours h3 i {
+    color: var(--primary-color);
+}
+
+.hours-list {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hours-list li {
+    background-color: rgba(42, 127, 140, 0.1);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .success-card {
+        padding: 30px 20px;
+    }
+
+    .success-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .hours-list {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .hours-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

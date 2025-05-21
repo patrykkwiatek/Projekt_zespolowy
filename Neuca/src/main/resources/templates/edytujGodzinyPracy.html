@@ -2,25 +2,62 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edycja godzin pracy</title>
+    <link rel="stylesheet" href="/css/edytujGodzinyPracy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<div class="container">
+    <header class="header">
+        <div class="header-title">
+            <i class="fas fa-clock"></i>
+            <h1>Edycja godzin pracy</h1>
+        </div>
+        <a href="/Neuca/strefaLekarza" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Powrót
+        </a>
+    </header>
 
-Zmieniamy tryb pracy w
-<span th:text="${dzien}"></span>
-<form th:action="@{/Neuca/strefaLekarza/zapiszGodziny}" method="post">
+    <main class="content">
+        <div class="form-container">
+            <div class="day-info">
+                <i class="fas fa-calendar-day"></i>
+                <span>Zmieniamy tryb pracy w <strong th:text="${dzien}"></strong></span>
+            </div>
 
-    Zamkniete:    <input type="checkbox" name="zamkniete" th:checked="${zamkniete}"> </br>
-    Godzina otwarcia: <input type="time" name="start" th:value="${start}"> </br>
-    Godzina Zamkniecie<input type="time" name="koniec" th:value="${koniec}"></br>
-    <input type="submit" value="Zapisz">
-    <input type="hidden" name="dzien" th:value="${intdzien}">
+            <form class="edit-form" th:action="@{/Neuca/strefaLekarza/zapiszGodziny}" method="post">
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="zamkniete" th:checked="${zamkniete}">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-label">Gabinet zamknięty</span>
+                    </label>
+                </div>
 
-</form>
+                <div class="form-group">
+                    <label for="start">Godzina otwarcia:</label>
+                    <input type="time" id="start" name="start" th:value="${start}" class="time-input">
+                </div>
 
-<form th:action="@{/Neuca/strefaLekarza}">
-    <input type="submit" value="Anuluj">
-</form>
+                <div class="form-group">
+                    <label for="koniec">Godzina zamknięcia:</label>
+                    <input type="time" id="koniec" name="koniec" th:value="${koniec}" class="time-input">
+                </div>
 
+                <div class="form-actions">
+                    <input type="hidden" name="dzien" th:value="${intdzien}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Zapisz zmiany
+                    </button>
+                    <a href="/Neuca/strefaLekarza" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Anuluj
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
 </body>
 </html>

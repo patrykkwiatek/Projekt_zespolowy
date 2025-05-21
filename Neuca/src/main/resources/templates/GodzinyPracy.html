@@ -2,126 +2,196 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Godziny pracy lekarza</title>
+    <link rel="stylesheet" href="/css/GodzinyPracy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<h2>Godziny pracy lekarza</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Dzień</th>
-        <th>Godzina rozpoczęcia</th>
-        <th>Godzina zakończenia</th>
-        <th>Status</th>
-        <th>Wizyty</th>
-        <th>Edycja godzin otwarcia</th>
-        <th>Dodaj Godziny wizyt</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Poniedziałek</td>
-        <td th:text="${pon?.godzinaStart}">--</td>
-        <td th:text="${pon?.godzinaKoniec}">--</td>
-        <td th:text="${pon != null} ? (${pon.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${pon != null}">
-            <span th:each="godzina : ${pon.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${pon == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=1)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=1)}">Edytuj</a></td>
+<div class="container">
+    <header class="header">
+        <div class="header-title">
+            <i class="fas fa-clock"></i>
+            <h1>Godziny pracy</h1>
+        </div>
+        <a href="/Neuca/strefaLekarza" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Powrót
+        </a>
+    </header>
 
-    </tr>
-    <tr>
-        <td>Wtorek</td>
-        <td th:text="${wt?.godzinaStart}">--</td>
-        <td th:text="${wt?.godzinaKoniec}">--</td>
-        <td th:text="${wt != null} ? (${wt.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${wt != null}">
-            <span th:each="godzina : ${wt.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${wt == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=2)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=2)}">Edytuj</a></td>
-    </tr>
-    <tr>
-        <td>Środa</td>
-        <td th:text="${sr?.godzinaStart}">--</td>
-        <td th:text="${sr?.godzinaKoniec}">--</td>
-        <td th:text="${sr != null} ? (${sr.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${sr != null}">
-            <span th:each="godzina : ${sr.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${sr == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=3)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=3)}">Edytuj</a></td>
-    </tr>
-    <tr>
-        <td>Czwartek</td>
-        <td th:text="${czw?.godzinaStart}">--</td>
-        <td th:text="${czw?.godzinaKoniec}">--</td>
-        <td th:text="${czw != null} ? (${czw.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${czw != null}">
-            <span th:each="godzina : ${czw.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${czw == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=4)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=4)}">Edytuj</a></td>
-    </tr>
-    <tr>
-        <td>Piątek</td>
-        <td th:text="${pt?.godzinaStart}">--</td>
-        <td th:text="${pt?.godzinaKoniec}">--</td>
-        <td th:text="${pt != null} ? (${pt.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${pt != null}">
-            <span th:each="godzina : ${pt.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${pt == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=5)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=5)}">Edytuj</a></td>
-    </tr>
-    <tr>
-        <td>Sobota</td>
-        <td th:text="${sob?.godzinaStart}">--</td>
-        <td th:text="${sob?.godzinaKoniec}">--</td>
-        <td th:text="${sob != null} ? (${sob.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${sob != null}">
-            <span th:each="godzina : ${sob.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${sob == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=6)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=6)}">Edytuj</a></td>
-    </tr>
-    <tr>
-        <td>Niedziela</td>
-        <td th:text="${nd?.godzinaStart}">--</td>
-        <td th:text="${nd?.godzinaKoniec}">--</td>
-        <td th:text="${nd != null} ? (${nd.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">--</td>
-        <td>
-        <span th:if="${nd != null}">
-            <span th:each="godzina : ${nd.godziny}" th:text="${godzina + ':00'} + ', '" />
-        </span>
-            <span th:if="${nd == null}">--</span>
-        </td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=7)}">Edytuj</a></td>
-        <td><a th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=7)}">Edytuj</a></td>
-    </tr>
-    </tbody>
-</table>
+    <main class="content">
+        <div class="table-container">
+            <table class="hours-table">
+                <thead>
+                <tr>
+                    <th>Dzień</th>
+                    <th>Godzina rozpoczęcia</th>
+                    <th>Godzina zakończenia</th>
+                    <th>Status</th>
+                    <th>Wizyty</th>
+                    <th>Edycja godzin otwarcia</th>
+                    <th>Dodaj Godziny wizyt</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Poniedziałek</td>
+                    <td th:text="${pon?.godzinaStart} ? ${pon.godzinaStart} : '--'">--</td>
+                    <td th:text="${pon?.godzinaKoniec} ? ${pon.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${pon != null} ? (${pon.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${pon != null} ? (${pon.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${pon != null}">
+                                    <span th:each="godzina,iter : ${pon.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${pon == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=1)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=1)}">Edytuj</a></td>
+                </tr>
 
+                <tr>
+                    <td>Wtorek</td>
+                    <td th:text="${wt?.godzinaStart} ? ${wt.godzinaStart} : '--'">--</td>
+                    <td th:text="${wt?.godzinaKoniec} ? ${wt.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${wt != null} ? (${wt.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${wt != null} ? (${wt.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${wt != null}">
+                                    <span th:each="godzina,iter : ${wt.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${wt == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=2)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=2)}">Edytuj</a></td>
+                </tr>
 
-<a href="/Neuca/strefaLekarza"> Powrot do strefy lekarza</a>
+                <tr>
+                    <td>Środa</td>
+                    <td th:text="${sr?.godzinaStart} ? ${sr.godzinaStart} : '--'">--</td>
+                    <td th:text="${sr?.godzinaKoniec} ? ${sr.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${sr != null} ? (${sr.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${sr != null} ? (${sr.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${sr != null}">
+                                    <span th:each="godzina,iter : ${sr.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${sr == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=3)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=3)}">Edytuj</a></td>
+                </tr>
+
+                <tr>
+                    <td>Czwartek</td>
+                    <td th:text="${czw?.godzinaStart} ? ${czw.godzinaStart} : '--'">--</td>
+                    <td th:text="${czw?.godzinaKoniec} ? ${czw.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${czw != null} ? (${czw.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${czw != null} ? (${czw.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${czw != null}">
+                                    <span th:each="godzina,iter : ${czw.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${czw == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=4)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=4)}">Edytuj</a></td>
+                </tr>
+
+                <tr>
+                    <td>Piątek</td>
+                    <td th:text="${pt?.godzinaStart} ? ${pt.godzinaStart} : '--'">--</td>
+                    <td th:text="${pt?.godzinaKoniec} ? ${pt.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${pt != null} ? (${pt.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${pt != null} ? (${pt.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${pt != null}">
+                                    <span th:each="godzina,iter : ${pt.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${pt == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=5)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=5)}">Edytuj</a></td>
+                </tr>
+
+                <tr>
+                    <td>Sobota</td>
+                    <td th:text="${sob?.godzinaStart} ? ${sob.godzinaStart} : '--'">--</td>
+                    <td th:text="${sob?.godzinaKoniec} ? ${sob.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${sob != null} ? (${sob.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${sob != null} ? (${sob.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${sob != null}">
+                                    <span th:each="godzina,iter : ${sob.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${sob == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=6)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=6)}">Edytuj</a></td>
+                </tr>
+
+                <tr>
+                    <td>Niedziela</td>
+                    <td th:text="${nd?.godzinaStart} ? ${nd.godzinaStart} : '--'">--</td>
+                    <td th:text="${nd?.godzinaKoniec} ? ${nd.godzinaKoniec} : '--'">--</td>
+                    <td>
+                                <span class="status-badge"
+                                      th:classappend="${nd != null} ? (${nd.zamkniete} ? 'closed' : 'open') : 'no-data'"
+                                      th:text="${nd != null} ? (${nd.zamkniete} ? 'Zamknięte' : 'Otwarte') : 'Brak danych'">
+                                    --
+                                </span>
+                    </td>
+                    <td>
+                                <span th:if="${nd != null}">
+                                    <span th:each="godzina,iter : ${nd.godziny}"
+                                          th:text="${godzina + ':00' + (iter.last ? '' : ', ')}" />
+                                </span>
+                        <span th:if="${nd == null}">--</span>
+                    </td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujGodzinyPracy(dzien=7)}">Edytuj</a></td>
+                    <td><a class="edit-btn" th:href="@{/Neuca/strefaLekarza/edytujWizyty(dzien=7)}">Edytuj</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
 </body>
 </html>

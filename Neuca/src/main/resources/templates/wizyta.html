@@ -1,44 +1,103 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Wizyta</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szczegóły wizyty</title>
+  <link rel="stylesheet" href="/css/wizyta.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<div class="container">
+  <header class="header">
+    <div class="header-title">
+      <i class="fas fa-calendar-check"></i>
+      <h1>Szczegóły wizyty <span th:text="'#' + ${wizytaId}"></span></h1>
+    </div>
+    <a href="/Neuca/strefaLekarza" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Powrót
+    </a>
+  </header>
 
-<a href="/Neuca/strefaLekarza">Strefa Lekarza</a>   </br> </br>
+  <main class="content">
+    <div class="card patient-card">
+      <div class="card-header">
+        <i class="fas fa-user-injured"></i>
+        <h2>Informacje o pacjencie</h2>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">ID pacjenta:</span>
+          <span th:text="${pacjentId}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Imię i nazwisko:</span>
+          <span th:text="${imie} + ' ' + ${nazwisko}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Login:</span>
+          <span th:text="${login}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span th:text="${email}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Płeć:</span>
+          <span th:text="${plec}"></span>
+        </div>
+      </div>
+    </div>
 
-  <span th:text="'wizyta o id: ' + ${wizytaId}"></span> </br></br>
+    <div class="card visit-card">
+      <div class="card-header">
+        <i class="fas fa-file-medical"></i>
+        <h2>Informacje o wizycie</h2>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">Opis:</span>
+          <span th:text="${opis} ?: 'Brak opisu'"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Data:</span>
+          <span th:text="${#temporals.format(data, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Status:</span>
+          <span class="status-badge" th:classappend="${status.slowo.toLowerCase()}">
+                            <span th:text="${status.slowo}"></span>
+                        </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Zalecenia:</span>
+          <span th:text="${zalecenia} ?: 'Brak zaleceń'"></span>
+        </div>
+      </div>
+    </div>
 
-  <span th:text="'informacje o pacjencie o id: '+ ${pacjentId}"></span></br>
-  <span th:text="${imie} +' ' + ${nazwisko}"></span> </br>
-  <span th:text="'login: ' + ${login}"></span> </br>
-  <span th:text="'Email: ' + ${email}"></span> </br>
-  <span th:text="'Plec: ' + ${plec}"></span></br></br></br>
+    <div class="action-buttons">
+      <form class="action-form" th:action="@{/Neuca/strefaLekarza/wizytaZalecenia}" method="get">
+        <input type="hidden" name="wizytaID" th:value="${wizytaId}">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-edit"></i> Zmień zalecenia
+        </button>
+      </form>
 
-  <span th:text="'informacje o wizycie'"></span></br>
-  <span th:text="'opis: '+ ${opis}"></span> </br>
-  <span th:text="'Data: '"></span>
-  <span th:text="${#temporals.format(data, 'yyyy-MM-dd HH:mm')}"></span> </br></br>
+      <a th:if="${czyPotw}" class="btn btn-success" th:href="@{/Neuca/strefaLekarza/potwierdz(id=${wizytaId})}">
+        <i class="fas fa-check-circle"></i> Potwierdź wizytę
+      </a>
 
-  <span th:text="'Status: ' + ${status.slowo}"></span> </br> </br>
-  <span th:text="'Zalecenia: ' + ${zalecenia}"></span>
+      <a th:if="${czyAnulowana}" class="btn btn-warning" th:href="@{/Neuca/strefaLekarza/anuluj(id=${wizytaId})}">
+        <i class="fas fa-times-circle"></i> Anuluj wizytę
+      </a>
 
-  <form th:action="@{/Neuca/strefaLekarza/wizytaZalecenia}" method="get">
-    <button>Zmien Zalecenia</button>
-    <input type="hidden" name="wizytaID" th:value="${wizytaId}">
-  </form>
-
-  <a th:if="${czyAnulowana}" th:href="@{/Neuca/strefaLekarza/anuluj(id=${wizytaId})}">
-    <button>Anuluj Wizyte</button>
-  </a>
-
-  <a th:if="${czyPotw}" th:href="@{/Neuca/strefaLekarza/potwierdz(id=${wizytaId})}">
-    <button>Potwierdz Wizyte</button>
-  </a>
-
-  <a th:if="${czyZreal}" th:href="@{/Neuca/strefaLekarza/realizuj(id=${wizytaId})}">
-    <button>Zrealizuj/Zakoncz Wizyte</button>
-  </a>
+      <a th:if="${czyZreal}" class="btn btn-complete" th:href="@{/Neuca/strefaLekarza/realizuj(id=${wizytaId})}">
+        <i class="fas fa-check-double"></i> Zrealizuj wizytę
+      </a>
+    </div>
+  </main>
+</div>
 </body>
 </html>

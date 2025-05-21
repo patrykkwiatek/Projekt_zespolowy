@@ -154,33 +154,14 @@ public class SerwisLekarz {
         return repoLekarz.save(lekarz);
     }
 
-    public Page<Wizyta> zwrocWizyty(int page, String sort, Lekarz lekarz) {
-        Pageable pageable;
-        Sort sortowanie;
-        if ("dros".equals(sort)) {
-            sortowanie = Sort.by("data").ascending();
-        } else if ("dmal".equals(sort)) {
-            sortowanie = Sort.by("data").descending();
-        } else {
-            sortowanie = Sort.by("id").ascending();
-        }
-        pageable = PageRequest.of(page, 10, sortowanie);
+    public List<Wizyta> zwrocWizyty( Lekarz lekarz) {
 
-        return repoWizyta.findByLekarz(lekarz,pageable);
+        return repoWizyta.findByLekarz(lekarz);
     }
 
-    public Page<Wizyta> zwrocWizytyStatus(int page, String sort, Lekarz lekarz, StatusWizyty statusWizyty){
-        Pageable pageable;
-        Sort sortowanie;
-        if ("dros".equals(sort)) {
-            sortowanie = Sort.by("data").ascending();
-        } else if ("dmal".equals(sort)) {
-            sortowanie = Sort.by("data").descending();
-        } else {
-            sortowanie = Sort.by("id").ascending();
-        }
-        pageable = PageRequest.of(page, 15, sortowanie);
-        return repoWizyta.findByLekarzAndStatusWizyty(lekarz,statusWizyty,pageable);
+    public List<Wizyta> zwrocWizytyStatus(Lekarz lekarz, StatusWizyty statusWizyty){
+
+        return repoWizyta.findByLekarzAndStatusWizyty(lekarz,statusWizyty);
     }
     void ustawSciezke(String sciezka, Lekarz lekarz){
         lekarz.setFoto(sciezka);

@@ -2,13 +2,30 @@
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godziny wizyt zapisane</title>
+    <link rel="stylesheet" href="/css/zapiszWizyty.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<h2>Godziny przyjęć zostały zapisane</h2>
+<div class="container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Godziny przyjęć zostały zapisane</h1>
+        <div class="selected-hours">
+            <h3><i class="far fa-clock"></i> Zaznaczone godziny:</h3>
+            <ul class="hours-list">
+                <li th:each="godzina : ${godziny}" th:text="${godzina} + ':00'"></li>
+            </ul>
+        </div>
 
-<p>Zaznaczone godziny:</p>
-
-<a th:href="@{/Neuca/strefaLekarza/GodzinyPracy}">Powrót do godzin pracy</a>
+        <a href="/Neuca/strefaLekarza/GodzinyPracy" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Powrót do godzin pracy
+        </a>
+    </div>
+</div>
 </body>
 </html>
