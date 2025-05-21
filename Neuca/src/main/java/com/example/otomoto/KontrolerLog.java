@@ -16,24 +16,37 @@ import java.util.List;
 public class KontrolerLog {
     private final SerwisMyUser serwisMyUser;
     private final SerwisKoszyk serwisKoszyk;
+    private final SerwisRezerwacjaLeku serwisRezerwacjaLeku;
 
-    public KontrolerLog(SerwisMyUser serwisMyUser, SerwisKoszyk serwisKoszyk) {
+    public KontrolerLog(SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisMyUser serwisMyUser, SerwisKoszyk serwisKoszyk) {
         this.serwisMyUser = serwisMyUser;
         this.serwisKoszyk=serwisKoszyk;
+        this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
     }
 
 
 
     @RequestMapping("/mojProfilPacjent")
     public String mojProfilPacjent(Model model,Authentication authentication){
-        List<RodzajLeku> leki = Arrays.asList(RodzajLeku.values());
-        List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
         String username = authentication.getName();
         MyUser user = serwisMyUser.zwrocUser(username);
         List<Zamowienie> zamowienia =serwisKoszyk.getZamowienia(user);
+        List<RezerwacjaLeku> lista=serwisRezerwacjaLeku.zwrocRezerwacjaUzytkownika(user);
+        int ile=lista.size();
+        List<RezerwacjaLeku> listaR=new ArrayList<>();
+        if(ile==1){
+            listaR.add(lista.get(0));
+        }else if(ile>=2){
+            listaR.add(lista.get(0));
+            listaR.add(lista.get(1));
+        }
+        if(ile==0){
+            model.addAttribute("czyTabela",false);
+        }else if(ile>=1){
+            model.addAttribute("czyTabela",true);
+            model.addAttribute("lista",listaR);
+        }
         model.addAttribute("zamowienia",zamowienia);
-        model.addAttribute("lekarze",lekarze);
-        model.addAttribute("leki", leki);
         model.addAttribute("user", user);
 
         return "mojProfilPacjent";

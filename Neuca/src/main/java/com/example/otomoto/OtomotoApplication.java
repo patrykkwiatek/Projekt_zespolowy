@@ -1,4 +1,4 @@
-package com.example.otomoto; 
+package com.example.otomoto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

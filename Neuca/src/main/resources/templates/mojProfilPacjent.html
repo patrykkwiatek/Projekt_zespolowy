@@ -85,7 +85,7 @@
     <div class="info-box">
         <h2>Moje rezerwacje</h2>
         <div class="mini-table-slider">
-            <table class="mini-reservation-table">
+            <table th:if="${czyTabela}" class="mini-reservation-table">
                 <thead>
                 <tr>
                     <th>ID Rezerwacji</th>
@@ -93,14 +93,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>RZV001</td>
-                    <td>15-05-2025</td>
+                <tr th:each="r : ${lista}">
+                    <td th:text="'RZV'+${r.id}"></td>
+                    <td th:text="${r.dataOdbioru}"></td>
                 </tr>
-                <tr>
-                    <td>RZV002</td>
-                    <td>20-05-2025</td>
-                </tr>
+
+
                 </tbody>
             </table>
         </div>

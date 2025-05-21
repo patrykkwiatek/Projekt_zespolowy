@@ -50,6 +50,12 @@ public class SerwisRezerwacjaLeku {
     }
 
 
+    List <RezerwacjaLeku> zwrocRezerwacjaUzytkownika(MyUser myUser){
+        List<RezerwacjaLeku> lista=repoRezerwacjaLeku.findByMyUser(myUser);
+        return lista;
+    }
+
+
 
 
 

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RepoRezerwacjaLeku extends JpaRepository<RezerwacjaLeku, Long> {
     List<RezerwacjaLeku> findByAptekaAndDataOdbioruBefore(Apteka apteka, LocalDate data);
+    List<RezerwacjaLeku> findByMyUser(MyUser myUser);
 }
