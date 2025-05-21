@@ -291,4 +291,11 @@ public class KontrolerKlient {
         model.addAttribute("z",z);
         return "zamowieniePacjent";
     }
+
+    @RequestMapping("/oNas")
+    public String oNas(Authentication authentication, Model model){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
+        model.addAttribute("log", isLogged);
+        return "oNas";
+    }
 }

@@ -341,11 +341,11 @@ public class DataBaseloader implements CommandLineRunner {
         Apteka apteka4=new Apteka(false, "Apteka Prima", "Lipowa", "9", "8", "60-123", "Poznań", "444555666", Wojewodztwo.WIELKOPOLSKIE);
         Apteka apteka5=new Apteka(false, "Apteka Vita", "Brzozowa", "7A", "", "80-100", "Gdańsk", "555666777", Wojewodztwo.POMORSKIE);
 
-        MyUser myUser1=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 500111222, "adam.kowalski@example.com", "adamk", "Kowalski", "Adam");
-        MyUser myUser2=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", false, 501222333, "ewa.nowak@example.com", "ewan", "Nowak", "Ewa");
-        MyUser myUser3=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 502333444, "jan.zielinski@example.com", "janz", "Zieliński", "Jan");
-        MyUser myUser4=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", false, 503444555, "magda.wojciechowska@example.com", "magdaw", "Wojciechowska", "Magda");
-        MyUser myUser5=new MyUser(List.of("ROLE_APTEKARZ"), "haslo", true, 504555666, "piotr.lewandowski@example.com", "piotrl", "Lewandowski", "Piotr");
+        MyUser myUser1=new MyUser(List.of("ROLE_APTEKARZ"), passwordEncoder.encode("haslo" ), true, 500111222, "adam.kowalski@example.com", "adamk", "Kowalski", "Adam");
+        MyUser myUser2=new MyUser(List.of("ROLE_APTEKARZ"), passwordEncoder.encode("haslo" ), false, 501222333, "ewa.nowak@example.com", "ewan", "Nowak", "Ewa");
+        MyUser myUser3=new MyUser(List.of("ROLE_APTEKARZ"), passwordEncoder.encode("haslo" ), true, 502333444, "jan.zielinski@example.com", "janz", "Zieliński", "Jan");
+        MyUser myUser4=new MyUser(List.of("ROLE_APTEKARZ"), passwordEncoder.encode("haslo" ), false, 503444555, "magda.wojciechowska@example.com", "magdaw", "Wojciechowska", "Magda");
+        MyUser myUser5=new MyUser(List.of("ROLE_APTEKARZ"), passwordEncoder.encode("haslo" ), true, 504555666, "piotr.lewandowski@example.com", "piotrl", "Lewandowski", "Piotr");
         serwisApteka.dodajApteke(myUser1,apteka1);
         serwisApteka.dodajApteke(myUser2,apteka2);
         serwisApteka.dodajApteke(myUser3,apteka3);

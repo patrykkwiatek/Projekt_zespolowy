@@ -39,19 +39,7 @@ public class KontrolerApteka {
 
     @RequestMapping("/strefaAptekarza")
     public String strefaAptekarza(Authentication authentication){
-        String username=authentication.getName();
-        MyUser myUser=serwisMyUser.zwrocUser(username);
-        Apteka apteka=myUser.getApteka();
-        if(apteka==null){
-            return "redirect:/Neuca/strefaAptekarza/utworzApteke";
-        }
-        if(apteka.isPotwierdzenie()){
-            return "strefaAptekarza";
-
-        }else{
-            System.out.println("apteka nie jest potwierdzona");
-            return "redirect:/Neuca/strefaAptekarza/potwierdzApteka";
-        }
+        return "strefaAptekarza";
     }
 
 

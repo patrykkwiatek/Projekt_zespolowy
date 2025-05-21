@@ -57,7 +57,10 @@ public class Lek {
     private List<LekStanApteka> lekStanApteka;
 
 
-    @OneToMany(fetch= FetchType.LAZY,mappedBy = "lek")
+    @OneToMany(fetch= FetchType.LAZY,
+            mappedBy = "lek",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true)
     private List<RezerwacjaLeku> rezerwacje;
 
 
