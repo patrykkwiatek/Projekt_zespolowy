@@ -40,7 +40,7 @@ public class ProduktKoszyk {
         int cenaGR=ilosc* lek.getPriceGR();
         int zlote=cenaGR /100;
         int grosze=cenaGR %100;
-        String cenaR=String.format("%d,%2d zł",zlote,grosze);
+        String cenaR=String.format("%d,%02d zł",zlote,grosze);
         return cenaR;
     }
 

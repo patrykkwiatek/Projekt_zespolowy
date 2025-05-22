@@ -4,9 +4,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +31,7 @@ public class KontrolerPracownik {
     private final SerwisMyUser serwisMyUser;
     private final SerwisApteka serwisApteka;
     private final SerwisLekarz serwisLekarz;
+
 
 
     public KontrolerPracownik(SerwisLekarz serwisLekarz, SerwisPracownik s,SerwisKoszyk serwisKoszyk,SerwisApteka serwisApteka,SerwisMyUser serwisMyUser) {
@@ -308,7 +307,7 @@ public class KontrolerPracownik {
         model.addAttribute("adres2F", faktura.getAdres2());
         model.addAttribute("NIP", faktura.getNip());
         model.addAttribute("status", koszyk.getStatus());
-
+        model.addAttribute("id",koszyk.getId());
         model.addAttribute("id", koszyk.getId());
         return "Zamowienie";
     }
@@ -425,7 +424,31 @@ public class KontrolerPracownik {
     }
 
 
+    @RequestMapping("/strefaPracownika/faktura")
+    public ResponseEntity<byte[]> generujFakture(@RequestParam Long id) throws IOException {
+        Zamowienie zamowienie = serwisKoszyk.zwrocZamowieniePoId(id);
 
+        Zamowienie z=serwisKoszyk.zwrocZamowieniePoId(id);
+        Faktura f=z.getFaktura();
+        String nazwa=f.getNazwaFirmy();
+        String adres1=f.getAdres1();
+        String adres2=f.getAdres2();
+        String Nip=f.getNip();
+
+        List<ProduktKoszyk> produkty = zamowienie.getProduktKoszyk();
+
+        PdfGenerator generator = new PdfGenerator();
+
+
+
+        byte[] pdf = generator.generujFakture(nazwa,Nip,adres1,adres2, produkty);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "faktura.pdf");
+
+        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
+    }
 
 
 

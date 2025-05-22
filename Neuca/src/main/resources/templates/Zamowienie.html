@@ -31,7 +31,10 @@
       <p><strong>Adres 1:</strong> <span th:text="${adres1F}"></span></p>
       <p><strong>Adres 2:</strong> <span th:text="${adres2F}"></span></p>
       <p><strong>NIP:</strong> <span th:text="${NIP}"></span></p>
-      <button class="invoice-button">Generuj fakturę</button>
+      <form th:action="@{/Neuca/strefaPracownika/faktura}" method="get">
+        <input type="hidden" name="id" th:value="${id}">
+          <button class="invoice-button">Generuj fakturę</button>
+      </form>
     </section>
   </div>
 
