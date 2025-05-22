@@ -16,7 +16,7 @@ public class SerwisRezerwacjaLeku {
     }
 
 
-    public void dodajRezerwacje(MyUser myUser, Apteka apteka,Lek lek, int ilosc,String imie, String nazwisko){
+    public RezerwacjaLeku dodajRezerwacje(MyUser myUser, Apteka apteka,Lek lek, int ilosc,String imie, String nazwisko){
         RezerwacjaLeku rezerwacjaLeku=new RezerwacjaLeku();
         rezerwacjaLeku.setApteka(apteka);
         rezerwacjaLeku.setLek(lek);
@@ -31,6 +31,7 @@ public class SerwisRezerwacjaLeku {
         rezerwacjaLeku.setDataOdbioru(dzisiaj.plusDays(2));
 
         repoRezerwacjaLeku.save(rezerwacjaLeku);
+        return rezerwacjaLeku;
     }
 
     public List<RezerwacjaLeku> zwrocRezerwacje(LocalDate dataodbioru, Apteka apteka){

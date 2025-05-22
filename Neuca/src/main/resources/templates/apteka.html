@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa Aptek</title>
+  <style>
+    body {
+        background-color: whitesmoke;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .map-title {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 32px;
+    }
+
+    #mainContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    #topMenu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    #logo {
+        max-width: 100px;
+        width: auto;
+    }
+
+    #wyszukiwarka {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        margin-left: auto;
+    }
+
+    #wyszukiwarka input {
+        padding: 10px;
+        width: 100%;
+        max-width: 400px;
+        font-size: 16px;
+        border-radius: 4px;
+        margin-right: 10px;
+        border-color: #c90606;
+    }
+
+    #wyszukiwarka button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #c90606;
+        color: white;
+        border-radius: 4px;
+        width: 100px;
+        transition: all 0.4s ease;
+    }
+
+    #wyszukiwarka button:hover {
+        background-color: white;
+        color: #c90606;
+        cursor: pointer;
+    }
+#wyszukiwarka form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+    .panelLogowania {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: auto;
+        position: relative;
+    }
+
+    .panelLogowania button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #c90606;
+        color: white;
+        border-radius: 4px;
+        width: 110px;
+        transition: all 0.4s ease;
+    }
+
+    .panelLogowania button:hover {
+        background-color: white;
+        color: #c90606;
+        cursor: pointer;
+    }
+
+    .ukryteLogowanie {
+        position: relative;
+    }
+
+    .ukryteLogowanie-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border: 1px solid #c90606;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px 4px;
+        z-index: 1000;
+        width: 250px;
+    }
+
+    .ukryteLogowanie-content button {
+        display: block;
+        width: 210px !important;
+        margin: 10px auto;
+        padding: 12px;
+        font-size: 14px;
+        background-color: #c90606;
+        border: 1px solid #c90606;
+        border-radius: 6px;
+        text-align: center;
+        transition: all 0.4s ease;
+    }
+
+    .ukryteLogowanie-content button:hover {
+        background-color: white;
+        color: #c90606;
+        cursor: pointer;
+    }
+
+    .ukryteLogowanie:hover .ukryteLogowanie-content {
+        display: block;
+    }
+
+    #avatar {
+        max-width: 60px;
+        width: 100%;
+        border-radius: 50%;
+    }
+
+    #top2Menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        width: 100%;
+        background-color: #c90606;
+        padding: 10px 0;
+        box-sizing: border-box;
+    }
+
+    #top2Menu button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #c90606;
+        color: white;
+        border: 1px solid #c90606;
+        border-radius: 4px;
+        transition: all 0.4s ease;
+    }
+
+    #top2Menu button:hover {
+        background-color: white;
+        color: #c90606;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        #topMenu {
+            flex-wrap: wrap;
+        }
+
+        #wyszukiwarka input {
+            max-width: 100%;
+        }
+
+        #panelLogowania {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        #top2Menu {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    #map {
+        height: 500px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #pharmacy-list {
+        max-width: 600px;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        background: #fff;
+    }
+
+    .pharmacy {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .pharmacy:last-child {
+        border-bottom: none;
+    }
+
+    .pharmacy h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #007bff;
+    }
+
+    .pharmacy p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+  </style>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDiCRlKoGQ4c8pHmCB3Ue76NHDOEtb69s&callback=initMap&libraries=places,marker" loading="async"></script>
+</head>
+<body>
+<div id="mainContainer">
+  <div id="topMenu">
+    <a href="/Neuca/start"><img src="/img/logo.png" id="logo"></a>
+    <div id="wyszukiwarka">
+      <form th:action="@{/Neuca/buy}">
+        <input type="text" id="search" name="wzorzec" placeholder="Wyszukaj...">
+        <button id="searchButton">Szukaj</button>
+      </form>
+    </div>
+    <div class="panelLogowania" th:if="${not log}">
+      <div class="ukryteLogowanie">
+        <button id="loginButton" onclick="location.href='/Neuca/login'">Zaloguj</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="registerButton">Zarejestruj</button>
+        <div class="ukryteLogowanie-content">
+          <button id="pacjentRegister" onclick="location.href='/Neuca/rejestracjaPacjent'">Zarejestruj jako Pacjent</button>
+          <button id="aptekarzRegister" onclick="location.href='/Neuca/rejestracjaAptekarz'">Zarejestruj jako Aptekarz</button>
+          <button id="lekarzRegister" onclick="location.href='/Neuca/rejestracjaLekarz'">Zarejestruj jako Lekarz</button>
+
+        </div>
+      </div>
+    </div>
+    <div class="panelLogowania" th:if="${log}">
+      <div class="ukryteLogowanie">
+        <button id="koszyk" onclick="location.href='/Neuca/koszyk'">Koszyk</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="mojeKonto" onclick="location.href='/Neuca/mojProfilPacjent'">Moje Konto</button>
+      </div>
+      <div class="ukryteLogowanie">
+        <button id="wyloguj" onclick="location.href='/Neuca/logout'">Wyloguj</button>
+      </div>
+    </div>
+    <img src="/img/avatar.png" id="avatar">
+  </div>
+
+  <div id="top2Menu">
+    <button onclick="location.href='/Neuca/lekarze'">Lekarze</button>
+    <button onclick="location.href='/Neuca/apteka'">Apteki</button>
+    <button onclick="location.href='/Neuca/uslugi'">Usługi</button>
+    <button onclick="location.href='/Neuca/buy'">Leki</button>
+    <button onclick="location.href='kontakt.html'">Kontakt</button>
+    <button onclick="location.href='/Neuca/oNas'">O Nas</button>
+  </div>
+
+  <h1 class="map-title">Mapa Aptek</h1>
+  <div style="text-align: center; margin-bottom: 10px;">
+    <label for="radiusInput">Podaj promień wyszukiwania (w metrach): </label>
+    <input type="number" id="radiusInput" value="1000" min="100" max="10000" step="100" style="padding: 5px; width: 120px; border: 1px solid #c90606; border-radius: 4px;">
+    <button onclick="updatePharmacySearch()" style="padding: 5px 10px; background-color: #c90606; color: white; border: none; border-radius: 4px; cursor: pointer;">Szukaj w promieniu</button>
+  </div>
+
+  <div id="map"></div>
+  <div id="pharmacy-list">
+    <h2>📋 Lista Aptek</h2>
+    <div id="pharmacies"></div>
+  </div>
+</div>
+
+<script>
+  let map;
+  let userMarker = null;
+  let pharmacyMarkers = [];
+
+  function getRadiusInput() {
+      const value = parseInt(document.getElementById("radiusInput").value);
+      return isNaN(value) ? 2000 : value;
+  }
+
+  function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 52.2298, lng: 21.0118 },
+          zoom: 14,
+          mapId: "DEMO_MAP_ID"
+      });
+
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+              (position) => {
+                  const userLocation = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                  };
+                  map.setCenter(userLocation);
+
+                  userMarker = new google.maps.Marker({
+                      position: userLocation,
+                      map,
+                      title: "Twoja lokalizacja",
+                      icon: {
+                          url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                      }
+                  });
+
+                  findPharmacies(userLocation);
+              },
+              () => {
+                  console.error("Brak zgody na geolokalizację.");
+                  findPharmacies(map.getCenter());
+              }
+          );
+      } else {
+          console.error("Geolokalizacja nieobsługiwana.");
+          findPharmacies(map.getCenter());
+      }
+  }
+
+  function updatePharmacySearch() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+              (position) => {
+                  const userLocation = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                  };
+                  map.setCenter(userLocation);
+
+                  if (userMarker) userMarker.setMap(null);
+                  userMarker = new google.maps.Marker({
+                      position: userLocation,
+                      map,
+                      title: "Twoja lokalizacja",
+                      icon: {
+                          url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                      }
+                  });
+
+                  findPharmacies(userLocation);
+              },
+              () => {
+                  alert("Nie można pobrać lokalizacji.");
+              }
+          );
+      } else {
+          alert("Geolokalizacja nie jest obsługiwana w Twojej przeglądarce.");
+      }
+  }
+
+  function findPharmacies(location) {
+      // Usuń stare znaczniki aptek
+      pharmacyMarkers.forEach(marker => marker.setMap(null));
+      pharmacyMarkers = [];
+
+      const request = {
+          location: location,
+          radius: getRadiusInput(),
+          type: "pharmacy"
+      };
+
+      const service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(request, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+              document.getElementById("pharmacies").innerHTML = "";
+              results.forEach(place => {
+                  if (!place.geometry || !place.geometry.location) return;
+
+                  const marker = new google.maps.Marker({
+                      position: place.geometry.location,
+                      map,
+                      title: place.name,
+                      icon: {
+                          url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                      }
+                  });
+                  pharmacyMarkers.push(marker);
+                  getPlaceDetails(place.place_id);
+              });
+          } else {
+              console.error("Błąd wyszukiwania miejsc:", status);
+          }
+      });
+  }
+
+  function getPlaceDetails(placeId) {
+      const service = new google.maps.places.PlacesService(map);
+      service.getDetails({ placeId: placeId }, (place, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+              const pharmacyList = document.getElementById("pharmacies");
+
+              let hours = "Brak danych";
+              if (place.opening_hours && place.opening_hours.weekday_text) {
+                  hours = place.opening_hours.weekday_text.join(", ");
+              }
+
+              let phone = place.formatted_phone_number || "Brak numeru";
+
+              const pharmacyHTML = `
+                  <div class="pharmacy">
+                      <h3>${place.name}</h3>
+                      <p>📍 ${place.formatted_address || "Brak adresu"}</p>
+                      <p>📞 ${phone}</p>
+                      <p>🕒 ${hours}</p>
+                  </div>
+              `;
+              pharmacyList.innerHTML += pharmacyHTML;
+          }
+      });
+  }
+  // Pozwala uruchomić wyszukiwanie po naciśnięciu Enter w polu radiusInput
+  document.addEventListener("DOMContentLoaded", () => {
+      const radiusInput = document.getElementById("radiusInput");
+      radiusInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+          event.preventDefault();
+          updatePharmacySearch();
+      }
+  });
+});
+
+</script>
+</body>
+</html>

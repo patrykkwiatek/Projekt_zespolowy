@@ -220,10 +220,13 @@ public class KontrolerKlient {
         MyUser myUser=serwisMyUser.zwrocUser(username);
         Lek lek=sP.findbyID(idLeku);
         Apteka apteka=serwisApteka.znajdzApteka(idApteki);
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser,apteka,lek,ilosc,imie,nazwisko);
+        RezerwacjaLeku r=serwisRezerwacjaLeku.dodajRezerwacje(myUser,apteka,lek,ilosc,imie,nazwisko);
+        model.addAttribute("r",r);
         model.addAttribute("apteka",apteka);
         model.addAttribute("lek",lek);
         model.addAttribute("ilosc",ilosc);
+        model.addAttribute("imie",imie);
+        model.addAttribute("nazwisko",nazwisko);
         return "rezerwacjaZlozono";
     }
 
@@ -330,5 +333,11 @@ public class KontrolerKlient {
         boolean isLogged = authentication != null && authentication.isAuthenticated();
         model.addAttribute("log", isLogged);
         return "oNas";
+    }
+    @RequestMapping("/apteka")
+    public String apteka(Authentication authentication, Model model){
+        boolean isLogged = authentication != null && authentication.isAuthenticated();
+        model.addAttribute("log", isLogged);
+        return "apteka";
     }
 }

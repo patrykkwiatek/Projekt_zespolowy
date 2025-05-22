@@ -1,64 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rezerwacja leku</title>
+    <link rel="stylesheet" href="/css/rezerwacje.css">
 </head>
 <body>
-<div style="width: fit-content; margin: 50px auto; padding: 20px; border: 3px solid red; text-align: center; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+<div class="lek-card">
     <img th:src="@{/Neuca/images/{filename}(filename=${#strings.substring(lek.sciezka, lek.sciezka.lastIndexOf('/') + 1)})}"
-         width="300" height="200" alt="${lek.name}"/> </br>
-    <span th:text="${lek.name}"></span> </br>
-    <span th:text="${lek.gramatura}"></span> </br>
-    <span th:text="${lek.desc}"></span> </br>
-    <span th:text="${lek.minWiek}"></span> </br>
-    <span th:text="${lek.maxWiek}"></span> </br>
-    <span th:text="${lek.rodzajLeku}"></span> </br>
-    <span th:text="${lek.markaLeku}"></span> </br>
-    <span th:text="${lek.sklad}"></span> </br>
+         alt="Zdjęcie leku" />
+    <span th:text="${lek.name}">Nazwa leku</span>
+    <span th:text="${lek.gramatura}">Gramatura</span>
+    <span th:text="${lek.desc}">Opis</span>
+    <span>Wiek: <span th:text="${lek.minWiek}">0</span> - <span th:text="${lek.maxWiek}">99</span></span>
+    <span th:text="${lek.rodzajLeku}">Rodzaj</span>
+    <span th:text="${lek.markaLeku}">Marka</span>
+    <span th:text="${lek.sklad}">Skład</span>
 </div>
-<select id="statusSelect" name="wojewodztwo" onchange="onStatusChange()" >
-    <option th:each="woj :${wojewodztwa}"
-            th:value="${woj}"
-            th:text="${woj}"
-        th:selected="${wojewodztwo == woj}">
-    </option>
-</select>
 
+<form th:action="@{/Neuca/rezerwacjaZlozono}" method="get" class="rezerwacja-form">
+    <div class="form-group">
+        <label for="ilosc">Ilość</label>
+        <input type="number" id="ilosc" name="ilosc" required>
+    </div>
+    <div class="form-group">
+        <label for="imie">Imię</label>
+        <input type="text" id="imie" name="imie" required>
+    </div>
+    <div class="form-group">
+        <label for="nazwisko">Nazwisko</label>
+        <input type="text" id="nazwisko" name="nazwisko" required>
+    </div>
 
-    <form th:action="@{/Neuca/rezerwacjaZlozono}">
-        Ilosc: <input type="number" name="ilosc">
-        Imie: <input type="text" name="imie">
-        Nazwisko: <input type="text" name="nazwisko">
+    <div class="form-group">
+        <label for="statusSelect">Województwo</label>
+        <select id="statusSelect" name="wojewodztwo" onchange="onStatusChange()">
+            <option th:each="woj : ${wojewodztwa}"
+                    th:value="${woj}"
+                    th:text="${woj}"
+                    th:selected="${wojewodztwo == woj}">
+            </option>
+        </select>
+    </div>
 
-        <div th:each="lekStan : ${lekiStan}"
-             style="border: 2px solid #4CAF50; border-radius: 10px; background-color: #f0fff0; padding: 15px; margin: 15px auto; width: fit-content; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);">
-            <span th:text="${lekStan.apteka.name}"> </span>
-            <span th:text="${lekStan.apteka.ulica} + ' ' + ${lekStan.apteka.numerBud} + ' '+${lekStan.apteka.numerLokalu}"> </span></br>
-            <span th:text="${lekStan.apteka.kodPocztowy} + ${lekStan.apteka.miasto}"></span> </br>
-            <span th:text="${lekStan.apteka.wojewodztwo}"> </span></br>
-            <span th:text="${lekStan.apteka.telefon}"> </span></br>
-            <button type="submit" name="idApteki" th:value="${lekStan.apteka.id}">Zamow do tej Apteki</button>
-        </div>
+    <input type="hidden" name="idLeku" th:value="${lek.id}">
 
-        <input type="hidden" name="idLeku" th:value="${lek.id}">
-
-
-    </form>
-
-
-
+    <div th:each="lekStan : ${lekiStan}" class="apteka-box">
+        <span th:text="${lekStan.apteka.name}">Apteka</span>
+        <span th:text="${lekStan.apteka.ulica + ' ' + lekStan.apteka.numerBud + (lekStan.apteka.numerLokalu != null ? ('/' + lekStan.apteka.numerLokalu) : '')}"></span>
+        <span th:text="${lekStan.apteka.kodPocztowy + ' ' + lekStan.apteka.miasto}"></span>
+        <span th:text="${lekStan.apteka.wojewodztwo}"></span>
+        <span th:text="${lekStan.apteka.telefon}"></span>
+        <button type="submit" name="idApteki" th:value="${lekStan.apteka.id}">Zamów do tej apteki</button>
+    </div>
+</form>
 
 <script th:inline="javascript">
     function onStatusChange() {
         const selectedStatus = document.getElementById("statusSelect").value;
         const id = /*[[${id}]]*/ '0';
-
-        window.location.href = `/Neuca/rezerwujLek?wojewodztwo=${selectedStatus}&id=${id}`;
+        window.location.href = /Neuca/rezerwujLek?wojewodztwo=${selectedStatus}&id=${id};
     }
 </script>
-
-
 
 </body>
 </html>
