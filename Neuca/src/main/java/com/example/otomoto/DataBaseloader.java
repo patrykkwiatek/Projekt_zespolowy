@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,16 +23,17 @@ public class DataBaseloader implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final RepoLekarz repoLekarz;
     private  final RepoWizyta repoWizyta;
-    SerwisLekarz serwisLekarz;
-    SerwisMyUser serwisMyUser;
-    SerwisApteka serwisApteka;
-    SerwisPracownik serwisPracownik;
-    SerwisKoszyk serwisKoszyk;
-    SerwisRezerwacjaLeku serwisRezerwacjaLeku;
-    SerwisLekStanApteka serwisLekStanApteka;
+    private  final SerwisLekarz serwisLekarz;
+    private  final SerwisMyUser serwisMyUser;
+    private  final SerwisApteka serwisApteka;
+    private  final SerwisPracownik serwisPracownik;
+    private  final SerwisKoszyk serwisKoszyk;
+    private  final SerwisRezerwacjaLeku serwisRezerwacjaLeku;
+    private  final SerwisLekStanApteka serwisLekStanApteka;
+    private final SerwisGrafik serwisGrafik;
 
 
-    public DataBaseloader(SerwisLekStanApteka serwisLekStanApteka, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisKoszyk serwisKoszyk, SerwisPracownik serwisPracownik, SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
+    public DataBaseloader(SerwisGrafik serwisGrafik, SerwisLekStanApteka serwisLekStanApteka, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisKoszyk serwisKoszyk, SerwisPracownik serwisPracownik, SerwisApteka serwisApteka, SerwisMyUser serwisMyUser, SerwisLekarz serwisLekarz, RepoLek repolek, RepoMyUser repoMyUser, RepoUzytkownik repoUzytkownik, PasswordEncoder passwordEncoder,RepoApteka repoApteka, RepoLekarz repoLekarz, RepoWizyta repoWizyta) {
         this.repolek = repolek;
         this.repoMyUser = repoMyUser;
         this.repoUzytkownik = repoUzytkownik;
@@ -46,6 +48,7 @@ public class DataBaseloader implements CommandLineRunner {
         this.serwisKoszyk=serwisKoszyk;
         this.serwisRezerwacjaLeku=serwisRezerwacjaLeku;
         this.serwisLekStanApteka=serwisLekStanApteka;
+        this.serwisGrafik=serwisGrafik;
 
     }
 
@@ -140,6 +143,16 @@ public class DataBaseloader implements CommandLineRunner {
         serwisLekarz.dodajLekarza(gabinet,lekarz);
         gabinet.setPotwierdzenie(true);
         repoLekarz.save(gabinet);
+        List<GrafikLekarz>grafiki=serwisGrafik.zwrocGraifki(gabinet);
+        serwisGrafik.zmienGrafik(gabinet,2, LocalTime.of(12,00),LocalTime.of(18,00),false);
+        List<Integer> godziny = new ArrayList<>();
+        godziny.add(13);
+        godziny.add(16);
+        godziny.add(17);
+        GrafikLekarz g=serwisGrafik.znajdzGrafik(gabinet,serwisGrafik.zwrocDzien(2));
+        g.setGodziny(godziny);
+        serwisGrafik.zapiszGrafik(g);
+
         lekarze();
         pacjenci();
         wizyty();
@@ -200,7 +213,7 @@ public class DataBaseloader implements CommandLineRunner {
 
     private void lekarze(){
         List<String> imiona = Arrays.asList("Anna", "Marek", "Katarzyna", "Jan", "Zofia", "Tomasz", "Barbara", "Paweł", "Agnieszka", "Piotr","Tomasz", "Roman", "Justyna","Bartosz");
-        List<String> nazwiska = Arrays.asList("Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kamińska", "Kaczmarek", "Zieliński", "Szymański", "Woźniak", "Dąbrowski", "Byk", "Lewanswoska");
+        List<String> nazwiska = Arrays.asList("Lis","Urban","Urban","Mazur","Borysiuk","Tkaczuk","Nowak", "Byk", "Jeleń", "Kot", "Kowal", "Kubiak", "Kwiat", "Kozioł", "Mazur", "Krawczyk", "Kaczmarek", "Zając", "Król", "Wieczorek", "Wróbel", "Sikora","Kawa");
         List<String> miasta = Arrays.asList("Warszawa", "Kraków", "Łódź", "Wrocław", "Poznań", "Gdańsk", "Szczecin", "Bydgoszcz", "Lublin", "Katowice", "Toruń", "Włocławek", "Gdynia", "Płock", "Gliwice");
         List<LekarzSpec> specjalizacje = Arrays.asList(LekarzSpec.values());
 

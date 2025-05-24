@@ -3,13 +3,15 @@ package com.example.otomoto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,8 +29,9 @@ public class KontrolerKlient {
     private final SerwisMyUser serwisMyUser;
     private final SerwisWizyta serwisWizyta;
     private  final SerwisKoszyk serwisKoszyk;
+    private final SerwisLekarz serwisLekarz;
 
-    public KontrolerKlient(SerwisKoszyk serwisKoszyk, SerwisWizyta serwisWizyta, SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
+    public KontrolerKlient(SerwisLekarz serwisLekarz, SerwisKoszyk serwisKoszyk, SerwisWizyta serwisWizyta, SerwisMyUser serwisMyUser, SerwisRezerwacjaLeku serwisRezerwacjaLeku, SerwisApteka serwisApteka, SerwisLekStanApteka serwisLekStanApteka, SerwisPracownik sP, SerwisKlient sK) {
         this.sP = sP;
         this.sK = sK;
         this.serwisLekStanApteka=serwisLekStanApteka;
@@ -37,6 +40,7 @@ public class KontrolerKlient {
         this.serwisMyUser =serwisMyUser;
         this.serwisWizyta=serwisWizyta;
         this.serwisKoszyk=serwisKoszyk;
+        this.serwisLekarz=serwisLekarz;
     }
 
     @RequestMapping("/startK/listaK")
@@ -349,8 +353,44 @@ public class KontrolerKlient {
         return "apteka";
     }
 
-    @RequestMapping("kontakt")
+    @RequestMapping("/kontakt")
     public String kontakt(){
         return "kontakt";
+    }
+
+
+    @RequestMapping("/umowWizyte")
+    public String umowWizyte(@RequestParam Long id, Model model){
+        Lekarz lekarz=serwisLekarz.zwrocPoId(id);
+        List<LocalDateTime> wolneTerminy=serwisWizyta.zwrocWolneTerminy(lekarz);
+        List<String> wolneTerminyString = wolneTerminy.stream()
+                .map(dt -> dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .collect(Collectors.toList());
+
+        model.addAttribute("wolneTerminy", wolneTerminyString);
+        model.addAttribute("lekarz",lekarz);
+        return "umowWizyte";
+    }
+
+
+
+    @PostMapping("/zarezerwuj")
+    @ResponseBody
+    public ResponseEntity<String> zarezerwujWizyte(
+            Authentication authentication,
+            @RequestParam Long lekarzId,
+            @RequestParam String data
+    ) {
+        String username=authentication.getName();
+        MyUser myUser=serwisMyUser.zwrocUser(username);
+        Lekarz lekarz=serwisLekarz.zwrocPoId(lekarzId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dataLDT = LocalDateTime.parse(data, formatter);
+        serwisWizyta.zarezerwujWizyte(myUser,lekarz,dataLDT);
+        System.out.println("Przychodząca data: '" + data + "'");
+
+
+        return ResponseEntity.ok("Wizyta została zarezerwowana");
+
     }
 }

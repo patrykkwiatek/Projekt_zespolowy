@@ -108,4 +108,10 @@ public class SerwisGrafik {
     public void usunGrafik(GrafikLekarz grafikLekarz){
         repoGrafikLekarz.delete(grafikLekarz);
     }
+
+
+    public List<GrafikLekarz> zwrocGraifki(Lekarz lekarz){
+        List <GrafikLekarz> grafiki=repoGrafikLekarz.findByLekarz(lekarz);
+        return grafiki;
+    }
 }

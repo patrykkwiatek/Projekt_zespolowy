@@ -12,6 +12,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SerwisLekarz {
@@ -163,10 +164,18 @@ public class SerwisLekarz {
 
         return repoWizyta.findByLekarzAndStatusWizyty(lekarz,statusWizyty);
     }
-    void ustawSciezke(String sciezka, Lekarz lekarz){
+    public void ustawSciezke(String sciezka, Lekarz lekarz){
         lekarz.setFoto(sciezka);
         repoLekarz.save(lekarz);
     }
+
+    public Lekarz zwrocPoId(Long id){
+        Optional<Lekarz> lekarzO=repoLekarz.findById(id);
+        Lekarz l=lekarzO.get();
+        return l;
+    }
+
+
 
 
 

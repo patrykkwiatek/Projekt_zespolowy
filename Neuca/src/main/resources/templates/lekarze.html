@@ -100,7 +100,7 @@
                         <p class="title price" th:text="${lekarz.cena}+' zl'"></p>
                         <p th:text="${lekarz.miasto}"></p>
                     </div>
-                    <a href="umow.html"><button class="card-btn">Umów wizytę</button></a>
+                    <a th:href="@{/Neuca/umowWizyte(id=${lekarz.id})}"><button class="card-btn">Umów wizytę</button></a>
                 </div>
             </div>
         </div>

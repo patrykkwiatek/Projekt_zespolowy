@@ -1,0 +1,200 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#appointmentPage {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#doctorDetails {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#doctorDetails img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.doctor-info {
+    flex: 1;
+    padding-left: 20px;
+}
+
+#calendar {
+    text-align: center;
+}
+
+#calendarControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#calendarControls button {
+    padding: 10px;
+    background-color: #c90606;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+#calendarControls button:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+#currentMonth {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 10px;
+}
+
+.weekday {
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+.calendar-day {
+    background-color: #c90606;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-day:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+.calendar-day.empty {
+    background-color: transparent;
+    cursor: default;
+}
+
+#timeSection, #confirmAppointment {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.time-slot {
+    background-color: #ddd;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.time-slot:hover {
+    background-color: #ccc;
+}
+
+button {
+    background-color: #c90606;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: #c90606;
+}
+
+.error-message, .success-message {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.error-message {
+    background-color: #f44336;
+    color: white;
+}
+
+.success-message {
+    background-color: green;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#countdownText {
+    display: inline-block;
+}
+
+#returnNowLink {
+    color: white;
+    text-decoration: underline;
+    margin-left: 0px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+
+.calendar-day.disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+#calendarControls button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.calendar-day.past-day {
+    background-color: #d3d3d3;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.calendar-day.past-day:hover {
+    background-color: #d3d3d3; /* Szary kolor na hover */
+}
+
+
