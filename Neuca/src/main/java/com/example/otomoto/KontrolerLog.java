@@ -1,5 +1,6 @@
 package com.example.otomoto;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -31,6 +33,9 @@ public class KontrolerLog {
         String username = authentication.getName();
         MyUser user = serwisMyUser.zwrocUser(username);
         List<Zamowienie> zamowienia =serwisKoszyk.getZamowienia(user);
+        List<Zamowienie> posortowane = zamowienia.stream()
+                .sorted(Comparator.comparing(Zamowienie::getDataZamowienia))
+                .toList();
         List<RezerwacjaLeku> lista=serwisRezerwacjaLeku.zwrocRezerwacjaUzytkownika(user);
         int ile=lista.size();
         List<RezerwacjaLeku> listaR=new ArrayList<>();
@@ -46,7 +51,7 @@ public class KontrolerLog {
             model.addAttribute("czyTabela",true);
             model.addAttribute("lista",listaR);
         }
-        model.addAttribute("zamowienia",zamowienia);
+        model.addAttribute("zamowienia",posortowane);
         model.addAttribute("user", user);
 
         return "mojProfilPacjent";
@@ -76,7 +81,7 @@ public class KontrolerLog {
     }
 
     @RequestMapping("/addUserPacjent")
-    public String dodanoUserPacjent(Authentication authentication,MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
+    public String dodanoUserPacjent(Authentication authentication, @Valid  MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
         boolean isLogged;
         if (authentication != null && authentication.isAuthenticated()) {
             isLogged=true;
@@ -90,7 +95,7 @@ public class KontrolerLog {
             return "rejestracjaPacjent";
         }
         if(!myUserDTO.getPassword().equals(myUserDTO.getConfirm())){
-            bindingResult.rejectValue("confirm", "user.haslo3","hasla sa rozne");
+            bindingResult.rejectValue("confirm", "user.haslo3","Hasla sa różne");
             return "rejestracjaPacjent";
         }
 
@@ -103,14 +108,14 @@ public class KontrolerLog {
             model.addAttribute("lekarze",lekarze);
             return "dodanoUser";
         } else{
-            bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
+            bindingResult.rejectValue("username","user.login3","Użytkownik o takiej nazwie juz istnieje");
             return "rejestracjaPacjent";
         }
     }
 
 
     @RequestMapping("/addUserLekarz")
-    public String addUserLekarz(Authentication authentication,MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
+    public String addUserLekarz(Authentication authentication,@Valid  MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
         boolean isLogged;
         if (authentication != null && authentication.isAuthenticated()) {
             isLogged=true;
@@ -123,7 +128,7 @@ public class KontrolerLog {
             return "rejestracjaLekarz";
         }
         if(!myUserDTO.getPassword().equals(myUserDTO.getConfirm())){
-            bindingResult.rejectValue("confirm", "user.haslo3","hasla sa rozne");
+            bindingResult.rejectValue("confirm", "user.haslo3","Hasla sa różne");
             return "rejestracjaLekarz";
         }
         if(serwisMyUser.addUserLekarz(myUserDTO)){
@@ -133,7 +138,7 @@ public class KontrolerLog {
             model.addAttribute("lekarze",lekarze);
             return "dodanoUser";
         } else{
-            bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
+            bindingResult.rejectValue("username","user.login3","Użytkownik o takiej nazwie juz istnieje");
             List<LekarzSpec> lekarze = Arrays.asList(LekarzSpec.values());
             model.addAttribute("lekarze",lekarze);
             return "rejestracjaLekarz";
@@ -143,7 +148,7 @@ public class KontrolerLog {
 
 
     @RequestMapping("/addUserAptekarz")
-    public String dodanoUserAptekarz(Authentication authentication,MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
+    public String dodanoUserAptekarz(Authentication authentication,@Valid MyUserDTO myUserDTO, BindingResult bindingResult, Model model){
         boolean isLogged;
         if (authentication != null && authentication.isAuthenticated()) {
             isLogged=true;
@@ -156,7 +161,7 @@ public class KontrolerLog {
             return "rejestracjaAptekarz";
         }
         if(!myUserDTO.getPassword().equals(myUserDTO.getConfirm())){
-            bindingResult.rejectValue("confirm", "user.haslo3","hasla sa rozne");
+            bindingResult.rejectValue("confirm", "user.haslo3","Hasla sa rózne");
             return "rejestracjaAptekarz";
         }
         if(serwisMyUser.addUserAptekarz(myUserDTO)){
@@ -166,7 +171,7 @@ public class KontrolerLog {
             model.addAttribute("lekarze",lekarze);
             return "dodanoUser";
         } else{
-            bindingResult.rejectValue("username","user.login3","uzytkownik o takiej nazwie juz istnieje");
+            bindingResult.rejectValue("username","user.login3","Użytkownik o takiej nazwie juz istnieje");
             return "rejestracjaAptekarz";
         }
     }

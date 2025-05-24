@@ -573,6 +573,7 @@ public class KontrolerApteka {
     public String zaladujZamowienieApteka(@RequestParam Long id){
         ZamowienieApteka z=serwisZamowienieApteka.zwrocZamowieniePoId(id);
         serwisZamowienieApteka.zaladujZamowienie(z);
+        serwisZamowienieApteka.zmienStatus(z,StatusZamoweniaApteka.ZAKONCZONE);
         return "redirect:/Neuca/strefaAptekarza/szczegolyZamowieniaApteka?id=" + id;
     }
 

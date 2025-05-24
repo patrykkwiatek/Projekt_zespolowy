@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public enum Status {
     BRAK("Brak"),
     OCZEKUJE("Oczekujące"),
-    WYSlANE("Wysłane"),
+    WYSLANE("Wysłane"),
     ODEBRANE("Odebrane"),
     ANULOWANE("Anulowane"),
     ZAKONCZONE("Zakończone"),

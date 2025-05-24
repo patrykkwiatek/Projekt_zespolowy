@@ -14,12 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -271,7 +269,7 @@ public class KontrolerPracownik {
         }
         Status status=koszyk.getStatus();
         boolean czyW;
-        if(status !=Status.WYSlANE && status !=Status.ODEBRANE && status!= Status.ZAKONCZONE){
+        if(status !=Status.WYSLANE && status !=Status.ODEBRANE && status!= Status.ZAKONCZONE){
             czyW=true;
         }else{
             czyW=false;
@@ -318,7 +316,7 @@ public class KontrolerPracownik {
                               @RequestParam Long id
                               ){
         Zamowienie zamowienie=s.zwrocZamowienie(id);
-        s.zmienStatusZamowienia(zamowienie,Status.WYSlANE);
+        s.zmienStatusZamowienia(zamowienie,Status.WYSLANE);
 
         return "redirect:/Neuca/strefaPracownika/Zamowienie?id=" + id;
     }
@@ -434,14 +432,15 @@ public class KontrolerPracownik {
         String adres1=f.getAdres1();
         String adres2=f.getAdres2();
         String Nip=f.getNip();
+        Long idF=f.getId();
 
         List<ProduktKoszyk> produkty = zamowienie.getProduktKoszyk();
 
         PdfGenerator generator = new PdfGenerator();
 
+        String dataF=z.getDisplayDateZamowienia();
 
-
-        byte[] pdf = generator.generujFakture(nazwa,Nip,adres1,adres2, produkty);
+        byte[] pdf = generator.generujFakture(nazwa,Nip,adres1,adres2,idF,dataF, produkty);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

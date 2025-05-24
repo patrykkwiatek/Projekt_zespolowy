@@ -40,7 +40,7 @@
                     <tbody>
                     <tr th:each="rezerwacja : ${rezerwacje}"
                         th:onclick="'window.location.href=\'/Neuca/strefaAptekarza/rezerwacjaSzczegoly?id=' + ${rezerwacja.id} + '\''">
-                        <td th:text="${rezerwacja.id}"></td>
+                        <td th:text="'RZV'+${rezerwacja.id}"></td>
                         <td th:text="${rezerwacja.lek.name}"></td>
                         <td th:text="${rezerwacja.ilosc}"></td>
                         <td th:text="${rezerwacja.dataRezerwacji}"></td>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formularz kontaktowy</title>
+  <link rel="stylesheet" href="/css/kontakt.css">
+</head>
+<body>
+<div class="formularz-container">
+  <div class="formularz test">
+    <div>
+      <h1 class="form-header">Formularz kontaktowy</h1>
+      <form id="entryForm" action="" method="post">
+        <input type="text" class="input-field" id="name" name="name" placeholder="Imię" required>
+        <input type="email" class="input-field" id="email" name="email" placeholder="Adres e-mail" required>
+        <select id="temat" name="temat" required>
+          <option value="" disabled selected>Wybierz temat</option>
+          <option value="Zapytanie o lek">Zapytanie o lek</option>
+          <option value="Reklamacja">Reklamacja</option>
+          <option value="Dostępność leków">Dostępność leków</option>
+          <option value="Inne">Inne</option>
+        </select>
+        <textarea type="text" class="input-field textarea-field" id="message" placeholder="Twoja wiadomość"></textarea>
+        <button type ="submit" class="btn">Wyślij</button>
+      </form>
+    </div>
+    <div>
+      <div class="logo">
+        <img src="/img/logo.png" alt="Logo Apteki">
+      </div>
+      <div class="contact-info">
+        <p class="contact"><strong>📞 Telefon:</strong> +48 123 456 789</p>
+        <p class="contact"><strong>✉️ Email:</strong> kontakt@health-center.pl</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="/js/kontakt.js"></script>
+</body>
+</html>

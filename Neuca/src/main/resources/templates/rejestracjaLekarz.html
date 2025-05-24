@@ -16,34 +16,41 @@
 
 
             <label for="name" th:text="#{rejestracja.imie}"></label>
-            <input type="text" id="name" name="imie" placeholder="Imię" th:field="*{imie}" required>
+            <input type="text" id="name" name="imie" placeholder="Imię" th:field="*{imie}" >
 
             <label for="surname" th:text="#{rejestracja.nazwisko}"></label>
-            <input type="text" id="surname" name="nazwisko" placeholder="Nazwisko" th:field="*{nazwisko}" required>
+            <input type="text" id="surname" name="nazwisko" placeholder="Nazwisko" th:field="*{nazwisko}" >
 
             <label for="username" th:text="#{rejestracja.login}"></label>
-            <input type="text" id="username" name="username" placeholder="Login" th:field="*{username}" required>
+            <input type="text" id="username" name="username" placeholder="Login" th:field="*{username}" >
 
             <label for="email" th:text="#{rejestracja.email}"></label>
-            <input type="email" id="email" name="email" placeholder="Adres e-mail"  th:field="*{email}" required>
+            <input type="text" id="email" name="email" placeholder="Adres e-mail"  th:field="*{email}" >
 
             <label for="phone" th:text="#{rejestarcja.telefon}"></label>
-            <input type="tel" id="phone" name="phone" placeholder="Numer telefonu" th:field="*{phone}" required>
+            <input type="tel" id="phone" maxlength="9" name="phone" placeholder="Numer telefonu" th:field="*{phone}" >
 
             <div class="gender">
-                <input type="radio" id="male"  value="False" th:field="*{plec}" required>
+                <input type="radio" id="male"  value="False" th:field="*{plec}" >
                 <label for="male" th:text="#{rejestracja.mez}"></label>
-                <input type="radio" id="female" value="True" th:field="*{plec}"required>
+                <input type="radio" id="female" value="True" th:field="*{plec}">
                 <label for="female" th:text="#{rejestracja.kob}"></label>
             </div>
 
             <label for="password" th:text="#{rejestracja.haslo}"></label>
-            <input type="password" id="password" placeholder="Hasło" th:field="*{password}" required>
+            <input type="password" id="password" placeholder="Hasło" th:field="*{password}" >
 
             <label for="confirm-password" th:text="#{rejestracja.haslo2}"></label>
-            <input type="password" id="confirm-password" placeholder="Powtórz hasło" th:field="*{confirm}" required>
+            <input type="password" id="confirm-password" placeholder="Powtórz hasło" th:field="*{confirm}" >
 
             <button type="submit" class="register-button" th:text="#{rejestracja.rejestracja}"></button>
+            <p class="blad" th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}"></p>
+            <p class="blad" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+            <p class="blad" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            <p class="blad" th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}"></p>
+            <p class="blad"  th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <p class="blad"  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            <p class="blad"  th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></p>
         </form>
 
         <p class="link">

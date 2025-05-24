@@ -71,7 +71,7 @@
         </div>
 
         <div class="menu-item">
-            <button id="contactButton" onclick="location.href='kontakt.html'">Kontakt</button>
+            <button id="contactButton" onclick="location.href='/Neuca/kontakt'">Kontakt</button>
 
         </div>
 
@@ -203,7 +203,11 @@
                         </div>
                         <button type ="submit" class="card-btn">Dodaj do koszyka</button>
                     </form>
-                    <form th:action="@{/Neuca/rezerwujLek}" method="get">
+                    <form th:if="${log}" th:action="@{/Neuca/rezerwujLek}" method="get">
+                        <input type="hidden" name="id" th:value="${wynik.id}">
+                        <button type ="submit" class="card-btn">Zarezerwuj</button>
+                    </form>
+                    <form th:if="${not log}" th:action="@{/Neuca/login}" method="get">
                         <input type="hidden" name="id" th:value="${wynik.id}">
                         <button type ="submit" class="card-btn">Zarezerwuj</button>
                     </form>

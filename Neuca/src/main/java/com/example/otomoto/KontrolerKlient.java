@@ -299,6 +299,14 @@ public class KontrolerKlient {
     @RequestMapping("/szczegolyWizyta")
     public String szczegolyWizyta(@RequestParam Long id, Model model){
         Wizyta wizyta=serwisWizyta.zwrocWizytaID(id);
+        StatusWizyty s=wizyta.getStatusWizyty();
+        boolean czyAnul;
+
+        if(s==StatusWizyty.ANULOWANA){
+            model.addAttribute("czyAnul",false);
+        }else{
+            model.addAttribute("czyAnul",true);
+        }
         model.addAttribute("wizyta",wizyta);
 
 
@@ -339,5 +347,10 @@ public class KontrolerKlient {
         boolean isLogged = authentication != null && authentication.isAuthenticated();
         model.addAttribute("log", isLogged);
         return "apteka";
+    }
+
+    @RequestMapping("kontakt")
+    public String kontakt(){
+        return "kontakt";
     }
 }

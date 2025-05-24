@@ -38,7 +38,7 @@
     <div class="menu-item"><button onclick="location.href='/Neuca/apteka'">Apteki</button></div>
     <div class="menu-item"><button onclick="location.href='/Neuca/uslugi'">Usługi</button></div>
     <div class="menu-item"><button onclick="location.href='/Neuca/buy'">Leki</button></div>
-    <div class="menu-item"><button onclick="location.href='kontakt.html'">Kontakt</button></div>
+    <div class="menu-item"><button onclick="location.href='/Neuca/kontakt'">Kontakt</button></div>
     <div class="menu-item"><button onclick="location.href='/Neuca/oNas'">O Nas</button></div>
   </div>
 </div>
@@ -47,7 +47,7 @@
 <div class="order-details-container">
   <div class="order-details-card">
     <div class="order-header">
-      <h1>Zamówienie #46</h1>
+      <h1 th:text="'Zamówienie ORD567' +${z.id}"></h1>
     </div>
 
     <div class="order-info-section">

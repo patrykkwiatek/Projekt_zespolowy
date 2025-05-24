@@ -18,6 +18,7 @@ public class MyUser {
     @Id
     @GeneratedValue
     private Long id;
+
     private String imie;
     private String nazwisko;
     private String username ;

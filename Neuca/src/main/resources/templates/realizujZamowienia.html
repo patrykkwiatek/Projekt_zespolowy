@@ -40,7 +40,7 @@
     </thead>
     <tbody>
     <tr th:each="zamowienie : ${zamowienia}">
-      <td th:text="${zamowienie.id}"></td>
+      <td th:text="'ORD567'+${zamowienie.id}"></td>
       <td th:text="${zamowienie.displayDateZamowienia}"></td>
       <td th:text="${zamowienie.imie}"></td>
       <td th:text="${zamowienie.nazwisko}"></td>

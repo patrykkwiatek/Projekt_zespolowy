@@ -3,6 +3,8 @@ package com.example.otomoto;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -92,6 +94,14 @@ public class SerwisKoszyk {
 
 
     public void noweZamowienie(Zamowienie zamowienie,MyUser user){
+        Faktura f=zamowienie.getFaktura();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        f.setDataWystawienia(LocalDateTime.now());
+        LocalDateTime data=f.getDataWystawienia();
+        zamowienie.setDisplayDateZamowienia(data.format(formatter));
+        String dataF=data.format(formatter);
+
+        f.setDisplayDateWystawienia(dataF);
         repoZamowienie.save(zamowienie);
         Zamowienie nowyKoszyk = new Zamowienie();
         nowyKoszyk.setMyuser(user);

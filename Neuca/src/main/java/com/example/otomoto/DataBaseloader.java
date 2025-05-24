@@ -4,8 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.net.ssl.SSLEngineResult;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -372,7 +370,7 @@ public class DataBaseloader implements CommandLineRunner {
         zamowienie.setTelefon(600983654);
         zamowienie.setAdres1("Aleja Jana Pawla II 24");
         zamowienie.setAdres2("87-800 Włocławek");
-        zamowienie.setStatus(Status.WYSlANE);
+        zamowienie.setStatus(Status.WYSLANE);
         zamowienie.setCzyZakonczone(true);
         zamowienie.setDostawa(Dostawa.POCZTA);
         zamowienie.setDataZamowienia(LocalDateTime.now());
@@ -418,7 +416,7 @@ public class DataBaseloader implements CommandLineRunner {
         zamowienie.setDisplayDateZamowienia(data.format(formatter));
         String dataF=data.format(formatter);
 
-        zamowienie.setFaktura(new Faktura(true,"firma HandlowoUslugowa","aleja niepodleglosci 2","00-001 Warszaw","8885672356",LocalDateTime.now(),dataF));
+        zamowienie.setFaktura(new Faktura(true,"firma Handlowo Uslugowa","aleja niepodleglosci 2"," 00-001 Warszawa","8885672356",LocalDateTime.now(),dataF));
 
         sumaKoszyka = 0;
         for (ProduktKoszyk produkt : zamowienie.getProduktKoszyk()) {
@@ -508,16 +506,16 @@ public class DataBaseloader implements CommandLineRunner {
         serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek3, 4,"Ignacy","Aftański" );
         serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek4, 1,"Janusz","Konarzewski" );
         serwisRezerwacjaLeku.dodajRezerwacje(patryk,apteka,lek1, 2,"Robert","Strzelecki" );
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser1,apteka,lek1, random.nextInt(10),"Barbara","Wilk" );
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser2, apteka, lek2, random.nextInt(10), "Tomasz", "Nowak");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser3, apteka, lek3, random.nextInt(10), "Anna", "Kowalska");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser4, apteka, lek4, random.nextInt(10), "Marek", "Wójcik");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser5, apteka, lek5, random.nextInt(10), "Karolina", "Mazur");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser6, apteka, lek6, random.nextInt(10), "Paweł", "Kaczmarek");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser7, apteka, lek7, random.nextInt(10), "Ewa", "Zielińska");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser8, apteka, lek8, random.nextInt(10), "Jan", "Byk");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser9, apteka, lek9, random.nextInt(10), "Wojciech", "Szczęsny");
-        serwisRezerwacjaLeku.dodajRezerwacje(myUser10, apteka, lek10, random.nextInt(10), "Robert", "Lewandowski");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser1,apteka,lek1,1+ random.nextInt(10),"Barbara","Wilk" );
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser2, apteka, lek2,1+ random.nextInt(10), "Tomasz", "Nowak");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser3, apteka, lek3,1+ random.nextInt(10), "Anna", "Kowalska");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser4, apteka, lek4,1+ random.nextInt(10), "Marek", "Wójcik");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser5, apteka, lek5,1+ random.nextInt(10), "Karolina", "Mazur");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser6, apteka, lek6,1+ random.nextInt(10), "Paweł", "Kaczmarek");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser7, apteka, lek7,1+ random.nextInt(10), "Ewa", "Zielińska");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser8, apteka, lek8,1+ random.nextInt(10), "Jan", "Byk");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser9, apteka, lek9,1+ random.nextInt(10), "Wojciech", "Szczęsny");
+        serwisRezerwacjaLeku.dodajRezerwacje(myUser10, apteka, lek10,1+ random.nextInt(10), "Robert", "Lewandowski");
         System.out.println("rezerwacje leków");
     }
 

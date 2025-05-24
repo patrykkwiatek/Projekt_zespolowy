@@ -26,7 +26,6 @@ public class SerwisRezerwacjaLeku {
         rezerwacjaLeku.setNazwisko(nazwisko);
         rezerwacjaLeku.setStatusRezerwacji(StatusRezerwacji.W_TRAKCIE);
         LocalDate dzisiaj = LocalDate.now();
-        dzisiaj=dzisiaj.minusDays(1);
         rezerwacjaLeku.setDataRezerwacji(dzisiaj);
         rezerwacjaLeku.setDataOdbioru(dzisiaj.plusDays(2));
 

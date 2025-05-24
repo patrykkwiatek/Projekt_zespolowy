@@ -56,13 +56,19 @@
     </div>
 </form>
 
+
 <script th:inline="javascript">
+
     function onStatusChange() {
         const selectedStatus = document.getElementById("statusSelect").value;
         const id = /*[[${id}]]*/ '0';
-        window.location.href = /Neuca/rezerwujLek?wojewodztwo=${selectedStatus}&id=${id};
+
+        window.location.href = `/Neuca/rezerwujLek?wojewodztwo=${selectedStatus}&id=${id}`;
+
     }
+
 </script>
+
 
 </body>
 </html>

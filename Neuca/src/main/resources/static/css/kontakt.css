@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: whitesmoke;
+}
+.formularz-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.formularz
+{
+    width: 1000px;
+    background-color: #fff;
+    box-shadow: 0 0 20px 0 #999;
+}
+
+form
+{
+    margin: 35px;
+}
+.input-field
+{
+    width: 400px;
+    height: 40px;
+    margin-top: 20px;
+    padding-left: 10px;
+    border: 1px solid #777;
+    border-radius: 14px;
+    outline: none;
+}
+.textarea-field
+{
+    height: 250px;
+    padding-top: 10px;
+    resize: none;
+}
+.btn
+{
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+select {
+    width: 415px;
+    height: 40px;
+    margin-top: 20px;
+    padding-left: 10px;
+    border: 1px solid #777;
+    border-radius: 14px;
+    outline: none;
+}
+.form-header {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: -20px;
+    color: #000;
+}
+
+.logo img {
+    max-width: auto;
+    height: auto;
+    margin-bottom: -25px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 300px;
+
+}
+
+.test{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contact-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+}
+
+.contact-info p{
+    margin: 0;
+    padding: 0;
+    line-height: 2;
+}
